@@ -6,41 +6,69 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 llama_31 = "meta-llama/Llama-3.1-8B-Instruct"  # <-- llama 3.1
 
 
-with open("tool_definitions.json", "r") as file:
-    data = json.load(file) 
-    tool_definitions = json.dumps(data)
+def getToolDefinitions(tool_file_path: str):
+    with open(tool_file_path, "r") as file:
+        data = json.load(file)
+        return json.dumps(data)
 
-print(tool_definitions)
 
-setup_prompt = [
-    {
-        "role": "system",
-        "content": f"""
+class Llama3:
+    def __init__(self, model_path, tool_path):
+        self.model_id = model_path
+
+        self.pipe = pipeline(
+            "text-generation",
+            model=self.model_id,
+            device=device,
+            torch_dtype=torch.bfloat16
+        )
+        self.terminators = [
+            self.pipe.tokenizer.eos_token_id,
+            self.pipe.tokenizer.convert_tokens_to_ids(""),
+        ]
+
+    def get_response(
+        self, query, message_history, max_tokens=1028, temperature=0.6, top_p=0.9
+    ):
+        user_prompt = message_history + [{"role": "user", "content": query}]
+        prompt = self.pipe.tokenizer.apply_chat_template(
+            user_prompt, tokenize=False, add_generation_prompt=True
+        )
+        outputs = self.pipe(
+            prompt,
+            max_new_tokens=max_tokens,
+            eos_token_id=self.terminators,
+            do_sample=True,
+            temperature=temperature,
+            top_p=top_p,
+        )
+        response = outputs[0]["generated_text"][len(prompt):]
+        return response, user_prompt + [{"role": "assistant", "content": response}]
+
+    def chatbot(self, system_instructions=""):
+        conversation = [{"role": "system", "content": system_instructions}]
+        while True:
+            user_input = input("User: ")
+            if user_input.lower() in ["exit", "quit"]:
+                print("Exiting the chatbot. Goodbye!")
+                break
+            response, conversation = self.get_response(
+                user_input, conversation)
+            print(f"Assistant: {response}")
+
+
+setup_prompt = f"""
             You are a robot arm named Panda with tool calling capabilities.
             Your task is to grab and sort colored blocks. Respond in a positive manner.
             When you receive a tool call response, use the output to format an answer to the original user question.
-            If you are using tools, respond in the format 
-            {{"function": function name, "parameters": dictionary of function arguments}}.
-            Do not use variables
-            {tool_definitions}
+            If you decide to invoke any of the function(s), you MUST put it in the format of 
+            [func_name1(params_name1=params_value1, params_name2=params_value2...), func_name2(params)]
+            You SHOULD NOT include any other text in the response.
+            Here is a list of functions in JSON format that you can invoke.
+            {getToolDefinitions("tool_definitions.json")}
         """
-    },
-    {
-        "role": "user",
-        "content": """
-            Question: what is the weather and traffic looks like in Sydney?
-        """
-    },
-]
 
-pipe = pipeline(model=llama_31, device=device, torch_dtype=torch.bfloat16)
-response = pipe(
-    setup_prompt,
-    do_sample=False,
-    temperature=1.0,
-    top_p=1,
-    max_new_tokens=50
-)
 
-print(f"Generation: {response[0]['generated_text']}")
-
+if __name__ == "__main__":
+    bot = Llama3(llama_31, "tool_definitions.json")
+    bot.chatbot(setup_prompt)

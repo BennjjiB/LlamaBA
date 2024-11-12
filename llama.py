@@ -22,10 +22,6 @@ class Llama3:
             device=device,
             torch_dtype=torch.bfloat16
         )
-        self.terminators = [
-            self.pipe.tokenizer.eos_token_id,
-            self.pipe.tokenizer.convert_tokens_to_ids(""),
-        ]
 
     def get_response(
         self, query, message_history, max_tokens=1028, temperature=0.6, top_p=0.9
@@ -37,7 +33,6 @@ class Llama3:
         outputs = self.pipe(
             prompt,
             max_new_tokens=max_tokens,
-            eos_token_id=self.terminators,
             do_sample=True,
             temperature=temperature,
             top_p=top_p,

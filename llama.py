@@ -36,6 +36,7 @@ class Llama3:
             do_sample=True,
             temperature=temperature,
             top_p=top_p,
+            pad_token_id = self.pipe.tokenizer.eos_token_id
         )
         response = outputs[0]["generated_text"][len(prompt):]
         return response, user_prompt + [{"role": "assistant", "content": response}]

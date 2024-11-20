@@ -1,8 +1,8 @@
 import os
-import asyncio
 from datetime import datetime, timezone, timedelta
 from queue import Queue
 from sys import platform
+from time import sleep
 
 import numpy as np
 import speech_recognition as sr
@@ -42,7 +42,7 @@ class Transcriber():
         with self.source:
             self.recorder.adjust_for_ambient_noise(self.source)
 
-    async def start_transcription(
+    def start_transcription(
         self,
         record_timeout=3,
         phrase_timeout=3,
@@ -68,16 +68,16 @@ class Transcriber():
             self.data_queue.put(data)
 
         # Create a background thread that will pass us raw audio bytes.
-        self.recorder.listen_in_background(
+        stop_listening = self.recorder.listen_in_background(
             self.source, record_callback, phrase_time_limit=record_timeout)
-            
+        
+        print("You can speaking now:")
         while True:
             try:
                 now = datetime.now(timezone.utc)
                 if phrase_time and now - phrase_time > timedelta(seconds=speak_timeout):
-                    yield transcription
-                    transcription = ['']
-                    phrase_time = None
+                    stop_listening()
+                    return transcription
                 # Pull raw recorded audio from the queue.
                 if not self.data_queue.empty():
                     phrase_complete = False
@@ -106,9 +106,7 @@ class Transcriber():
                     print('', end='', flush=True)
                 else:
                     # Infinite loops are bad for processors, must sleep.
-                    await asyncio.sleep(0.25)
-            except asyncio.CancelledError:
-                break
+                    sleep(0.25)
             except KeyboardInterrupt:
                 break
 
@@ -150,10 +148,11 @@ class Transcriber():
             self.source = sr.Microphone(sample_rate=16000)
 
 
-async def main():
+def main():
     transcriber = Transcriber()
-    async for transcription in transcriber.start_transcription():
+    for transcription in transcriber.start_transcription():
         print("\n Yielded line:", "".join(transcription))
 
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

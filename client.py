@@ -1,46 +1,40 @@
-import aiohttp
-import asyncio
+import requests
 from Transcriber import Transcriber
 
 
-async def send_prompt(session: aiohttp.ClientSession, base_url: str, prompt: str):
+def send_prompt(base_url: str, prompt: str):
     """
-    Makes a GET request to the endpoint /get-response.
+    Sends a GET request to the server and processes the response.
 
     Args:
-        session (aiohttp.ClientSession): A session to manage HTTP connections.
-        base_url (str): The base URL of the server.
-        prompt (str): The prompt for which the LLM should respond.
+        base_url (str): The server's base URL.
+        prompt (str): The transcription prompt to be processed.
     """
     endpoint = f"{base_url}/get-response"
     params = {"prompt": prompt}
 
-    try:
-        async with session.get(endpoint, params=params) as response:
-            if response.status != 200:
-                print(f"Error: Received status code {response.status}")
-                return
-            print("Connected to SSE stream. Receiving events:")
-            async for line in response.content.iter_any():
-                line = line.decode("utf-8").strip()
-                if line:
-                    print(f"Event: {line}")
-    except aiohttp.ClientError as e:
-        print(f"An error occurred while connecting to the server: {e}")
+    with requests.get(endpoint, params=params, stream=True, timeout=10) as response:
+        if response.status_code != 200:
+            print(f"Error: Received status code {response.status_code}")
+            return
+
+        # In the case of SSE, we handle the stream by reading it line by line.
+        for line in response.iter_lines():
+            print(f"{line.decode('utf-8').strip()}")
 
 
-async def main():
+def main():
     base_url = "http://127.0.0.1:8000"
     transcriber = Transcriber()
 
-    tasks = []  # Store all ongoing tasks for sending prompts
-    async with aiohttp.ClientSession() as session:
-        # Start the transcription and process prompts
-        async for transcription in transcriber.start_transcription():
-            prompt = "".join(transcription)
-            task = asyncio.create_task(send_prompt(session, base_url, prompt))
-            tasks.append(task)
-        await asyncio.gather(*tasks)
-        
+    while True:
+        transcription = transcriber.start_transcription()
+        prompt = "".join(transcription)
+        print("------------------------\n")
+        print("Sending: ", prompt)
+        print("------------------------\n")
+        send_prompt(base_url, prompt)
+
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

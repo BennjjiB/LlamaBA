@@ -5,11 +5,8 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
 from threading import Thread
 
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 LLAMA_31 = "meta-llama/Llama-3.1-8B-Instruct"
 LLAMA_32 = "meta-llama/Llama-3.2-1B-Instruct"
-
-print('Running on:', DEVICE)
 
 
 def getToolDefinitions(tool_file_path: str):
@@ -19,7 +16,14 @@ def getToolDefinitions(tool_file_path: str):
 
 
 class PandaChatBot:
-    def __init__(self, model_path, quantization: Literal["16bit", "8bit", "4bit"] = "16bit"):
+    def __init__(
+        self,
+        model_path,
+        quantization: Literal["16bit", "8bit", "4bit"] = "16bit",
+        setup_prompt: str = ""
+    ):
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        print('Running on:', self.device)
         # Quantitation
         if quantization == "16bit":
             self.quantization_config = None
@@ -42,6 +46,8 @@ class PandaChatBot:
 
         # Conversation for history
         self.conversation = []
+
+        self.setup(system_instructions=setup_prompt)
 
     def get_response_streamer(
         self, query, max_tokens=1028, temperature=0.6, top_p=0.9
@@ -86,6 +92,9 @@ class PandaChatBot:
         self.conversation.append(
             {"role": "system", "content": system_instructions})
 
+    def clearHistory(self):
+        self.conversation = []
+
     def chatbot(self, system_instructions=""):
         """
         Generates a chatbot interface. Useful for texting the llm.
@@ -106,7 +115,8 @@ class PandaChatBot:
                     print('', end='', flush=True)
             print()
 
-setup_prompt = f"""
+
+setup_prompt_1 = f"""
             You are a robot arm named Panda with tool calling capabilities.
             Your task is to grab and sort colored blocks. Respond in a positive manner.
             When you receive a tool call response, use the output to format an answer to the original user question.

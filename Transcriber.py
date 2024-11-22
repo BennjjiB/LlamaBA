@@ -29,6 +29,7 @@ class Transcriber():
         energy_threshold: Energy level for mic to detect speech
         default_microphone: Microphone name for SpeechRecognition. Use 'list' to see all available options
         """
+        print("Setting up whisper...")
         self.__setup_mic(default_microphone)
         self.whisper = WhisperModel(
             model_type, device=device, compute_type=compute_type)
@@ -68,14 +69,15 @@ class Transcriber():
             self.data_queue.put(data)
 
         # Create a background thread that will pass us raw audio bytes.
+        self.recorder.listen(self.source, timeout=10, stream=True)
         stop_listening = self.recorder.listen_in_background(
             self.source, record_callback, phrase_time_limit=record_timeout)
-        
-        print("You can speaking now:")
+
+        print("Speak to Panda Bot:")
         while True:
             try:
                 now = datetime.now(timezone.utc)
-                if phrase_time and now - phrase_time > timedelta(seconds=speak_timeout):
+                if phrase_time and now - phrase_time > timedelta(seconds=speak_timeout) and self.data_queue.empty():
                     stop_listening()
                     return transcription
                 # Pull raw recorded audio from the queue.
@@ -85,13 +87,12 @@ class Transcriber():
                     # Clear the current working audio buffer to start over with the new data.
                     if phrase_time and now - phrase_time > timedelta(seconds=phrase_timeout):
                         phrase_complete = True
-                    phrase_time = now
 
                     # Combine audio data from queue
                     audio_data = b''.join(self.data_queue.queue)
                     self.data_queue.queue.clear()
 
-                    text = self.__transcribe(audio_data)
+                    text = self.__transcribe(audio_data).strip()
 
                     if phrase_complete:
                         transcription.append(text)
@@ -100,10 +101,12 @@ class Transcriber():
 
                     # Clear the console to reprint the updated transcription.
                     os.system('cls' if os.name == 'nt' else 'clear')
+                    print("Speak to Panda Bot:")
                     for line in transcription:
                         print(line)
                     # Flush stdout.
                     print('', end='', flush=True)
+                    phrase_time = now
                 else:
                     # Infinite loops are bad for processors, must sleep.
                     sleep(0.25)

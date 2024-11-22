@@ -1,7 +1,6 @@
 import requests
 from Transcriber import Transcriber
 
-
 def send_prompt(base_url: str, prompt: str):
     """
     Sends a GET request to the server and processes the response.
@@ -19,20 +18,18 @@ def send_prompt(base_url: str, prompt: str):
             return
 
         # In the case of SSE, we handle the stream by reading it line by line.
-        for line in response.iter_lines():
-            print(f"{line.decode('utf-8').strip()}")
-
+        for chunk in response.iter_content(chunk_size=1024):
+            print(chunk.decode('utf-8', errors='replace'), end='', flush=True)
+        print("\n")
 
 def main():
     base_url = "http://127.0.0.1:8000"
     transcriber = Transcriber()
 
     while True:
-        transcription = transcriber.start_transcription()
+        transcription = transcriber.start_transcription(record_timeout=1, phrase_timeout=1.5, speak_timeout=3)
         prompt = "".join(transcription)
-        print("------------------------\n")
-        print("Sending: ", prompt)
-        print("------------------------\n")
+        print("\n-------------Generating response-------------\n")
         send_prompt(base_url, prompt)
 
 

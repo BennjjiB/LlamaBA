@@ -14,8 +14,11 @@ def getToolDefinitions(tool_file_path: str):
 
 class Llama3:
     def __init__(self, model_path):
-        self.model = AutoModelForCausalLM.from_pretrained(model_path)
-        self.model.to(device)
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_path, 
+            torch_dtype=torch.float16,
+            device_map="auto"
+        )
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
 
     def get_response(

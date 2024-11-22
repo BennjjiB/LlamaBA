@@ -22,9 +22,8 @@ class Llama3:
     ):
         user_prompt = message_history + [{"role": "user", "content": query}]
         tokenized_chat = self.tokenizer.apply_chat_template(
-            user_prompt, tokenize=False, add_generation_prompt=True, return_tensors="pt"
-        )
-        print(tokenized_chat)
+            user_prompt, tokenize=True, add_generation_prompt=True, return_tensors="pt"
+        ).to(device)
         generated_ids = self.model.generate(**tokenized_chat, max_new_tokens=max_tokens)
         response = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
         return response, user_prompt + [{"role": "assistant", "content": response}]

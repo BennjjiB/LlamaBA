@@ -1,6 +1,6 @@
 import json
 import torch
-from transformers import pipeline
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 llama_31 = "meta-llama/Llama-3.1-8B-Instruct"  # <-- llama 3.1
@@ -13,32 +13,19 @@ def getToolDefinitions(tool_file_path: str):
 
 
 class Llama3:
-    def __init__(self, model_path, tool_path):
-        self.model_id = model_path
-
-        self.pipe = pipeline(
-            "text-generation",
-            model=self.model_id,
-            device=device,
-            torch_dtype=torch.bfloat16
-        )
+    def __init__(self, model_path):
+        self.model = AutoModelForCausalLM.from_pretrained(model_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
 
     def get_response(
         self, query, message_history, max_tokens=1028, temperature=0.6, top_p=0.9
     ):
         user_prompt = message_history + [{"role": "user", "content": query}]
-        prompt = self.pipe.tokenizer.apply_chat_template(
+        tokenized_chat = self.tokenizer.apply_chat_template(
             user_prompt, tokenize=False, add_generation_prompt=True
         )
-        outputs = self.pipe(
-            prompt,
-            max_new_tokens=max_tokens,
-            do_sample=True,
-            temperature=temperature,
-            top_p=top_p,
-            pad_token_id = self.pipe.tokenizer.eos_token_id
-        )
-        response = outputs[0]["generated_text"][len(prompt):]
+        generated_ids = self.model.generate(tokenized_chat, max_new_tokens=max_tokens) 
+        response = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
         return response, user_prompt + [{"role": "assistant", "content": response}]
 
     def chatbot(self, system_instructions=""):
@@ -66,5 +53,5 @@ setup_prompt = f"""
 
 
 if __name__ == "__main__":
-    bot = Llama3(llama_31, "tool_definitions.json")
+    bot = Llama3(llama_31)
     bot.chatbot(setup_prompt)

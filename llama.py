@@ -4,23 +4,19 @@ from typing import Literal
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
 from threading import Thread
+from tool_definitions import tools
 
 LLAMA_31 = "meta-llama/Llama-3.1-8B-Instruct"
 LLAMA_32 = "meta-llama/Llama-3.2-1B-Instruct"
 
 
-def getToolDefinitions(tool_file_path: str):
-    with open(tool_file_path, "r") as file:
-        data = json.load(file)
-        return json.dumps(data)
-
-
 class PandaChatBot:
     def __init__(
         self,
-        model_path,
+        model_path: str,
         quantization: Literal["16bit", "8bit", "4bit"] = "16bit",
-        setup_prompt: str = ""
+        setup_prompt: str = "",
+        tools=[]
     ):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         print('Running on:', self.device)
@@ -47,6 +43,8 @@ class PandaChatBot:
         # Conversation for history
         self.conversation = []
 
+        self.tools = tools
+
         self.setup(system_instructions=setup_prompt)
 
     def get_response_streamer(
@@ -55,7 +53,10 @@ class PandaChatBot:
         self.conversation.append({"role": "user", "content": query})
         # Create tokenized prompt
         prompt = self.tokenizer.apply_chat_template(
-            self.conversation, tokenize=True, add_generation_prompt=True, return_tensors="pt"
+            self.conversation,
+            tokenize=True,
+            add_generation_prompt=True,
+            return_tensors="pt"
         )
         # Create text streamer
         streamer = TextIteratorStreamer(
@@ -121,13 +122,17 @@ setup_prompt_1 = f"""
             Your task is to grab and sort colored blocks. Respond in a positive manner.
             When you receive a tool call response, use the output to format an answer to the original user question.
             If you decide to invoke any of the function(s), you MUST put it in the format of
-            [func_name1(params_name1=params_value1, params_name2=params_value2...), func_name2(params)]
+            {{"name": function name, "parameters": dictionary of argument name and its value}}.
+            If multiple tools are used, put tools call in array format.
+            [{{"name": function name, "parameters": dictionary of argument name and its value}}].
+            Do not use variables.
             You SHOULD NOT include any other text in the response.
             Here is a list of functions in JSON format that you can invoke.
-            {getToolDefinitions("tool_definitions.json")}
+            {tools}
         """
 
+print(setup_prompt_1)
 
 if __name__ == "__main__":
-    bot = PandaChatBot(LLAMA_32)
+    bot = PandaChatBot(LLAMA_32, setup_prompt=setup_prompt_1)
     bot.chatbot()

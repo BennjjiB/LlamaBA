@@ -6,6 +6,7 @@ from threading import Thread
 from tool_definitions import tools
 
 LLAMA_31_8 = "meta-llama/Llama-3.1-8B-Instruct"
+LLAMA_31_70 = "meta-llama/Llama-3.1-8B-Instruct"
 LLAMA_32 = "meta-llama/Llama-3.2-1B-Instruct"
 
 
@@ -133,5 +134,5 @@ setup_prompt_1 = f"""
 print(setup_prompt_1)
 
 if __name__ == "__main__":
-    bot = PandaChatBot(LLAMA_32, setup_prompt=setup_prompt_1)
+    bot = PandaChatBot(LLAMA_31_70, quantization="8bit", setup_prompt=setup_prompt_1)
     bot.chatbot()

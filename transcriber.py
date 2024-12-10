@@ -3,7 +3,6 @@ from datetime import datetime, timezone, timedelta
 from queue import Queue
 from sys import platform
 from time import sleep
-
 import numpy as np
 import speech_recognition as sr
 from faster_whisper import WhisperModel

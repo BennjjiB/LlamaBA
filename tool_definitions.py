@@ -1,9 +1,10 @@
 import json
 from typing import Callable
+from typing import Dict
 
 
 class ToolService():
-    def __init__(self, tool_definitions: dict[str, Callable]):
+    def __init__(self, tool_definitions: Dict[str, Callable]):
         self.tool_definitions = tool_definitions
 
     def parse_and_execute_response(self, stream):

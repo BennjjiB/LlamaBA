@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
-from llama import PandaChatBot, LLAMA_32, setup_prompt_1
+from llama import PandaChatBot, LLAMA_32, setup_prompt_1, LLAMA_31_8
 
 app = FastAPI()
-bot = PandaChatBot(LLAMA_32)
+bot = PandaChatBot(LLAMA_31_8)
 bot.setup(setup_prompt_1)
 
 

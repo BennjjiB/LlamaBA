@@ -1,5 +1,5 @@
 import requests
-from Transcriber import Transcriber
+from transcriber import Transcriber
 from tool_definitions import ToolService
 
 
@@ -58,7 +58,7 @@ def get_current_time():
 def main():
     client = Client(
         "http://127.0.0.1:8000",
-        Transcriber(),
+        None,
         ToolService({"current_time": get_current_time})
     )
     client.start_chat_interface(voice=False)

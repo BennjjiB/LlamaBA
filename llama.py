@@ -1,12 +1,11 @@
 import os
-import json
 from typing import Literal
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
 from threading import Thread
 from tool_definitions import tools
 
-LLAMA_31 = "meta-llama/Llama-3.1-8B-Instruct"
+LLAMA_31_8 = "meta-llama/Llama-3.1-8B-Instruct"
 LLAMA_32 = "meta-llama/Llama-3.2-1B-Instruct"
 
 

@@ -131,8 +131,6 @@ setup_prompt_1 = f"""
             {tools}
         """
 
-print(setup_prompt_1)
-
 if __name__ == "__main__":
     bot = PandaChatBot(LLAMA_31_70, quantization="8bit", setup_prompt=setup_prompt_1)
     bot.chatbot()

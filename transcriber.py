@@ -16,10 +16,10 @@ class Transcriber():
     def __init__(
         self,
         model_type="tiny.en",
-        device="cpu",
+        device="auto",
         compute_type="int8",
         energy_threshold=1000,
-        default_microphone='list'
+        default_microphone='EPOS PC 8 USB: Audio (hw:2,0)'
     ):
         """
         model_type: whisper model type (tiny, base, small, medium, large, turbo)

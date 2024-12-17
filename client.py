@@ -57,7 +57,7 @@ def get_current_time():
 
 def main():
     client = Client(
-        "http://127.0.0.1:8000",
+        "http://134.2.17.204:8000",
         None,
         ToolService({"current_time": get_current_time})
     )

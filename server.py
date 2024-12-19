@@ -4,17 +4,22 @@ from llama import PandaChatBot, LLAMA_32, setup_prompt_1, LLAMA_31_8, LLAMA_31_7
 
 app = FastAPI()
 bot = PandaChatBot(LLAMA_31_8)
-bot.setup(setup_prompt_1)
+#bot.setup(setup_prompt_1)
 
 
 @app.get("/")
 def root():
     return "Hello to the llama bot!"
 
+def number_generator(start=0, end=10):
+    """Generate numbers from `start` to `end` (exclusive)."""
+    for number in range(start, end):
+        yield number
 
 @app.get("/get-response")
 def get_response(prompt: str):
-    response_generator = bot.generate_chat_response(prompt)
+    # response_generator = bot.generate_chat_response(prompt)
+    response_generator = number_generator(1, 5)
     return StreamingResponse(response_generator, media_type="text/event-stream")
 
 

@@ -15,11 +15,11 @@ class Transcriber():
 
     def __init__(
         self,
-        model_type="tiny.en",
-        device="auto",
+        model_type="medium.en",
+        device="cpu",
         compute_type="int8",
-        energy_threshold=1000,
-        default_microphone='EPOS PC 8 USB: Audio (hw:2,0)'
+        energy_threshold=0,
+        default_microphone=''
     ):
         """
         model_type: whisper model type (tiny, base, small, medium, large, turbo)
@@ -29,7 +29,7 @@ class Transcriber():
         default_microphone: Microphone name for SpeechRecognition. Use 'list' to see all available options
         """
         print("Setting up whisper...")
-        self.__setup_mic(default_microphone)
+        self.source = sr.Microphone()
         self.whisper = WhisperModel(
             model_type, device=device, compute_type=compute_type)
         self.recorder = sr.Recognizer()
@@ -38,7 +38,6 @@ class Transcriber():
         self.recorder.dynamic_energy_threshold = False
         # Thread safe Queue for passing data from the threaded recording callback.
         self.data_queue = Queue()
-
         with self.source:
             self.recorder.adjust_for_ambient_noise(self.source)
 
@@ -68,7 +67,6 @@ class Transcriber():
             self.data_queue.put(data)
 
         # Create a background thread that will pass us raw audio bytes.
-        self.recorder.listen(self.source, timeout=10, stream=True)
         stop_listening = self.recorder.listen_in_background(
             self.source, record_callback, phrase_time_limit=record_timeout)
 
@@ -76,9 +74,9 @@ class Transcriber():
         while True:
             try:
                 now = datetime.now(timezone.utc)
-                if phrase_time and now - phrase_time > timedelta(seconds=speak_timeout) and self.data_queue.empty():
-                    stop_listening()
-                    return transcription
+                # if phrase_time and now - phrase_time > timedelta(seconds=speak_timeout) and self.data_queue.empty():
+                #     stop_listening()
+                #     return transcription
                 # Pull raw recorded audio from the queue.
                 if not self.data_queue.empty():
                     phrase_complete = False
@@ -133,21 +131,16 @@ class Transcriber():
         Finds and returns the speech recognition microphone 
         default_microphone: Microphone name for SpeechRecognition. Use 'list' to see all available options
         """
-        # Prevents permanent application hang and crash by using the wrong Microphone
-        if 'linux' in platform:
-            mic_name = default_microphone
-            if not mic_name or mic_name == 'list':
-                print("Available microphone devices are: ")
-                for index, name in enumerate(sr.Microphone.list_microphone_names()):
-                    print(f"Microphone with name \"{name}\" found")
-                return
-            else:
-                for index, name in enumerate(sr.Microphone.list_microphone_names()):
-                    if mic_name in name:
-                        self.source = sr.Microphone(
-                            sample_rate=16000, device_index=index)
+        mic_name = default_microphone
+        if not mic_name or mic_name == 'list':
+            print("Available microphone devices are: ")
+            for index, name in enumerate(sr.Microphone.list_microphone_names()):
+                print(f"Microphone with name \"{name}\" found")
+            return
         else:
-            self.source = sr.Microphone(sample_rate=16000)
+            for index, name in enumerate(sr.Microphone.list_microphone_names()):
+                if mic_name in name:
+                    self.source = sr.Microphone()
 
 
 def main():

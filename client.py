@@ -21,6 +21,9 @@ class Client:
         params = {"prompt": prompt}
 
         with requests.get(endpoint, params=params, stream=True, timeout=10) as response:
+            for chunk in response.iter_content(1024):  # or, for line in r.iter_lines():
+                print(chunk)
+            return
             if response.status_code != 200:
                 print(f"Error: Received status code {response.status_code}")
                 return

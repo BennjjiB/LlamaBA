@@ -11,15 +11,17 @@ bot = PandaChatBot(LLAMA_31_8)
 def root():
     return "Hello to the llama bot!"
 
-def number_generator(start=0, end=10):
-    """Generate numbers from `start` to `end` (exclusive)."""
-    for number in range(start, end):
-        yield number
+import time
+
+def fake_data_streamer():
+    for i in range(10):
+        yield b'some fake data\n\n'
+        time.sleep(0.5)
 
 @app.get("/get-response")
 def get_response(prompt: str):
     # response_generator = bot.generate_chat_response(prompt)
-    response_generator = number_generator(1, 5)
+    response_generator = fake_data_streamer()
     return StreamingResponse(response_generator, media_type="text/event-stream")
 
 

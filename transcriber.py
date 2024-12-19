@@ -1,4 +1,5 @@
 import os
+from audio_processor import AudioProcessor
 from datetime import datetime, timezone, timedelta
 from queue import Queue
 from sys import platform
@@ -18,7 +19,7 @@ class Transcriber():
         model_type="medium.en",
         device="cpu",
         compute_type="int8",
-        energy_threshold=0,
+        energy_threshold=1000,
         default_microphone=''
     ):
         """
@@ -30,6 +31,7 @@ class Transcriber():
         """
         print("Setting up whisper...")
         self.source = sr.Microphone()
+        self.audio_processor = AudioProcessor()
         self.whisper = WhisperModel(
             model_type, device=device, compute_type=compute_type)
         self.recorder = sr.Recognizer()
@@ -63,7 +65,7 @@ class Transcriber():
             audio: An AudioData containing the recorded bytes.
             """
             # Grab the raw bytes and push it into the thread safe queue.
-            data = audio.get_raw_data()
+            data = audio.get_wav_data()
             self.data_queue.put(data)
 
         # Create a background thread that will pass us raw audio bytes.
@@ -84,11 +86,11 @@ class Transcriber():
                     # Clear the current working audio buffer to start over with the new data.
                     if phrase_time and now - phrase_time > timedelta(seconds=phrase_timeout):
                         phrase_complete = True
-
+                    phrase_time = now
                     # Combine audio data from queue
-                    audio_data = b''.join(self.data_queue.queue)
+                    audio_data = self.audio_processor.process(self.data_queue.queue)
                     self.data_queue.queue.clear()
-
+                    
                     text = self.__transcribe(audio_data).strip()
 
                     if phrase_complete:
@@ -103,7 +105,6 @@ class Transcriber():
                         print(line)
                     # Flush stdout.
                     print('', end='', flush=True)
-                    phrase_time = now
                 else:
                     # Infinite loops are bad for processors, must sleep.
                     sleep(0.25)
@@ -115,13 +116,7 @@ class Transcriber():
         Transcribes some audio data and returns the result as a string 
         audio_data: The raw audio data in bytes 
         """
-        # Convert in-ram buffer to something the model can use directly without needing a temp file.
-        # Convert data from 16 bit wide integers to floating point with a width of 32 bits.
-        # Clamp the audio stream frequency to a PCM wavelength compatible default of 32768hz max.
-        audio_np = np.frombuffer(
-            audio_data, dtype=np.int16).astype(np.float32) / 32768.0
-
-        segments, _ = self.whisper.transcribe(audio_np, beam_size=5)
+        segments, _ = self.whisper.transcribe(audio_data, beam_size=5)
         segments = list(segments)
         text = "".join(segment.text for segment in segments)
         return text

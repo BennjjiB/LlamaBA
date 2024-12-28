@@ -13,7 +13,7 @@ LLAMA_32 = "meta-llama/Llama-3.2-1B-Instruct"
 
 
 class AbstractChatBot(ABC):
-    def __init__(self, setup_prompt: str = "", tools: List = []):
+    def __init__(self, setup_prompt: str = "You are a helpful assistant", tools: List = None):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         print('Running on:', self.device)
         self.tools = tools
@@ -32,8 +32,10 @@ class AbstractChatBot(ABC):
         """
         pass
 
-    def generate_chat_response(self, user_input: str, with_memory: bool = True):
-        streamer = self.get_response_streamer(user_input)
+    def generate_chat_response(self, user_input: str, tool_response: bool = False, with_memory: bool = True):
+        role = "tool" if tool_response else "user"
+        query = {"role": role, "content": user_input}
+        streamer = self.get_response_streamer(query)
         generated_response = ""
         for response in streamer:
             generated_response += response
@@ -71,8 +73,8 @@ class PandaChatBot(AbstractChatBot):
             self,
             model_path: str,
             quantization: Literal["16bit", "8bit", "4bit"] = "16bit",
-            setup_prompt: str = "",
-            tools=[]
+            setup_prompt: str = "You are a helpful assistant",
+            tools=None
     ):
         # Quantitation
         if quantization == "16bit":
@@ -96,40 +98,39 @@ class PandaChatBot(AbstractChatBot):
 
         super().__init__(setup_prompt=setup_prompt, tools=tools)
 
-        def get_response_streamer(
-                self, query, max_tokens=1028, temperature=0.6, top_p=0.9
-        ):
-            self.conversation.append({"role": "user", "content": query})
-            # Create tokenized prompt
-            prompt = self.tokenizer.apply_chat_template(
-                self.conversation,
-                tools=self.tools,
-                tokenize=True,
-                add_generation_prompt=True,
-                return_tensors="pt"
-            )
-            # Create text streamer
-            streamer = TextIteratorStreamer(
-                self.tokenizer,
-                skip_prompt=True,
-                timeout=10,
-                skip_special_tokens=True
-            )
+    def get_response_streamer(
+            self, query, max_tokens=1028, temperature=0.6, top_p=0.9
+    ):
+        self.conversation.append(query)
+        print(self.conversation)
+        # Create tokenized prompt
+        prompt = self.tokenizer.apply_chat_template(
+            self.conversation,
+            tools=self.tools,
+            tokenize=True,
+            add_generation_prompt=True,
+            return_tensors="pt",
+            return_dict=True
+        )
+        # Create text streamer
+        streamer = TextIteratorStreamer(
+            self.tokenizer,
+            skip_prompt=True,
+            timeout=10,
+            skip_special_tokens=True
+        )
 
-            generation_kwargs = dict(
-                inputs=prompt,
-                streamer=streamer,
-                max_new_tokens=max_tokens,
-                do_sample=True,
-                top_p=top_p,
-                temperature=temperature,
-                pad_token_id=self.tokenizer.pad_token_id,
-                eos_token_id=self.tokenizer.eos_token_id,
-            )
-            thread = Thread(target=self.model.generate, kwargs=generation_kwargs)
-            thread.start()
-            return streamer
-
-    if __name__ == "__main__":
-        bot = PandaChatBot(LLAMA_32, quantization="8bit")
-        bot.chatbot()
+        generation_kwargs = dict(
+            inputs=prompt["input_ids"],
+            streamer=streamer,
+            max_new_tokens=max_tokens,
+            do_sample=True,
+            top_p=top_p,
+            temperature=temperature,
+            pad_token_id=self.tokenizer.pad_token_id,
+            eos_token_id=self.tokenizer.eos_token_id,
+            attention_mask=prompt["attention_mask"]
+        )
+        thread = Thread(target=self.model.generate, kwargs=generation_kwargs)
+        thread.start()
+        return streamer

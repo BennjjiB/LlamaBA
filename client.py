@@ -1,5 +1,4 @@
 import requests
-from transcriber import Transcriber
 from tool_definitions import ToolService
 
 
@@ -21,23 +20,15 @@ class Client:
         params = {"prompt": prompt}
 
         with requests.get(endpoint, params=params, stream=True, timeout=10) as response:
-            for chunk in response.iter_content(1024):  # or, for line in r.iter_lines():
-                print(chunk)
-            return
             if response.status_code != 200:
                 print(f"Error: Received status code {response.status_code}")
                 return
             return self.__handle_response(response)
 
     def __handle_response(self, response):
-        tool_result = self.tool_parser.parse_and_execute_response(
-            response.iter_content(chunk_size=1024))
-        # Can't parse response to tool calls so just display the message
-        if isinstance(tool_result, tuple):
-            print(tool_result[0], end='')
-            for chunk in tool_result[1]:
-                print(chunk.decode('utf-8', errors='replace'), end='', flush=True)
-            print("\n")
+        for chunk in response.iter_content():
+            print(chunk.decode('utf-8', errors='replace'), end='', flush=True)
+        print("\n")
 
     def start_chat_interface(self, voice=True):
         if voice:
@@ -59,8 +50,10 @@ def get_current_time():
 
 
 def main():
+    # BASE_URL = "http://134.2.17.204:8080"
+    BASE_URL = " http://127.0.0.1:5000"
     client = Client(
-        "http://134.2.17.204:8080",
+        BASE_URL,
         None,
         ToolService({"current_time": get_current_time})
     )

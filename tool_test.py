@@ -28,8 +28,6 @@ def calculate(id, expression):
         update_status(id, "calculate", json.dumps({"result": result}))
     except Exception as e:
         update_status(id, "calculate", json.dumps({"error": f"Unexpected error: {str(e)}"}))
-    finally:
-        update_status(id, "calculate", "STOP")
 
 
 tools = [
@@ -51,6 +49,39 @@ tools = [
         },
     }
 ]
+
+
+def start_tool_call(id, function_to_call, function_args):
+    thread = threading.Thread(target=function_to_call, args=(id, function_args))
+    threads.append(thread)
+    thread.start()
+
+
+def handle_tool_status_changes(bot, threads, status_queue):
+    while any(thread.is_alive() for thread in threads) or not status_queue.empty():
+        try:
+            new_status = status_queue.get(timeout=1)  # Wait for 1 second for an item
+        except queue.Empty:
+            if not any(thread.is_alive() for thread in threads):
+                print("All threads are finished and the queue is empty. Exiting.")
+                break
+            continue
+        print(f"Status updated to: {new_status}")
+
+        # Ensure `new_status` contains the necessary keys
+        if isinstance(new_status, dict) and all(
+                key in new_status for key in ["tool_call_id", "name", "content"]
+        ):
+            tool_response = {
+                "tool_call_id": new_status["tool_call_id"],
+                "role": "tool",
+                "name": new_status["name"],
+                "content": new_status["content"],
+            }
+            for response in bot.generate_chat_response(tool_response, tool_response=True):
+                print(response)
+        else:
+            print("Invalid status update received.")
 
 
 def chat_with_tool_calls():
@@ -82,27 +113,9 @@ def chat_with_tool_calls():
             for tool_call in tool_calls:
                 function_name = tool_call.function.name
                 function_to_call = available_functions[function_name]
-                function_args = json.loads(tool_call.function.arguments)
-                thread = threading.Thread(target=function_to_call,
-                                          args=(tool_call.id, function_args.get("expression")))
-                threads.append(thread)
-                thread.start()
-
-            while any(thread.is_alive() for thread in threads) or status_queue.not_empty:
-                new_status = status_queue.get()  # Blocks until an item is available
-                if new_status == "STOP":
-                    print("Monitor received stop signal. Exiting.")
-                    break
-                print(f"Status updated to: {new_status}")
-                tool_repsonse = {
-                    "tool_call_id": new_status["tool_call_id"],
-                    "role": "tool",
-                    "name": new_status["name"],
-                    "content": new_status["content"],
-                }
-
-                for response in bot.generate_chat_response(tool_repsonse, tool_response=True):
-                    print(response)
+                function_args = json.loads(tool_call.function.arguments).get("expression")
+                start_tool_call(tool_call.id, function_to_call, function_args)
+            handle_tool_status_changes(bot, threads, status_queue)
 
 
 chat_with_tool_calls()

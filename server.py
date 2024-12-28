@@ -1,31 +1,20 @@
-from fastapi import FastAPI
-from fastapi.responses import StreamingResponse
-from chatbot import PandaChatBot, LLAMA_32, setup_prompt_1, LLAMA_31_8, LLAMA_31_70
-
-app = FastAPI()
-bot = PandaChatBot(LLAMA_31_8)
-#bot.setup(setup_prompt_1)
-
-
-@app.get("/")
-def root():
-    return "Hello to the llama bot!"
-
+from flask import Flask, Response, request
 import time
 
-def fake_data_streamer():
-    for i in range(10):
-        yield b'some fake data\n\n'
-        time.sleep(0.5)
+from chatbot import PandaChatBot, LLAMA_32
+from groq_bot import GroqChatBot
 
-@app.get("/get-response")
-def get_response(prompt: str):
-    # response_generator = bot.generate_chat_response(prompt)
-    response_generator = fake_data_streamer()
-    return StreamingResponse(response_generator, media_type="text/event-stream")
+app = Flask(__name__)
+# bot = GroqChatBot()
+bot = PandaChatBot(LLAMA_32)
 
 
-@app.get("/clear-history")
-def clear_history():
-    bot.clearHistory()
-    return "History cleared"
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
+
+
+@app.route('/get-response')
+def generate_response_stream():
+    prompt = request.args.get('prompt')
+    return Response(bot.generate_chat_response(prompt), mimetype="text/event-stream")

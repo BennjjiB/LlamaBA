@@ -2,7 +2,6 @@ import os
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
 from threading import Thread
-from tool_definitions import tools
 from abc import ABC, abstractmethod
 from typing import Literal, List, Dict
 import torch
@@ -102,7 +101,6 @@ class PandaChatBot(AbstractChatBot):
             self, query, max_tokens=1028, temperature=0.6, top_p=0.9
     ):
         self.conversation.append(query)
-        print(self.conversation)
         # Create tokenized prompt
         prompt = self.tokenizer.apply_chat_template(
             self.conversation,

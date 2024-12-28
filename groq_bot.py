@@ -32,19 +32,21 @@ class GroqChatBot(AbstractChatBot):
         return response.choices[0].message
 
     def generate_chat_response(self, user_input: str, tool_response: bool = False, with_memory: bool = True):
-        query = user_input if tool_response else {"role": "user", "content": user_input}
+        # change to role to tool ...
+        query = {"role": "user", "content": user_input} if tool_response else {"role": "user",
+                                                                               "content": user_input}
         response_message = self.get_response_streamer(query)
         tool_calls = response_message.tool_calls
         if tool_calls:
-            yield tool_calls
             for tool_call in tool_calls:
-                self.conversation.append(
-                    {"role": "assistant",
-                     "content": f"""{{
-                        "function_name": tool_call.function.name,
-                        "arguments": tool_call.function.arguments
-                        }}"""
-                     })
+                tool = {
+                    "id": tool_call.id,
+                    "function_name": tool_call.function.name,
+                    "arguments": tool_call.function.arguments,
+                }
+                tool_string = json.dumps(tool)
+                yield tool_string
+                self.conversation.append({"role": "assistant", "content": tool_string})
         else:
             yield response_message.content
             self.conversation.append(

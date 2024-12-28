@@ -1,74 +1,37 @@
+from status_helper import update_status
 import json
-from typing import Callable
-from typing import Dict
 
 
-class ToolService():
-    def __init__(self, tool_definitions: Dict[str, Callable]):
-        self.tool_definitions = tool_definitions
-
-    def parse_and_execute_response(self, stream):
-        calls = self.__parse_tool_response(stream)
-        if not isinstance(calls, list):
-            return calls
-        for result in self.__execute_tool_calls(calls):
-            print(result)
-
-    def __parse_tool_response(self, stream):
-        response_string = ""
-        for chunk in stream:
-            response_string += chunk.decode('utf-8', errors='replace').strip()
-            if not (response_string.startswith("[") or response_string.startswith("{")):
-                return response_string, stream
-        print(response_string)
-        parsed_response = json.loads(response_string)
-        if isinstance(parsed_response, list):
-            return parsed_response
-        return [parsed_response]
-
-    def __execute_tool_calls(self, calls):
-        for call in calls:
-            print(call)
-            name = call["function"]
-            params = call["parameters"]
-            tool = self.tool_definitions[name]
-            if tool:
-                print("executing", name)
-                yield tool(**params)
+def calculate(id, args):
+    """Evaluate a mathematical expression"""
+    update_status(id, "calculate", "The calculator is starting the calculation")
+    try:
+        result = eval(args.get("expression"))
+        update_status(id, "calculate", json.dumps({"result": result}))
+    except Exception as e:
+        update_status(id, "calculate", json.dumps({"error": f"Unexpected error: {str(e)}"}))
 
 
-current_time = {
+calculate_definition = {
     "type": "function",
     "function": {
-        "name": "current_time",
-        "description": "Get the current local time as a string.",
+        "name": "calculate",
+        "description": "Evaluate a mathematical expression",
         "parameters": {
-            'type': 'object',
-            'properties': {}
-        }
-    }
-}
-
-# A more complete function that takes two numerical arguments
-multiply = {
-    'type': 'function',
-    'function': {
-        'name': 'multiply',
-        'description': 'A function that multiplies two numbers',
-        'parameters': {
-            'type': 'object',
-            'properties': {
-                'a': {
-                    'type': 'number',
-                    'description': 'The first number to multiply'
-                },
-                'b': {
-                    'type': 'number', 'description': 'The second number to multiply'
+            "type": "object",
+            "properties": {
+                "expression": {
+                    "type": "string",
+                    "description": "The mathematical expression to evaluate",
                 }
             },
-            'required': ['a', 'b']
-        }
-    }
+            "required": ["expression"],
+        },
+    },
 }
 
-tools = [current_time]
+tool_definitions = [calculate_definition]
+
+available_tools = {
+    "calculate": calculate,
+}

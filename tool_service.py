@@ -24,7 +24,7 @@ class ToolService():
                 threads.append(
                     self.start_tool_call(function_to_call, function_args)
                 )
-        return threads
+        return threads, parsed_tools
 
     def start_tool_call(self, function_to_call, function_args):
         thread = threading.Thread(target=function_to_call, args=(function_args,))
@@ -48,8 +48,8 @@ class ToolService():
         return json.dumps(dict)
 
 
-def check_if_tool_call(chunck):
-    return bool(re.search(r"<tool_call>.*?</tool_call>", chunck, re.DOTALL))
+def check_if_tool_call(chunk):
+    return chunk.startswith("<tool_call>")
 
 
 def convert_tool_call_into_chat_message(text):

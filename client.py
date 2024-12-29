@@ -3,11 +3,11 @@ import json
 import requests
 import queue
 from status_helper import status_queue
-from tool_service import ToolService
+from tool_service import ToolService, check_if_tool_call
 
 
 class Client:
-    def __init__(self, base_url: str, transcriber, tool_service: ToolService) -> None:
+    def __init__(self, base_url: str, transcriber, tool_service: ToolService = ToolService()) -> None:
         self.base_url = base_url
         self.transcriber = transcriber
         self.tool_service = tool_service
@@ -22,31 +22,33 @@ class Client:
         """
         endpoint = f"{self.base_url}/get-response"
         params = {"prompt": prompt, "is_tool_response": tool_response}
-
         with requests.get(endpoint, params=params, stream=True, timeout=10) as response:
             if response.status_code != 200:
                 print(f"Error: Received status code {response.status_code}")
                 return
-            return self.__handle_response(response)
+            for chunk in response.iter_content():
+                str = chunk.decode(errors='replace')
+                yield str
 
-    def __handle_response(self, response):
+    def handle_response(self, response):
         generated_response = ""
-        for chunk in response.iter_content():
-            str = chunk.decode(errors='replace')
-            print(str, end='', flush=True)
+        for str in response:
             generated_response += str
-        print("\n")
-        tool_threads = self.tool_service.parse_and_execute_response(generated_response)
+            if not check_if_tool_call(generated_response):
+                yield {"text": generated_response}
+        tool_threads, parsed_tools = self.tool_service.parse_and_execute_response(generated_response)
         if tool_threads:
-            self.handle_tool_status_changes(tool_threads)
+            yield {"tool": parsed_tools}
+            yield from self.handle_tool_status_changes(tool_threads)
 
     def handle_tool_status_changes(self, threads):
         while any(thread.is_alive() for thread in threads) or not status_queue.empty():
             try:
                 new_status = status_queue.get(timeout=1)  # Wait for 1 second for an item
-                self.send_prompt(
+                response = self.send_prompt(
                     self.tool_service.get_tool_response_template(new_status), tool_response=True
                 )
+                yield from self.handle_response(response)
             except queue.Empty:
                 if not any(thread.is_alive() for thread in threads):
                     print("All threads are finished and the queue is empty. Exiting.")
@@ -65,12 +67,12 @@ class Client:
             while True:
                 prompt = input('Ask a question: ')
                 print("\n-------------Generating response-------------\n")
-                self.send_prompt(prompt)
+                self.handle_response(self.send_prompt(prompt))
 
 
 def main():
     # BASE_URL = "http://134.2.17.204:8080"
-    BASE_URL = " http://127.0.0.1:5000"
+    BASE_URL = "http://127.0.0.1:5000"
     client = Client(
         BASE_URL,
         None,

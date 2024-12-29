@@ -1,7 +1,7 @@
 import json
 
 import requests
-
+import queue
 from status_helper import status_queue
 from tool_service import ToolService
 
@@ -44,26 +44,14 @@ class Client:
         while any(thread.is_alive() for thread in threads) or not status_queue.empty():
             try:
                 new_status = status_queue.get(timeout=1)  # Wait for 1 second for an item
+                self.send_prompt(
+                    self.tool_service.get_tool_response_template(new_status), tool_response=True
+                )
             except queue.Empty:
                 if not any(thread.is_alive() for thread in threads):
                     print("All threads are finished and the queue is empty. Exiting.")
                     break
                 continue
-            print(f"Status updated to: {new_status}")
-
-            # Ensure `new_status` contains the necessary keys
-            if isinstance(new_status, dict) and all(
-                    key in new_status for key in ["tool_call_id", "name", "content"]
-            ):
-                tool_response = {
-                    "tool_call_id": new_status["tool_call_id"],
-                    "role": "tool",
-                    "name": new_status["name"],
-                    "content": new_status["content"],
-                }
-                self.send_prompt(json.dumps(tool_response), tool_response=True)
-            else:
-                print("Invalid status update received.")
 
     def start_chat_interface(self, voice=True):
         if voice:

@@ -2,21 +2,28 @@ from status_helper import update_status
 import json
 
 
-def calculate(id, args):
-    """Evaluate a mathematical expression"""
-    update_status(id, "calculate", "The calculator is starting the calculation")
+def calculate(args):
+    """
+    Evaluate a mathematical expression
+
+     Args:
+        id (str): Identifier for the calculation process.
+        args (dict): Contains "expression" (str), the math expression to evaluate.
+    """
+    id = args.get("tool_id", None)
+    update_status("calculate", "Calculator is booting...", id)
     try:
         result = eval(args.get("expression"))
-        update_status(id, "calculate", json.dumps({"result": result}))
+        update_status("calculate", json.dumps({"result": result}), id)
     except Exception as e:
-        update_status(id, "calculate", json.dumps({"error": f"Unexpected error: {str(e)}"}))
+        update_status("calculate", json.dumps({"error": f"Unexpected error: {str(e)}"}), id)
 
 
 calculate_definition = {
     "type": "function",
     "function": {
         "name": "calculate",
-        "description": "Evaluate a mathematical expression",
+        "description": "Evaluate a mathematical expression. Note the calculator first has to boot!",
         "parameters": {
             "type": "object",
             "properties": {

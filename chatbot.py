@@ -1,3 +1,4 @@
+import json
 import os
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
@@ -5,6 +6,8 @@ from threading import Thread
 from abc import ABC, abstractmethod
 from typing import Literal, List, Dict
 import torch
+
+from tool_service import convert_tool_call_into_chat_message, check_if_tool_call
 
 LLAMA_31_8 = "meta-llama/Llama-3.1-8B-Instruct"
 LLAMA_31_70 = "meta-llama/Llama-3.1-70B-Instruct"
@@ -31,16 +34,23 @@ class AbstractChatBot(ABC):
         """
         pass
 
-    def generate_chat_response(self, user_input: str, tool_response: bool = False, with_memory: bool = True):
-        role = "tool" if tool_response else "user"
-        query = {"role": role, "content": user_input}
+    def generate_chat_response(self, user_input: str, is_tool_response: bool = False):
+        if is_tool_response is True:
+            query = json.loads(user_input)
+        else:
+            query = {"role": "user", "content": user_input}
         streamer = self.get_response_streamer(query)
         generated_response = ""
         for response in streamer:
             generated_response += response
             yield response
-        if with_memory:
-            self.conversation.append({"role": "assistant", "content": generated_response})
+        is_tool_call = check_if_tool_call(generated_response)
+        field_name = "tool_calls" if is_tool_call else "content"
+        if is_tool_call:
+            print(generated_response)
+            generated_response = convert_tool_call_into_chat_message(generated_response)
+            print(generated_response)
+        self.conversation.append({"role": "assistant", field_name: generated_response})
 
     def clear_history(self):
         self.conversation = []
@@ -106,10 +116,10 @@ class PandaChatBot(AbstractChatBot):
             self.conversation,
             tools=self.tools,
             tokenize=True,
-            add_generation_prompt=True,
             return_tensors="pt",
             return_dict=True
         )
+        prompt.to(self.device)
         # Create text streamer
         streamer = TextIteratorStreamer(
             self.tokenizer,

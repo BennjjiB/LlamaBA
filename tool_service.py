@@ -16,46 +16,58 @@ class ToolService():
         threads = []
         if parsed_tools:
             for tool in parsed_tools:
-                tool_call = json.loads(tool)
-                # Works only for groq may change later
-                tool_id = tool_call["id"]
-                function_name = tool_call["function_name"]
+                function_name = tool["function_name"]
                 function_to_call = self.available_tools[function_name]
-                function_args = json.loads(tool_call["arguments"])
+                function_args = tool["arguments"]
+                if "id" in tool:
+                    function_args["tool_id"] = tool["id"]
                 threads.append(
-                    self.start_tool_call(tool_id, function_to_call, function_args)
+                    self.start_tool_call(function_to_call, function_args)
                 )
         return threads
 
-    def start_tool_call(self, id, function_to_call, function_args):
-        thread = threading.Thread(target=function_to_call, args=(id, function_args))
+    def start_tool_call(self, function_to_call, function_args):
+        thread = threading.Thread(target=function_to_call, args=(function_args,))
         thread.start()
         return thread
 
     def parse_tools(self, tools):
-        return parse_groq(tools)
+        tool_call_pattern = r"<tool_call>(.*?)</tool_call>"
+        tool_call_match = re.findall(tool_call_pattern, tools, re.DOTALL)
+        tool_calls = [convert_recursively(match.strip()) for match in tool_call_match]
+        return tool_calls
+
+    def get_tool_response_template(self, tool_response):
+        dict = {
+            "role": "tool",
+            "name": tool_response["name"],
+            "content": tool_response["content"],
+        }
+        if "tool_call_id" in tool_response:
+            dict['tool_call_id'] = tool_response["tool_call_id"]
+        return json.dumps(dict)
 
 
-def parse_groq(text):
-    """
-    Extract substrings with outermost curly braces {}.
-    Handles nested braces correctly.
-    """
-    result = []
-    stack = []
-    current = []
-    for char in text:
-        if char == '{':
-            if stack:
-                current.append(char)
-            stack.append('{')
-        elif char == '}':
-            stack.pop()
-            if stack:
-                current.append(char)
-            else:
-                result.append('{' + ''.join(current) + '}')
-                current = []
-        elif stack:
-            current.append(char)
-    return result
+def check_if_tool_call(chunck):
+    return bool(re.search(r"<tool_call>.*?</tool_call>", chunck, re.DOTALL))
+
+
+def convert_tool_call_into_chat_message(text):
+    tool_call_pattern = r"<tool_call>(.*?)</tool_call>"
+    tool_call_match = re.findall(tool_call_pattern, text, re.DOTALL)
+    tool_calls = [json.loads(match.strip()) for match in tool_call_match]
+    return [{"type": "function", "function": tool_call} for tool_call in tool_calls]
+
+
+def convert_recursively(data):
+    if isinstance(data, str):
+        try:
+            data = json.loads(data)
+        except json.JSONDecodeError:
+            pass
+    if isinstance(data, dict):
+        for key, value in data.items():
+            data[key] = convert_recursively(value)
+    elif isinstance(data, list):
+        data = [convert_recursively(item) for item in data]
+    return data

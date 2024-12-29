@@ -15,7 +15,7 @@ class GroqChatBot(AbstractChatBot):
         super().__init__(setup_prompt=setup_prompt, tools=tools)
 
     def get_response_streamer(
-            self, query, max_tokens=4096, temperature=0.6, top_p=0.9
+            self, query, max_tokens=1024, temperature=0.6, top_p=0.9
     ):
         self.conversation.append(query)
         response = self.client.chat.completions.create(
@@ -31,22 +31,21 @@ class GroqChatBot(AbstractChatBot):
         )
         return response.choices[0].message
 
-    def generate_chat_response(self, user_input: str, tool_response: bool = False, with_memory: bool = True):
-        # change to role to tool ...
-        query = {"role": "user", "content": user_input} if tool_response else {"role": "user",
-                                                                               "content": user_input}
+    def generate_chat_response(self, user_input: str, is_tool_response: bool = False):
+        if is_tool_response is True:
+            query = json.loads(user_input)
+        else:
+            query = {"role": "user", "content": user_input}
         response_message = self.get_response_streamer(query)
         tool_calls = response_message.tool_calls
         if tool_calls:
-            for tool_call in tool_calls:
-                tool = {
-                    "id": tool_call.id,
-                    "function_name": tool_call.function.name,
-                    "arguments": tool_call.function.arguments,
-                }
-                tool_string = json.dumps(tool)
-                yield tool_string
-                self.conversation.append({"role": "assistant", "content": tool_string})
+            tools = [{"id": tool_call.id, "function_name": tool_call.function.name,
+                      "arguments": tool_call.function.arguments}
+                     for tool_call in tool_calls]
+            self.conversation.append(response_message)
+            for tool in tools:
+                print(tool)
+                yield f"<tool_call>{json.dumps(tool)}</tool_call>"
         else:
             yield response_message.content
             self.conversation.append(

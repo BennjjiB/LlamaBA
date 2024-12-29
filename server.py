@@ -5,7 +5,12 @@ from tool_definitions import tool_definitions
 from chatbot import PandaChatBot, LLAMA_32
 from groq_bot import GroqChatBot
 
-setup_prompt = "You are a calculator assistant. Use the calculate function to perform mathematical operations and provide the results."
+setup_prompt = """
+You are a calculator assistant.
+You can use the 'calculator' function to perform mathematical calculations.
+Give intermediate status updates if provided by the 'calculator' function, 
+like the calculator is booting or the calculator stopped. 
+"""
 
 app = Flask(__name__)
 bot = GroqChatBot(setup_prompt=setup_prompt, tools=tool_definitions)
@@ -23,5 +28,5 @@ def hello_world():
 def generate_response_stream():
     prompt = request.args.get('prompt')
     is_tool_response = request.args.get('is_tool_response')
-    return Response(bot.generate_chat_response(user_input=prompt, tool_response=is_tool_response),
+    return Response(bot.generate_chat_response(user_input=prompt, is_tool_response=is_tool_response),
                     mimetype="text/event-stream")

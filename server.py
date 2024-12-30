@@ -5,20 +5,20 @@ from tool_definitions import tool_definitions
 from chatbot import PandaChatBot, LLAMA_32
 from groq_bot import GroqChatBot
 
-setup_prompt = """
-You are a calculator assistant.
-You can use the 'calculator' function to perform mathematical calculations.
-Give intermediate status updates if provided by the 'calculator' function,
-like the calculator is booting or the calculator stopped.
-"""
+# setup_prompt = """
+# You are a calculator assistant.
+# You can use the 'calculator' function to perform mathematical calculations.
+# Give intermediate status updates if provided by the 'calculator' function,
+# like the calculator is booting or the calculator stopped.
+# """
 
-# setup_prompt = "You're a helpful assistant."
+setup_prompt = "You're a helpful assistant."
 
 app = Flask(__name__)
-bot = GroqChatBot(setup_prompt=setup_prompt, tools=tool_definitions)
+# bot = GroqChatBot(setup_prompt=setup_prompt, tools=tool_definitions)
 
 
-# bot = GroqChatBot(model="llama3-70b-8192", setup_prompt=setup_prompt, tools=None)
+bot = GroqChatBot(model="llama3-70b-8192", setup_prompt=setup_prompt, tools=None)
 
 
 # bot = PandaChatBot(LLAMA_32)

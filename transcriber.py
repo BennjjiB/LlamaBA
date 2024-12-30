@@ -7,20 +7,95 @@ from time import sleep
 import numpy as np
 import speech_recognition as sr
 from faster_whisper import WhisperModel
+import soundfile as sf
+from scipy.signal import resample
+import noisereduce as nr
 
 
 class Transcriber():
+    def __init__(
+            self,
+            model_type="tiny.en",
+            device="cpu",
+            compute_type="int8",
+            max_audio_chunck_duration=2
+    ):
+        """
+        model_type: whisper model type (tiny, base, small, medium, large, turbo)
+        device: use "cpu" or "cuda"
+        compute_type: use "int8" or "float16"
+        """
+        self.whisper = WhisperModel(
+            model_type, device=device, compute_type=compute_type)
+        self.max_samples = int(max_audio_chunck_duration * 16000)
+        self.buffer = np.array([], dtype=np.float32)
+        self.started_speaking = False
+
+    def __transcribe(self, audio_data) -> str:
+        # add vad_filter
+        segments, _ = self.whisper.transcribe(
+            audio_data,
+            beam_size=5,
+            vad_filter=True,
+            vad_parameters=dict(threshold=0.9, min_speech_duration_ms=500, min_silence_duration_ms=2000)
+        )
+        segments = list(segments)
+        text = "".join(segment.text for segment in segments).strip()
+        return text
+
+    def transcribe_audio(self, chunk, transcription):
+        sr, audio_data = chunk
+        cleaned_audio = self.__clean_audio(sr, audio_data)
+        self.__update_buffer(cleaned_audio)
+        response = ""
+        response = self.__transcribe(self.buffer)
+        stopped = False
+        if self.started_speaking and not response:
+            self.reset()
+            stopped = True
+            print("Stopped speaking")
+        elif not self.started_speaking and response:
+            self.started_speaking = True
+            print("Started speaking", response)
+        return response, stopped
+
+    def reset(self):
+        self.started_speaking = False
+        self.buffer = np.array([], dtype=np.float32)
+
+    def __clean_audio(self, sr, audio_data):
+        # Convert to mono if stereo
+        if audio_data.ndim > 1:
+            audio_data = audio_data.mean(axis=1)
+        num_samples = round(len(audio_data) * float(16000) / sr)
+        # Resample the audio data to the target sample rate
+        resampled_audio = resample(audio_data, num_samples)
+        audio_data = resampled_audio.astype(np.float32)
+        # Normalize the audio (if necessary)
+        max_val = np.max(np.abs(audio_data))
+        if max_val > 0:
+            audio_data = audio_data / max_val
+        reduced_noise_samples = nr.reduce_noise(y=audio_data, sr=sr)
+        return reduced_noise_samples
+
+    def __update_buffer(self, new_chunk):
+        self.buffer = np.concatenate((self.buffer, new_chunk))
+        if len(self.buffer) > self.max_samples:
+            self.buffer = self.buffer[-self.max_samples:]
+
+
+class TranscriberOld():
     """
     A class to handle real-time audio transcription using the Faster Whisper model.
     """
 
     def __init__(
-        self,
-        model_type="medium.en",
-        device="cpu",
-        compute_type="int8",
-        energy_threshold=1000,
-        default_microphone=''
+            self,
+            model_type="medium.en",
+            device="cpu",
+            compute_type="int8",
+            energy_threshold=1000,
+            default_microphone=''
     ):
         """
         model_type: whisper model type (tiny, base, small, medium, large, turbo)
@@ -44,10 +119,10 @@ class Transcriber():
             self.recorder.adjust_for_ambient_noise(self.source)
 
     def start_transcription(
-        self,
-        record_timeout=3,
-        phrase_timeout=3,
-        speak_timeout=5
+            self,
+            record_timeout=3,
+            phrase_timeout=3,
+            speak_timeout=5
     ):
         """
         Generator function, creating audio transcriptions.
@@ -90,7 +165,7 @@ class Transcriber():
                     # Combine audio data from queue
                     audio_data = self.audio_processor.process(self.data_queue.queue)
                     self.data_queue.queue.clear()
-                    
+
                     text = self.__transcribe(audio_data).strip()
 
                     if phrase_complete:
@@ -139,10 +214,6 @@ class Transcriber():
 
 
 def main():
-    transcriber = Transcriber()
+    transcriber = TranscriberOld()
     for transcription in transcriber.start_transcription():
         print("\n Yielded line:", "".join(transcription))
-
-
-if __name__ == "__main__":
-    main()

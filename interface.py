@@ -47,6 +47,12 @@ def capture_audio(new_chunk, transcript, messages):
         yield transcript, messages
 
 
+def clear_all():
+    transcriber.reset()
+    # clear llm history
+    return "", []
+
+
 with gr.Blocks() as demo:
     gr.Markdown("# Chat with a Panda Bot")
     chatbot = gr.Chatbot(
@@ -71,7 +77,7 @@ with gr.Blocks() as demo:
         type="numpy"
     )
     with gr.Row():
-        clear = gr.ClearButton([text_input, chatbot])
+        clear = gr.Button("Clear", variant="secondary", size="lg")
         submit_button = gr.Button("Submit", variant="primary", size="lg")
 
     input_audio.stream(
@@ -86,6 +92,8 @@ with gr.Blocks() as demo:
         outputs=[text_input, chatbot]
     )
     text_input.submit(interact_with_pandabot, [text_input, chatbot], [text_input, chatbot])
-    clear.click(lambda: None, None, chatbot, queue=False)
+    clear.click(fn=clear_all,
+                inputs=[],
+                outputs=[text_input, chatbot])
 
 demo.launch()

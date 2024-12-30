@@ -29,6 +29,12 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
+@app.route("/clear")
+def clear():
+    bot.clear_history()
+    return "cleared history"
+
+
 @app.route('/get-response')
 def generate_response_stream():
     prompt = request.args.get('prompt')

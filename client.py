@@ -12,6 +12,10 @@ class Client:
         self.transcriber = transcriber
         self.tool_service = tool_service
 
+    def clear_history(self):
+        endpoint = f"{self.base_url}/clear"
+        requests.get(endpoint)
+
     def send_prompt(self, prompt: str, tool_response=False):
         """
         Sends a GET request to the server and processes the response.

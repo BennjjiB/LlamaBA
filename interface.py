@@ -49,7 +49,7 @@ def capture_audio(new_chunk, transcript, messages):
 
 def clear_all():
     transcriber.reset()
-    # clear llm history
+    client.clear_history()
     return "", []
 
 

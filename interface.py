@@ -40,9 +40,10 @@ def capture_audio(new_chunk, transcript, messages):
     if new_chunk:
         new_transcript, stopped_speech = transcriber.transcribe_audio(new_chunk, transcript)
         if stopped_speech and not new_transcript:
-            yield from interact_with_pandabot(transcript, messages)
+            yield new_transcript, messages
+            # yield from interact_with_pandabot(transcript, messages)
         else:
-            yield transcript + new_transcript, messages
+            yield new_transcript, messages
     else:
         yield transcript, messages
 

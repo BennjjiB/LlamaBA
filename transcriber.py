@@ -34,19 +34,20 @@ class Transcriber():
             current_time = time.time()
             time_diff = current_time - self.stopped_speaking_time
             if time_diff >= self.start_prompt_delay:
-                print("Prompt")
+                self.sentences = []
                 self.stopped_speaking_time = None
                 return old_transcript, True
 
         sr, audio_data = chunk
         cleaned_audio = self.__clean_audio(sr, audio_data)
         window = self.__update_window_buffer(cleaned_audio)
+
         if window is None:
             return old_transcript, False
 
         self.__update_buffer(window)
         new_transcript = self.__transcribe(self.buffer)
-        if not self.sentences or new_transcript != self.sentences[-1]:
+        if (not self.sentences or new_transcript != self.sentences[-1]) and new_transcript:
             if not self.started_speaking:
                 self.started_speaking = True
                 self.stopped_speaking_time = None
@@ -73,10 +74,10 @@ class Transcriber():
             beam_size=5,
             word_timestamps=True,
             vad_filter=True,
-            vad_parameters=dict(threshold=0.9, min_speech_duration_ms=500, min_silence_duration_ms=2000)
+            vad_parameters=dict(onset=0.9, offset=0.5, min_speech_duration_ms=500, min_silence_duration_ms=1000)
         )
         segments = list(segments)
-        return "".join([segment.text for segment in segments])
+        return "".join([segment.text for segment in segments]).strip()
 
     def __clean_audio(self, sr, audio_data):
         # Convert to mono if stereo

@@ -4,7 +4,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
 from threading import Thread
 from abc import ABC, abstractmethod
-from typing import Literal, List, Dict
+from typing import Literal, List
 import torch
 
 from tool_service import convert_tool_call_into_chat_message, check_if_tool_call

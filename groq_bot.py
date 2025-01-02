@@ -1,8 +1,6 @@
 import os
 import json
 from groq import Groq
-from sympy.polys.polyconfig import query
-
 from chatbot import AbstractChatBot
 
 

@@ -1,73 +1,39 @@
 import gradio as gr
-from PIL.ImageOps import scale
 from gradio import ChatMessage
-from dataclasses import dataclass, field
-import numpy as np
-import threading
 
-import vad
 from client import Client
 from transcriber import Transcriber
 
-client = Client("http://127.0.0.1:5000", None)
+BASE_URL = "http://134.2.17.204:5000"
+    # BASE_URL = "http://127.0.0.1:5000"
+client = Client(BASE_URL, None)
 transcriber = Transcriber()
-
-
-def interact_with_pandabot(prompt, messages):
-    messages.append(ChatMessage(role="user", content=prompt))
-    yield "", messages
-    response = client.send_prompt(prompt)
-    messages.append(ChatMessage(role="assistant", content=""))
-    for chunk in client.handle_response(response):
-        if chunk.get("text"):
-            messages[-1] = ChatMessage(role="assistant", content=chunk["text"])
-            yield "", messages
-        elif chunk.get("tool"):
-            messages.pop()
-            for tool in chunk["tool"]:
-                messages.append(
-                    ChatMessage(
-                        role="assistant",
-                        content=f"{tool}",
-                        metadata={"title": f"🛠️ Used tool {tool["function_name"]}"}
-                    )
-                )
-            messages.append(ChatMessage(role="assistant", content=""))
-        yield "", messages
-
-
-def capture_audio(new_chunk, transcript, messages):
-    if new_chunk:
-        new_transcript, start_prompt = transcriber.transcribe_audio(new_chunk, transcript)
-        if start_prompt:
-            transcriber.sentences = []
-            yield new_transcript, messages
-            yield from interact_with_pandabot(transcript, messages)
-        else:
-            yield new_transcript, messages
-    else:
-        yield transcript, messages
-
 
 def clear_all():
     transcriber.reset()
     client.clear_history()
     return "", []
 
-
-with gr.Blocks() as demo:
-    gr.Markdown("# Chat with a Panda Bot")
+css = """
+.message.pending {
+    display: none;
+}
+"""
+with gr.Blocks(title="Panda-Bot", css=css, fill_height=True) as demo:
+    gr.Markdown("# Chat with Panda-Bot")
     chatbot = gr.Chatbot(
+        value=[],
         type="messages",
-        label="Agent",
         avatar_images=(
             None,
-            "https://em-content.zobj.net/source/twitter/141/parrot_1f99c.png",
+            "panda_avatar.png",
         ),
-        layout="bubble"
+        layout="bubble",
+        placeholder="Start speaking to interact with Panda-Bot",
+        show_copy_all_button=True
     )
     text_input = gr.Textbox(
-        lines=3,
+        lines=1,
         label="Chat Message",
         placeholder="Placeholder"
     )
@@ -82,10 +48,45 @@ with gr.Blocks() as demo:
         clear = gr.Button("Clear", variant="secondary", size="lg")
         submit_button = gr.Button("Submit", variant="primary", size="lg")
 
+    def interact_with_pandabot(prompt, messages):
+        print(f"Starting interaction with prompt: {prompt}")
+        messages = messages if messages else []
+        messages.append(ChatMessage(role="user", content=prompt))
+        yield "", messages
+        response = client.send_prompt(prompt)
+        messages.append(ChatMessage(role="assistant", content=""))
+        for chunk in client.handle_response(response):
+            if chunk.get("text"):
+                messages[-1] = ChatMessage(role="assistant", content=chunk["text"])
+            elif chunk.get("tool"):
+                messages.pop()
+                for tool in chunk["tool"]:
+                    messages.append(
+                        ChatMessage(
+                            role="assistant",
+                            content=f"{tool}",
+                            metadata={"title": f"🛠️ Used tool {tool['function_name']}"}
+                        )
+                    )
+                messages.append(ChatMessage(role="assistant", content=""))
+            yield "", messages
+        print(f"Stopped interaction with prompt: {prompt}")
+
+
+    def capture_audio(new_chunk, transcript, messages):
+        yield gr.skip(), gr.skip()
+        if new_chunk:
+            new_transcript, start_prompt = transcriber.transcribe_audio(new_chunk, transcript)
+            if start_prompt:
+                yield from interact_with_pandabot(new_transcript, messages)
+            elif new_transcript:
+                yield new_transcript, gr.skip()
+        yield gr.skip(), gr.skip()
+
     input_audio.stream(
         fn=capture_audio,
         inputs=[input_audio, text_input, chatbot],
-        outputs=[text_input, chatbot],
+        outputs=[text_input, chatbot]
     )
 
     submit_button.click(
@@ -94,8 +95,6 @@ with gr.Blocks() as demo:
         outputs=[text_input, chatbot]
     )
     text_input.submit(interact_with_pandabot, [text_input, chatbot], [text_input, chatbot])
-    clear.click(fn=clear_all,
-                inputs=[],
-                outputs=[text_input, chatbot])
+    clear.click(fn=clear_all, inputs=[], outputs=[text_input, chatbot])
 
 demo.launch()

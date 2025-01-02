@@ -1,8 +1,5 @@
 import json
-from typing import Callable
-from typing import Dict
 import threading
-
 from tool_definitions import available_tools
 import re
 

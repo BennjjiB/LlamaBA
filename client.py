@@ -1,5 +1,3 @@
-import json
-
 import requests
 import queue
 from status_helper import status_queue
@@ -55,9 +53,9 @@ class Client:
                 yield from self.handle_response(response)
             except queue.Empty:
                 if not any(thread.is_alive() for thread in threads):
-                    print("All threads are finished and the queue is empty. Exiting.")
                     break
                 continue
+        print("All threads are finished and the queue is empty. Exiting.")
 
     def start_chat_interface(self, voice=True):
         if voice:
@@ -72,18 +70,3 @@ class Client:
                 prompt = input('Ask a question: ')
                 print("\n-------------Generating response-------------\n")
                 self.handle_response(self.send_prompt(prompt))
-
-
-def main():
-    # BASE_URL = "http://134.2.17.204:8080"
-    BASE_URL = "http://127.0.0.1:5000"
-    client = Client(
-        BASE_URL,
-        None,
-        ToolService()
-    )
-    client.start_chat_interface(voice=False)
-
-
-if __name__ == "__main__":
-    main()

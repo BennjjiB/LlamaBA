@@ -49,7 +49,6 @@ with gr.Blocks(title="Panda-Bot", css=css, fill_height=True) as demo:
         submit_button = gr.Button("Submit", variant="primary", size="lg")
 
     def interact_with_pandabot(prompt, messages):
-        print(f"Starting interaction with prompt: {prompt}")
         messages = messages if messages else []
         messages.append(ChatMessage(role="user", content=prompt))
         yield "", messages
@@ -70,7 +69,6 @@ with gr.Blocks(title="Panda-Bot", css=css, fill_height=True) as demo:
                     )
                 messages.append(ChatMessage(role="assistant", content=""))
             yield "", messages
-        print(f"Stopped interaction with prompt: {prompt}")
 
 
     def capture_audio(new_chunk, transcript, messages):

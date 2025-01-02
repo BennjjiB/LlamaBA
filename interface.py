@@ -38,10 +38,11 @@ def interact_with_pandabot(prompt, messages):
 
 def capture_audio(new_chunk, transcript, messages):
     if new_chunk:
-        new_transcript, stopped_speech = transcriber.transcribe_audio(new_chunk, transcript)
-        if stopped_speech and not new_transcript:
+        new_transcript, start_prompt = transcriber.transcribe_audio(new_chunk, transcript)
+        if start_prompt:
+            transcriber.sentences = []
             yield new_transcript, messages
-            # yield from interact_with_pandabot(transcript, messages)
+            yield from interact_with_pandabot(transcript, messages)
         else:
             yield new_transcript, messages
     else:

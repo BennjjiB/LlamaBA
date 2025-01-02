@@ -2,6 +2,7 @@ import numpy as np
 from faster_whisper import WhisperModel
 from scipy.signal import resample
 import re
+import time
 
 
 class Transcriber():
@@ -10,7 +11,8 @@ class Transcriber():
             model_type="tiny.en",
             device="cpu",
             compute_type="int8",
-            max_window_duration=2
+            max_window_duration=1,
+            start_prompt_delay=2
     ):
         """
         model_type: whisper model type (tiny, base, small, medium, large, turbo)
@@ -19,40 +21,49 @@ class Transcriber():
         """
         self.whisper = WhisperModel(
             model_type, device=device, compute_type=compute_type)
-
-        # times for sliding window buffer
         self.max_window_samples = int(max_window_duration * 16000)
-
-        # buffers
         self.buffer = np.array([], dtype=np.float32)
         self.window_buffer = np.array([], dtype=np.float32)
-
         self.started_speaking = False
-        self.previous_text_slice = None
+        self.stopped_speaking_time = None
+        self.start_prompt_delay = start_prompt_delay
+        self.sentences = []
 
     def transcribe_audio(self, chunk, old_transcript):
-        transcript = old_transcript
-        stopped = False
+        if self.stopped_speaking_time is not None:
+            current_time = time.time()
+            time_diff = current_time - self.stopped_speaking_time
+            if time_diff >= self.start_prompt_delay:
+                print("Prompt")
+                self.stopped_speaking_time = None
+                return old_transcript, True
 
         sr, audio_data = chunk
         cleaned_audio = self.__clean_audio(sr, audio_data)
         window = self.__update_window_buffer(cleaned_audio)
-        if window is not None:
-            self.__update_buffer(window)
-            new_transcript = self.__transcribe(self.buffer)
-            if self.started_speaking and not new_transcript:
-                self.reset()
-                stopped = True
+        if window is None:
+            return old_transcript, False
+
+        self.__update_buffer(window)
+        new_transcript = self.__transcribe(self.buffer)
+        if not self.sentences or new_transcript != self.sentences[-1]:
+            if not self.started_speaking:
+                self.started_speaking = True
+                self.stopped_speaking_time = None
+                print("Started speaking", new_transcript)
+                self.sentences.append(new_transcript)
+            else:
+                self.sentences[-1] = new_transcript
+            return "\n".join(self.sentences), False
+        else:
+            self.reset()
+            if self.started_speaking:
+                self.stopped_speaking_time = time.time()
+                self.started_speaking = False
                 print("Stopped speaking")
-            if new_transcript:
-                transcript = new_transcript
-                if not self.started_speaking:
-                    self.started_speaking = True
-                    print("Started speaking", new_transcript)
-        return transcript, stopped
+            return old_transcript, False
 
     def reset(self):
-        self.started_speaking = False
         self.buffer = np.array([], dtype=np.float32)
 
     def __transcribe(self, audio_data) -> str:

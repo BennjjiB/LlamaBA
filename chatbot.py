@@ -88,6 +88,8 @@ class PandaChatBot(AbstractChatBot):
             setup_prompt: str = "You are a helpful assistant",
             tools=None
     ):
+        super().__init__(setup_prompt=setup_prompt, tools=tools)
+
         # Quantitation
         if quantization == "16bit":
             self.quantization_config = None
@@ -100,7 +102,8 @@ class PandaChatBot(AbstractChatBot):
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,
             torch_dtype=torch.bfloat16,
-            quantization_config=self.quantization_config
+            quantization_config=self.quantization_config,
+            device_map=self.device
         )
 
         # Tokenizer
@@ -108,7 +111,7 @@ class PandaChatBot(AbstractChatBot):
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
-        super().__init__(setup_prompt=setup_prompt, tools=tools)
+        
 
     def get_response_streamer(
             self, query, max_tokens=1028, temperature=0.6, top_p=0.9

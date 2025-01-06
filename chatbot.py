@@ -1,6 +1,7 @@
 import json
 import os
 import torch
+torch.cuda.empty_cache()
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer, BitsAndBytesConfig
 
 from threading import Thread

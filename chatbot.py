@@ -95,7 +95,6 @@ class PandaChatBot(AbstractChatBot):
             quantization_config = BitsAndBytesConfig(load_in_8bit=True)
         elif quantization == "4bit":
             quantization_config = BitsAndBytesConfig(load_in_4bit=True)
-        print(quantization_config)
         # Model
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,

@@ -89,20 +89,18 @@ class PandaChatBot(AbstractChatBot):
             tools=None
     ):
         super().__init__(setup_prompt=setup_prompt, tools=tools)
-
         # Quantitation
-        if quantization == "16bit":
-            self.quantization_config = None
-        elif quantization == "8bit":
-            self.quantization_config = BitsAndBytesConfig(load_in_8bit=True)
+        quantization_config = None
+        if quantization == "8bit":
+            quantization_config = BitsAndBytesConfig(load_in_8bit=True)
         elif quantization == "4bit":
-            self.quantization_config = BitsAndBytesConfig(load_in_4bit=True)
-
+            quantization_config = BitsAndBytesConfig(load_in_4bit=True)
+        print(quantization_config)
         # Model
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,
             torch_dtype=torch.bfloat16,
-            quantization_config=self.quantization_config,
+            quantization_config=quantization_config,
             device_map="auto"
         )
 

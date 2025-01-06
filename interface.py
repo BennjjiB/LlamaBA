@@ -4,8 +4,8 @@ from gradio import ChatMessage
 from client import Client
 from transcriber import Transcriber
 
-# BASE_URL = "http://134.2.17.204:5000"
-BASE_URL = "http://127.0.0.1:5000"
+BASE_URL = "http://134.2.17.204:5000"
+# BASE_URL = "http://127.0.0.1:5000"
 client = Client(BASE_URL, None)
 transcriber = Transcriber()
 

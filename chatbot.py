@@ -1,7 +1,8 @@
 import json
 import os
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
+from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer, BitsAndBytesConfig
+
 from threading import Thread
 from abc import ABC, abstractmethod
 from typing import Literal, List
@@ -12,6 +13,7 @@ from tool_service import convert_tool_call_into_chat_message, check_if_tool_call
 LLAMA_31_8 = "meta-llama/Llama-3.1-8B-Instruct"
 LLAMA_31_70 = "meta-llama/Llama-3.1-70B-Instruct"
 LLAMA_32 = "meta-llama/Llama-3.2-1B-Instruct"
+LLAMA_33 = "meta-llama/Llama-3.3-70B-Instruct"
 
 
 class AbstractChatBot(ABC):
@@ -90,9 +92,9 @@ class PandaChatBot(AbstractChatBot):
         if quantization == "16bit":
             self.quantization_config = None
         elif quantization == "8bit":
-            self.quantization_config = {"load_in_8bit": True}
+            self.quantization_config = BitsAndBytesConfig(load_in_8bit=True)
         elif quantization == "4bit":
-            self.quantization_config = {"load_in_4bit": True}
+            self.quantization_config = BitsAndBytesConfig(load_in_4bit=True)
 
         # Model
         self.model = AutoModelForCausalLM.from_pretrained(

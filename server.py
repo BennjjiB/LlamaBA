@@ -1,6 +1,6 @@
 from flask import Flask, Response, request
 from tool_definitions import tool_definitions
-from chatbot import PandaChatBot, LLAMA_32
+from chatbot import PandaChatBot, LLAMA_32, LLAMA_31_70, LLAMA_33
 from groq_bot import GroqChatBot
 
 # setup_prompt = """
@@ -29,17 +29,13 @@ again unless it finished the task.
 """
 
 app = Flask(__name__)
-# bot = GroqChatBot(setup_prompt=setup_prompt, tools=tool_definitions)
-
-bot = GroqChatBot(model="llama-3.3-70b-specdec", setup_prompt=setup_prompt, tools=tool_definitions)
-
-
-# bot = PandaChatBot(LLAMA_32)
+#bot = GroqChatBot(model="llama-3.3-70b-specdec", setup_prompt=setup_prompt, tools=tool_definitions)
+bot = PandaChatBot(LLAMA_33, quantization="8bit", setup_prompt=setup_prompt, tools=tool_definitions)
 
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return "<p>Welcome to the panda bot api!</p>"
 
 
 @app.route("/clear")

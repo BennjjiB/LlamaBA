@@ -36,7 +36,7 @@ class ToolService():
 
     def get_tool_response_template(self, tool_response):
         dict = {
-            "role": "tool",
+            "role": "ipython",
             "name": tool_response["name"],
             "content": tool_response["content"],
         }

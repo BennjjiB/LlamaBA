@@ -29,15 +29,17 @@ class Client:
                 print(f"Error: Received status code {response.status_code}")
                 return
             for chunk in response.iter_content():
-                str = chunk.decode(errors='replace')
-                yield str
+                r = chunk.decode(errors='replace')
+                yield r
 
     def handle_response(self, response):
         generated_response = ""
-        for str in response:
-            generated_response += str
+        for r in response:
+            generated_response += r
             if not check_if_tool_call(generated_response):
                 yield {"text": generated_response}
+        if generated_response:
+            yield {"finished": True}
         tool_threads, parsed_tools = self.tool_service.parse_and_execute_response(generated_response)
         if tool_threads:
             yield {"tool": parsed_tools}

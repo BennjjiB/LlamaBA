@@ -30,8 +30,10 @@ class GroqChatBot(AbstractChatBot):
         return response.choices[0].message
 
     def generate_chat_response(self, user_input: str, is_tool_response: bool = False):
-        if is_tool_response is True:
+        if is_tool_response is True or is_tool_response.strip() == "True":
             query = json.loads(user_input)
+            # replace ipython with groq tool role
+            query["role"] = "tool"
         else:
             query = {"role": "user", "content": user_input}
         response_message = self.get_response_streamer(query)

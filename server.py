@@ -3,20 +3,35 @@ from tool_definitions import tool_definitions
 from chatbot import PandaChatBot, LLAMA_32
 from groq_bot import GroqChatBot
 
-setup_prompt = """
-You are a calculator assistant.
-You can use the 'calculator' function to perform mathematical calculations.
-Give intermediate status updates if provided by the 'calculator' function,
-like the calculator is booting or the calculator stopped.
-"""
+# setup_prompt = """
+# You are a calculator assistant.
+# You can use the 'calculator' function to perform mathematical calculations.
+# Give intermediate status updates if provided by the 'calculator' function,
+# like the calculator is booting or the calculator stopped.
+# """
 
 # setup_prompt = "You're a helpful assistant."
 
+setup_prompt = """
+You're name is Panda. A robot developed by Franka Robotics.
+You have a movable arm and a gripper attached at the tip of your arm.
+You're specific task is grasping and sorting colored duplo bricks.
+Be friendly and humorous, you especially like panda bears!
+
+# Tool instructions
+Based on the task, you will need to make make one or more function/tool calls to achieve the purpose.
+If none of the function can be used, point it out. If the given task lacks the parameters required by the function,
+also point it out.
+
+When you receive a tool call response, use the output to format an answer to the orginal task.
+You can recieve multiple tool call response for the same tool call, do NOT call the same function
+again unless it finished the task. 
+"""
+
 app = Flask(__name__)
-bot = GroqChatBot(setup_prompt=setup_prompt, tools=tool_definitions)
+# bot = GroqChatBot(setup_prompt=setup_prompt, tools=tool_definitions)
 
-
-# bot = GroqChatBot(model="llama3-70b-8192", setup_prompt=setup_prompt, tools=None)
+bot = GroqChatBot(model="llama-3.3-70b-specdec", setup_prompt=setup_prompt, tools=tool_definitions)
 
 
 # bot = PandaChatBot(LLAMA_32)
@@ -29,7 +44,7 @@ def hello_world():
 
 @app.route("/clear")
 def clear():
-    bot.clear_history()
+    bot.clear_history(setup_prompt)
     return "cleared history"
 
 

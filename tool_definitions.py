@@ -26,3 +26,4 @@ sort_bricks_definition = {
 }
 
 tool_definitions = [calculate_definition, sort_bricks_definition]
+available_tools = []

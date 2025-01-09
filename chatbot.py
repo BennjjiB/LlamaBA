@@ -93,15 +93,15 @@ class PandaChatBot(AbstractChatBot):
         # Quantitation
         quantization_config = None
         if quantization == "8bit":
-            quantization_config = BitsAndBytesConfig(load_in_8bit=True, llm_int8_enable_fp32_cpu_offload=True)
+            quantization_config = BitsAndBytesConfig(load_in_8bit=True)
         elif quantization == "4bit":
             quantization_config = BitsAndBytesConfig(load_in_4bit=True)
         # Model
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,
+            device_map="auto",
             torch_dtype=torch.bfloat16,
             quantization_config=quantization_config,
-            device_map="auto"
         )
 
         # Tokenizer

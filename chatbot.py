@@ -1,15 +1,13 @@
+from tool_service import convert_tool_call_into_chat_message, check_if_tool_call
+from typing import Literal, List
+from abc import ABC, abstractmethod
+from threading import Thread
+from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer, BitsAndBytesConfig
 import json
 import os
 import torch
 torch.cuda.empty_cache()
-from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer, BitsAndBytesConfig
 
-from threading import Thread
-from abc import ABC, abstractmethod
-from typing import Literal, List
-import torch
-
-from tool_service import convert_tool_call_into_chat_message, check_if_tool_call
 
 LLAMA_31_8 = "meta-llama/Llama-3.1-8B-Instruct"
 LLAMA_31_70 = "meta-llama/Llama-3.1-70B-Instruct"
@@ -51,9 +49,11 @@ class AbstractChatBot(ABC):
         field_name = "tool_calls" if is_tool_call else "content"
         if is_tool_call:
             print(generated_response)
-            generated_response = convert_tool_call_into_chat_message(generated_response)
+            generated_response = convert_tool_call_into_chat_message(
+                generated_response)
             print(generated_response)
-        self.conversation.append({"role": "assistant", field_name: generated_response})
+        self.conversation.append(
+            {"role": "assistant", field_name: generated_response})
 
     def clear_history(self, setup_prompt):
         self.conversation = []
@@ -93,7 +93,7 @@ class PandaChatBot(AbstractChatBot):
         # Quantitation
         quantization_config = None
         if quantization == "8bit":
-            quantization_config = BitsAndBytesConfig(load_in_8bit=True)
+            quantization_config = BitsAndBytesConfig(load_in_8bit=True, llm_int8_enable_fp32_cpu_offload=True)
         elif quantization == "4bit":
             quantization_config = BitsAndBytesConfig(load_in_4bit=True)
         # Model
@@ -108,8 +108,6 @@ class PandaChatBot(AbstractChatBot):
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
-
-        
 
     def get_response_streamer(
             self, query, max_tokens=1028, temperature=0.6, top_p=0.9

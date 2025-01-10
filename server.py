@@ -31,8 +31,8 @@ again unless it finished the task.
 """
 
 app = Flask(__name__)
-# bot = GroqChatBot(model="llama-3.3-70b-specdec", setup_prompt=setup_prompt, tools=tool_definitions)
-bot = PandaChatBot(LLAMA_31_8, setup_prompt=setup_prompt)
+bot = GroqChatBot(model="llama-3.3-70b-specdec", setup_prompt=setup_prompt, tools=tool_definitions)
+# bot = PandaChatBot(LLAMA_31_8, setup_prompt=setup_prompt)
 transcriber = Transcriber(model_type="large-v3")
 
 

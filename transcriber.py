@@ -9,7 +9,7 @@ import time
 class Transcriber():
     def __init__(
             self,
-            model_type="medium.en",
+            model_type="large-v3",
             device="cuda",
             compute_type="float16",
             max_window_duration=1,
@@ -36,8 +36,9 @@ class Transcriber():
             current_time = time.time()
             time_diff = current_time - self.stopped_speaking_time
             if time_diff >= self.start_prompt_delay:
+                print("Should sent prompt")
                 self.sentences = []
-                prompt = self.old_transcript 
+                prompt = self.old_transcript
                 self.old_transcript = ""
                 self.stopped_speaking_time = None
                 self.reset()
@@ -58,8 +59,8 @@ class Transcriber():
                 self.sentences.append(new_transcript)
             else:
                 self.sentences[-1] = new_transcript
-            self.old_transcript = "\n".join(self.sentences), False
-            return self.old_transcript
+            self.old_transcript = "\n".join(self.sentences)
+            return "\n".join(self.sentences), False
         else:
             self.reset()
             if self.started_speaking:
@@ -109,12 +110,6 @@ class Transcriber():
     def __update_buffer(self, window):
         self.buffer = np.concatenate((self.buffer, window))
         print("Updated buffer, new length:", len(self.buffer))
-        if len(self.buffer) > 3 * 16000:
-            self.save_audio_as_wav(self.buffer, 16000)
-
-    def save_audio_as_wav(self, audio_data, sample_rate):
-        audio_data = np.int16(audio_data / np.max(np.abs(audio_data)) * 32767)
-        write("test.wav", sample_rate, audio_data)
 
 
 def find_index_ignore_special_chars(main_str, sub_str):

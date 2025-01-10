@@ -1,6 +1,7 @@
 import numpy as np
 from faster_whisper import WhisperModel
 from scipy.signal import resample
+from scipy.io.wavfile import write
 import re
 import time
 
@@ -57,7 +58,8 @@ class Transcriber():
                 self.sentences.append(new_transcript)
             else:
                 self.sentences[-1] = new_transcript
-            return "\n".join(self.sentences), False
+            self.old_transcript = "\n".join(self.sentences), False
+            return self.old_transcript
         else:
             self.reset()
             if self.started_speaking:
@@ -107,6 +109,12 @@ class Transcriber():
     def __update_buffer(self, window):
         self.buffer = np.concatenate((self.buffer, window))
         print("Updated buffer, new length:", len(self.buffer))
+        if len(self.buffer) > 3 * 16000:
+            self.save_audio_as_wav(self.buffer, 16000)
+
+    def save_audio_as_wav(audio_data, sample_rate):
+        audio_data = np.int16(audio_data / np.max(np.abs(audio_data)) * 32767)
+        write("test.wav", sample_rate, audio_data)
 
 
 def find_index_ignore_special_chars(main_str, sub_str):

@@ -49,6 +49,8 @@ class Transcriber():
 
         self.__update_buffer(window)
         new_transcript = self.__transcribe(self.buffer)
+        print(len(self.buffer))
+        print(new_transcript)
         if (not self.sentences or new_transcript != self.sentences[-1]) and new_transcript:
             if not self.started_speaking:
                 self.started_speaking = True

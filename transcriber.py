@@ -31,9 +31,6 @@ class Transcriber():
         self.old_transcript = ""
 
     def transcribe_audio(self, audio_data, sr):
-        cleaned_audio = self.__clean_audio(sr, audio_data)
-        window = self.__update_window_buffer(cleaned_audio)
-        
         if self.stopped_speaking_time is not None:
             current_time = time.time()
             time_diff = current_time - self.stopped_speaking_time
@@ -42,8 +39,12 @@ class Transcriber():
                 prompt = self.old_transcript 
                 self.old_transcript = ""
                 self.stopped_speaking_time = None
+                self.reset()
                 return prompt, True
-        
+
+        cleaned_audio = self.__clean_audio(sr, audio_data)
+        window = self.__update_window_buffer(cleaned_audio)
+        print("window length", len(window))
         if window is None:
             return self.old_transcript, False
 

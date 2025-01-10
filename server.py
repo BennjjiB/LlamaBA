@@ -62,7 +62,7 @@ def transcribe():
     data = request.get_json()
     audio_data = np.array(data['audio_data'])
     sample_rate = data['sample_rate']
-
+    print(audio_data, sample_rate)
     transcription, sendPrompt = transcriber.transcribe_audio(audio_data, sample_rate)
     print("transcript", transcription)
     return jsonify({"sendPrompt": sendPrompt, "transcription": transcription})

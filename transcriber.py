@@ -109,7 +109,6 @@ class Transcriber():
 
     def __update_buffer(self, window):
         self.buffer = np.concatenate((self.buffer, window))
-        print("Updated buffer, new length:", len(self.buffer))
 
 
 def find_index_ignore_special_chars(main_str, sub_str):

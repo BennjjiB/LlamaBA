@@ -3,7 +3,6 @@ from tool_definitions import tool_definitions
 from chatbot import LLAMA_31_8, PandaChatBot, LLAMA_32, LLAMA_31_70, LLAMA_33
 from groq_bot import GroqChatBot
 from transcriber import Transcriber
-import base64
 import numpy as np
 
 # setup_prompt = """
@@ -55,14 +54,10 @@ def generate_response_stream():
     return Response(bot.generate_chat_response(user_input=prompt, is_tool_response=is_tool_response),
                     mimetype="text/event-stream")
 
-
-# WebSocket event to receive audio chunks
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
     data = request.get_json()
     audio_data = np.array(data['audio_data'])
     sample_rate = data['sample_rate']
-    print(audio_data, sample_rate)
     transcription, sendPrompt = transcriber.transcribe_audio(audio_data, sample_rate)
-    print("transcript", transcription)
     return jsonify({"sendPrompt": sendPrompt, "transcription": transcription})

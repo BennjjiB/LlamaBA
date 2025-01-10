@@ -44,14 +44,11 @@ class Transcriber():
 
         cleaned_audio = self.__clean_audio(sr, audio_data)
         window = self.__update_window_buffer(cleaned_audio)
-        print("window length", len(window))
         if window is None:
             return self.old_transcript, False
 
         self.__update_buffer(window)
         new_transcript = self.__transcribe(self.buffer)
-        print(len(self.buffer))
-        print(new_transcript)
         if (not self.sentences or new_transcript != self.sentences[-1]) and new_transcript:
             if not self.started_speaking:
                 self.started_speaking = True
@@ -109,6 +106,7 @@ class Transcriber():
 
     def __update_buffer(self, window):
         self.buffer = np.concatenate((self.buffer, window))
+        print("Updated buffer, new length:", len(self.buffer))
 
 
 def find_index_ignore_special_chars(main_str, sub_str):

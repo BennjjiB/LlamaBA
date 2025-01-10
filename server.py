@@ -1,7 +1,10 @@
-from flask import Flask, Response, request
+from flask import Flask, Response, request, jsonify
 from tool_definitions import tool_definitions
 from chatbot import LLAMA_31_8, PandaChatBot, LLAMA_32, LLAMA_31_70, LLAMA_33
 from groq_bot import GroqChatBot
+from transcriber import Transcriber
+import base64
+import numpy as np
 
 # setup_prompt = """
 # You are a calculator assistant.
@@ -29,8 +32,9 @@ again unless it finished the task.
 """
 
 app = Flask(__name__)
-#bot = GroqChatBot(model="llama-3.3-70b-specdec", setup_prompt=setup_prompt, tools=tool_definitions)
+# bot = GroqChatBot(model="llama-3.3-70b-specdec", setup_prompt=setup_prompt, tools=tool_definitions)
 bot = PandaChatBot(LLAMA_31_8, setup_prompt=setup_prompt)
+transcriber = Transcriber(model_type="large-v3", max_window_duration=0.5)
 
 
 @app.route("/")
@@ -50,3 +54,16 @@ def generate_response_stream():
     is_tool_response = request.args.get('is_tool_response')
     return Response(bot.generate_chat_response(user_input=prompt, is_tool_response=is_tool_response),
                     mimetype="text/event-stream")
+
+
+# WebSocket event to receive audio chunks
+@app.route('/transcribe', methods=['POST'])
+def transcribe():
+    data = request.get_json()
+    audio_base64 = data['audio_data']
+    sample_rate = data['sample_rate']
+    audio_bytes = base64.b64decode(audio_base64)
+    audio_data = np.frombuffer(audio_bytes, dtype=np.float32)
+
+    transcription, sendPrompt = transcriber.transcribe_audio(audio_data, sample_rate)
+    return jsonify({"sendPrompt": sendPrompt, "transcription": transcription})

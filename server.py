@@ -60,10 +60,8 @@ def generate_response_stream():
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
     data = request.get_json()
-    audio_base64 = data['audio_data']
+    audio_data = np.array(data['audio_data'])
     sample_rate = data['sample_rate']
-    audio_bytes = base64.b64decode(audio_base64)
-    audio_data = np.frombuffer(audio_bytes, dtype=np.float32)
 
     transcription, sendPrompt = transcriber.transcribe_audio(audio_data, sample_rate)
     return jsonify({"sendPrompt": sendPrompt, "transcription": transcription})

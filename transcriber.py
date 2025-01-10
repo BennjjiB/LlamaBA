@@ -112,7 +112,7 @@ class Transcriber():
         if len(self.buffer) > 3 * 16000:
             self.save_audio_as_wav(self.buffer, 16000)
 
-    def save_audio_as_wav(audio_data, sample_rate):
+    def save_audio_as_wav(self, audio_data, sample_rate):
         audio_data = np.int16(audio_data / np.max(np.abs(audio_data)) * 32767)
         write("test.wav", sample_rate, audio_data)
 

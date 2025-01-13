@@ -1,4 +1,4 @@
-from tool_service import convert_tool_call_into_chat_message, check_if_tool_call
+from tool_utils import convert_tool_call_into_chat_message, check_if_tool_call
 from typing import Literal, List
 from abc import ABC, abstractmethod
 from threading import Thread

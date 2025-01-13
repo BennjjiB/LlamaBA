@@ -6,3 +6,6 @@ def convert_tool_call_into_chat_message(text):
     tool_call_match = re.findall(tool_call_pattern, text, re.DOTALL)
     tool_calls = [json.loads(match.strip()) for match in tool_call_match]
     return [{"type": "function", "function": tool_call} for tool_call in tool_calls]
+
+def check_if_tool_call(chunk):
+    return chunk.startswith("<tool_call>")

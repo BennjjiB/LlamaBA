@@ -44,7 +44,6 @@ Reminder:
 - Put the entire function call reply on one line
 
 You are a helpful assistant. Your name is Panda. 
-Only respond with the answer or tool call for the user request. Do not append "assistant" in front of a response!
 """
 
 app = Flask(__name__)

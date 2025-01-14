@@ -12,7 +12,6 @@ class Transcriber():
             model_type="large-v3",
             device="cuda",
             compute_type="float16",
-            max_window_duration=1,
             start_prompt_delay=2
     ):
         """
@@ -22,9 +21,7 @@ class Transcriber():
         """
         self.whisper = WhisperModel(
             model_type, device=device, compute_type=compute_type)
-        self.max_window_samples = int(max_window_duration * 16000)
         self.buffer = np.array([], dtype=np.float32)
-        self.window_buffer = np.array([], dtype=np.float32)
         self.started_speaking = False
         self.stopped_speaking_time = None
         self.start_prompt_delay = start_prompt_delay
@@ -45,11 +42,7 @@ class Transcriber():
                 return prompt, True
 
         cleaned_audio = self.__clean_audio(sr, audio_data)
-        window = self.__update_window_buffer(cleaned_audio)
-        if window is None:
-            return self.old_transcript, False
-
-        self.__update_buffer(window)
+        self.__update_buffer(cleaned_audio)
         new_transcript = self.__transcribe(self.buffer)
         if (not self.sentences or new_transcript != self.sentences[-1]) and new_transcript:
             if not self.started_speaking:
@@ -76,11 +69,11 @@ class Transcriber():
         # add vad_filter
         segments, _ = self.whisper.transcribe(
             audio_data,
+            language="de",
             beam_size=5,
-            word_timestamps=True,
             vad_filter=True,
             vad_parameters=dict(
-                onset=0.9, offset=0.5, min_speech_duration_ms=500, min_silence_duration_ms=1000)
+                onset=0.9, offset=0.9 - 0.15, min_speech_duration_ms=0, min_silence_duration_ms=1000)
         )
         segments = list(segments)
         return "".join([segment.text for segment in segments]).strip()
@@ -99,36 +92,5 @@ class Transcriber():
             audio_data = audio_data / max_val
         return audio_data
 
-    def __update_window_buffer(self, new_chunk):
-        self.window_buffer = np.concatenate((self.window_buffer, new_chunk))
-        if len(self.window_buffer) > self.max_window_samples:
-            full_window = self.window_buffer[:self.max_window_samples]
-            self.window_buffer = self.window_buffer[self.max_window_samples:]
-            return full_window
-        return None
-
     def __update_buffer(self, window):
         self.buffer = np.concatenate((self.buffer, window))
-
-
-def find_index_ignore_special_chars(main_str, sub_str):
-    # Remove special characters using regex (adjust the list of characters as needed)
-    cleaned_main_str = re.sub(r'[^\w\s]', '', main_str)
-    cleaned_sub_str = re.sub(r'[^\w\s]', '', sub_str)
-
-    # Find index of the cleaned substring in the cleaned main string
-    cleaned_index = cleaned_main_str.find(cleaned_sub_str)
-
-    if cleaned_index != -1:
-        # Map the cleaned index to the original string
-        original_index = 0
-        cleaned_counter = 0
-        for i, char in enumerate(main_str):
-            if re.match(r'\w|\s', char):  # Only count alphanumeric or whitespace characters
-                if cleaned_counter == cleaned_index:
-                    original_index = i
-                    break
-                cleaned_counter += 1
-
-        return original_index
-    return -1

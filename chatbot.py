@@ -87,9 +87,8 @@ class PandaChatBot(AbstractChatBot):
             model_path: str,
             quantization: Literal["16bit", "8bit", "4bit"] = "16bit",
             setup_prompt: str = "You are a helpful assistant",
-            tools=None
     ):
-        super().__init__(setup_prompt=setup_prompt, tools=tools)
+        super().__init__(setup_prompt=setup_prompt)
         # Quantitation
         quantization_config = None
         if quantization == "8bit":

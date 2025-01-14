@@ -14,25 +14,32 @@ import numpy as np
 
 # setup_prompt = "You're a helpful assistant."
 
-setup_prompt = """
-You're name is Panda. A robot developed by Franka Robotics.
-You have a movable arm and a gripper attached at the tip of your arm.
-You're specific task is grasping and sorting colored duplo bricks.
-Be friendly and humorous, you especially like panda bears!
+setup_prompt = f"""
+You have access to the following functions:
 
-# Tool instructions
-Based on the task, you will need to make make one or more function/tool calls to achieve the purpose.
-If none of the function can be used, point it out. If the given task lacks the parameters required by the function,
-also point it out.
+Use the function 'sort_all_bricks' to: Sort all bricks by either color or size. 
+{tool_definitions.sort_bricks_definition}
 
-When you receive a tool call response, use the output to format an answer to the orginal task.
-You can recieve multiple tool call response for the same tool call, do NOT call the same function
-again unless it finished the task. 
+
+If a you choose to call a function ONLY reply in the following format:
+<tool_call>{{"function_name": function name, "parameters": dictionary of argument name and its value}}</tool_call>
+Do not use variables.
+
+Here is an example,
+<tool_call>{{"function_name": sort_all_bricks, "parameters": {{"by_color": true}}}}</tool_call>
+
+Reminder:
+- Function calls MUST follow the specified format
+- Required parameters MUST be specified
+- Only call one function at a time
+- Put the entire function call reply on one line
+
+You are a helpful assistant.
 """
 
 app = Flask(__name__)
 # bot = GroqChatBot(model="llama-3.3-70b-specdec", setup_prompt=setup_prompt, tools=tool_definitions)
-bot = PandaChatBot(LLAMA_33, setup_prompt=setup_prompt, tools=tool_definitions)
+bot = PandaChatBot(LLAMA_31_8, setup_prompt=setup_prompt)
 transcriber = Transcriber()
 
 

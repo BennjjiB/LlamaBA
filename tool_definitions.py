@@ -1,4 +1,4 @@
-sort_bricks_definition = {
+sort_bricks_definition = """{
     "type": "function",
     "function": {
         "name": "sort_all_bricks",
@@ -16,8 +16,7 @@ sort_bricks_definition = {
             ]
         }
     }
-}
+}"""
 
-tool_definitions = [sort_bricks_definition]
 
 

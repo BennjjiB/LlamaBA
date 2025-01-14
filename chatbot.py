@@ -119,7 +119,7 @@ class PandaChatBot(AbstractChatBot):
             tools=self.tools,
             tokenize=False,
             return_tensors="pt",
-            return_dict=True
+            return_dict=False
         )
         print(prompt)
         prompt.to(self.device)

@@ -26,7 +26,7 @@ If a you choose to call a function ONLY reply in the following format:
 Do not use variables.
 
 Here is an example,
-<tool_call>{{"function_name": sort_all_bricks, "parameters": {{"by_color": true}}}}</tool_call>
+<tool_call>{{"function_name": "sort_all_bricks", "parameters": {{"by_color": true}}}}</tool_call>
 
 Reminder:
 - Function calls MUST follow the specified format

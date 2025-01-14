@@ -116,6 +116,7 @@ class PandaChatBot(AbstractChatBot):
             self.conversation,
             tools=self.tools,
             tokenize=True,
+            add_generation_prompt=True,
             return_tensors="pt",
             return_dict=True
         )

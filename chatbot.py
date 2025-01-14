@@ -103,7 +103,7 @@ class PandaChatBot(AbstractChatBot):
             torch_dtype=torch.bfloat16,
             quantization_config=quantization_config,
         )
-
+        print(self.model.hf_device_map)
         # Tokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         if self.tokenizer.pad_token is None:

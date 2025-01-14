@@ -103,7 +103,6 @@ class PandaChatBot(AbstractChatBot):
             torch_dtype=torch.bfloat16,
             quantization_config=quantization_config,
         )
-        print(self.model.hf_device_map)
         # Tokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         if self.tokenizer.pad_token is None:
@@ -117,11 +116,10 @@ class PandaChatBot(AbstractChatBot):
         prompt = self.tokenizer.apply_chat_template(
             self.conversation,
             tools=self.tools,
-            tokenize=False,
+            tokenize=True,
             return_tensors="pt",
-            return_dict=False
+            return_dict=True
         )
-        print(prompt)
         prompt.to(self.device)
         # Create text streamer
         streamer = TextIteratorStreamer(

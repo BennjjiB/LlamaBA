@@ -19,4 +19,33 @@ sort_bricks_definition = """{
 }"""
 
 
+grab_brick = """{
+    "type": "function",
+    "function": {
+        "name": "grab_brick",
+        "description": "Grabs and sorts one specific brick.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "type": "str",
+                    "description": "The color of the brick. Possible colors are: red, blue, green, yellow, orange."
+                }
+            },
+            "required": [color]
+        }
+    }
+}"""
 
+get_collision_free_bricks = """{
+    "type": "function",
+    "function": {
+        "name": "get_collision_free_bricks",
+        "description": "Returns a list of all collision free bricks. These bricks can be grabbed by the robot.",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        }
+    }
+}"""

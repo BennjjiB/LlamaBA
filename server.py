@@ -1,5 +1,5 @@
 from flask import Flask, Response, request, jsonify
-from tool_definitions import sort_bricks_definition
+import tool_definitions
 from chatbot import LLAMA_31_8, PandaChatBot, LLAMA_32, LLAMA_31_70, LLAMA_33
 from groq_bot import GroqChatBot
 from transcriber import Transcriber
@@ -18,7 +18,16 @@ setup_prompt = f"""
 You have access to the following functions:
 
 Use the function 'sort_all_bricks' to: Sort all bricks by either color or size. 
-{sort_bricks_definition}
+{tool_definitions.sort_bricks_definition}
+
+
+Use the function 'grab_brick' to: Grab and sort one brick specified by its color. 
+{tool_definitions.grab_brick}
+
+
+Use the function 'get_collision_free_bricks' to: Get a list of all collision free bricks.
+{tool_definitions.get_collision_free_bricks}
+
 
 
 If a you choose to call a function ONLY reply in the following format:
@@ -34,7 +43,8 @@ Reminder:
 - Only call one function at a time
 - Put the entire function call reply on one line
 
-You are a helpful assistant.
+You are a helpful assistant. Your name is Panda. 
+Only respond with the answer or tool call for the user request. Do not append "assistant" in front of a response!
 """
 
 app = Flask(__name__)

@@ -1,5 +1,5 @@
 from flask import Flask, Response, request, jsonify
-from tool_definitions import tool_definitions
+from tool_definitions import sort_bricks_definition
 from chatbot import LLAMA_31_8, PandaChatBot, LLAMA_32, LLAMA_31_70, LLAMA_33
 from groq_bot import GroqChatBot
 from transcriber import Transcriber
@@ -18,7 +18,7 @@ setup_prompt = f"""
 You have access to the following functions:
 
 Use the function 'sort_all_bricks' to: Sort all bricks by either color or size. 
-{tool_definitions.sort_bricks_definition}
+{sort_bricks_definition}
 
 
 If a you choose to call a function ONLY reply in the following format:

@@ -117,10 +117,11 @@ class PandaChatBot(AbstractChatBot):
         prompt = self.tokenizer.apply_chat_template(
             self.conversation,
             tools=self.tools,
-            tokenize=True,
+            tokenize=False,
             return_tensors="pt",
             return_dict=True
         )
+        print(prompt)
         prompt.to(self.device)
         # Create text streamer
         streamer = TextIteratorStreamer(

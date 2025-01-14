@@ -22,7 +22,7 @@ Use the function 'sort_all_bricks' to: Sort all bricks by either color or size.
 
 
 If a you choose to call a function ONLY reply in the following format:
-<tool_call>{{"function_name": function name, "parameters": dictionary of argument name and its value}}</tool_call>
+<tool_call>{{"function_name": function name, "arguments": dictionary of argument name and its value}}</tool_call>
 Do not use variables.
 
 Here is an example,

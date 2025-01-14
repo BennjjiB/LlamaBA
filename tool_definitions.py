@@ -1,29 +1,23 @@
-calculate_definition = {
-    "type": "function",
-    "function": {
-        "name": "calculate",
-        "description": "Evaluate a mathematical expression. Note the calculator first has to boot!",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "expression": {
-                    "type": "string",
-                    "description": "The mathematical expression to evaluate",
-                }
-            },
-            "required": ["expression"],
-        },
-    },
-}
-
 sort_bricks_definition = {
     "type": "function",
     "function": {
-        "name": "sort_bricks",
-        "description": "Sorts all bricks by color.",
-        "parameters": {},
-    },
+        "name": "sort_all_bricks",
+        "description": "Sorts all bricks by color or size.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "by_color": {
+                    "type": "bool",
+                    "description": "If true, bricks will be sorted by color."
+                }
+            },
+            "required": [
+                "by_color"
+            ]
+        }
+    }
 }
 
-tool_definitions = [calculate_definition, sort_bricks_definition]
-available_tools = []
+tool_definitions = [sort_bricks_definition]
+
+

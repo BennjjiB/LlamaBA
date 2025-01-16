@@ -69,7 +69,7 @@ class Transcriber():
         # add vad_filter
         segments, _ = self.whisper.transcribe(
             audio_data,
-            language="de",
+            language="en",
             beam_size=5,
             vad_filter=True,
             vad_parameters=dict(

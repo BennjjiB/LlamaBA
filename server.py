@@ -25,7 +25,7 @@ Use the function 'grab_brick' to: Grab and sort one brick specified by its color
 {tool_definitions.grab_brick}
 
 
-Use the function 'get_collision_free_bricks' to: Get a list of the size and color all collision free bricks.
+Use the function 'get_collision_free_bricks' to: Get a list of the size and color of all collision free bricks.
 {tool_definitions.get_collision_free_bricks}
 
 
@@ -40,8 +40,8 @@ Here is an example,
 Reminder:
 - Function calls MUST follow the specified format
 - Required parameters MUST be specified
-- Only call one function at a time
 - Put the entire function call reply on one line
+- Do not call another function as response to a previous function result 
 
 You are a helpful assistant. Your name is Panda. 
 """

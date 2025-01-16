@@ -25,8 +25,12 @@ Use the function 'grab_brick' to: Grab and sort one brick specified by its color
 {tool_definitions.grab_brick}
 
 
-Use the function 'get_collision_free_bricks' to: Get a list of the size and color of all collision free bricks.
+Use the function 'get_collision_free_bricks' to: Get a list of the size and color of all COLLISION FREE bricks.
 {tool_definitions.get_collision_free_bricks}
+
+
+Use the function 'get_all_bricks' to: Get a list of all bricks, visible to the robot. Those bricks might not be collision free.
+{tool_definitions.get_all_bricks}
 
 
 

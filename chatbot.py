@@ -37,7 +37,8 @@ class AbstractChatBot(ABC):
 
     def generate_chat_response(self, user_input: str, is_tool_response: bool = False):
         if is_tool_response is True or is_tool_response.strip() == "True":
-            query = json.loads(user_input)
+            tool_response = json.loads(user_input)
+            query = {"role": tool_response.pop("role"), "content": tool_response}
         else:
             query = {"role": "user", "content": user_input}
         print(query)

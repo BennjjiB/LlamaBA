@@ -49,3 +49,16 @@ get_collision_free_bricks = """{
         }
     }
 }"""
+
+get_all_bricks = """{
+    "type": "function",
+    "function": {
+        "name": "get_all_bricks",
+        "description": "Returns a list of all bricks visible to the user. To get a list of all bricks that can be grabbed by the robot use get_collision_free_bricks.",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        }
+    }
+}"""

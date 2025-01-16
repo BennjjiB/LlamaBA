@@ -41,7 +41,7 @@ get_collision_free_bricks = """{
     "type": "function",
     "function": {
         "name": "get_collision_free_bricks",
-        "description": "Returns a list of all collision free bricks [(size, color), ...]. These bricks can be grabbed by the robot.",
+        "description": "Returns a list of all collision free bricks in the following format: [(size, color), ...]. These bricks can be grabbed by the robot.",
         "parameters": {
             "type": "object",
             "properties": {},
@@ -54,7 +54,7 @@ get_all_bricks = """{
     "type": "function",
     "function": {
         "name": "get_all_bricks",
-        "description": "Returns a list of all bricks visible to the user. To get a list of all bricks that can be grabbed by the robot use get_collision_free_bricks.",
+        "description": "Returns a list of all bricks visible to the user in the following format: [(size, color), ...].",
         "parameters": {
             "type": "object",
             "properties": {},

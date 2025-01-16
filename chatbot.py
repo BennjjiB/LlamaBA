@@ -40,6 +40,7 @@ class AbstractChatBot(ABC):
             query = json.loads(user_input)
         else:
             query = {"role": "user", "content": user_input}
+        print(query)
         streamer = self.get_response_streamer(query)
         generated_response = ""
         for response in streamer:

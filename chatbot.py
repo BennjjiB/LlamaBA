@@ -38,7 +38,8 @@ class AbstractChatBot(ABC):
     def generate_chat_response(self, user_input: str, is_tool_response: bool = False):
         if is_tool_response is True or is_tool_response.strip() == "True":
             tool_response = json.loads(user_input)
-            query = {"role": tool_response["role"], "name": tool_response["name"], "content": tool_response["content"]}
+            query = {"role": "ipython",
+                     "content": tool_response["name"] + ": " + tool_response["content"]}
         else:
             query = {"role": "user", "content": user_input}
         print(query)
@@ -50,8 +51,10 @@ class AbstractChatBot(ABC):
         is_tool_call = check_if_tool_call(generated_response)
         field_name = "tool_calls" if is_tool_call else "content"
         if is_tool_call:
-            generated_response = convert_tool_call_into_chat_message(generated_response)
-        self.conversation.append({"role": "assistant", field_name: generated_response})
+            generated_response = convert_tool_call_into_chat_message(
+                generated_response)
+        self.conversation.append(
+            {"role": "assistant", field_name: generated_response})
 
     def clear_history(self, setup_prompt):
         self.conversation = []

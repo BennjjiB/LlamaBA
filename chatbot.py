@@ -48,13 +48,7 @@ class AbstractChatBot(ABC):
         for response in streamer:
             generated_response += response
             yield response
-        is_tool_call = check_if_tool_call(generated_response)
-        field_name = "tool_calls" if is_tool_call else "content"
-        if is_tool_call:
-            generated_response = convert_tool_call_into_chat_message(
-                generated_response)
-        self.conversation.append(
-            {"role": "assistant", field_name: generated_response})
+        self.conversation.append({"role": "assistant", "content": generated_response})
 
     def clear_history(self, setup_prompt):
         self.conversation = []

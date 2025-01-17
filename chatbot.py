@@ -47,7 +47,8 @@ class AbstractChatBot(ABC):
         for response in streamer:
             generated_response += response
             yield response
-        self.conversation.append({"role": "assistant", "content": generated_response})
+        self.conversation.append(
+            {"role": "assistant", "content": generated_response})
 
     def clear_history(self, setup_prompt):
         self.conversation = []
@@ -100,6 +101,10 @@ class PandaChatBot(AbstractChatBot):
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
+        self.terminators = [
+            self.tokenizer.eos_token_id,
+            self.tokenizer.convert_tokens_to_ids("<|eot_id|>")
+        ]
 
     def get_response_streamer(
             self, query, max_tokens=1028, temperature=0.6, top_p=0.9
@@ -131,7 +136,7 @@ class PandaChatBot(AbstractChatBot):
             top_p=top_p,
             temperature=temperature,
             pad_token_id=self.tokenizer.pad_token_id,
-            eos_token_id=self.tokenizer.eos_token_id,
+            eos_token_id=self.terminators,
             attention_mask=prompt["attention_mask"]
         )
         thread = Thread(target=self.model.generate, kwargs=generation_kwargs)

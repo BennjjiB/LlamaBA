@@ -92,5 +92,7 @@ class Transcriber():
             audio_data = audio_data / max_val
         return audio_data
 
-    def __update_buffer(self, window):
-        self.buffer = np.concatenate((self.buffer, window))
+    def __update_buffer(self, chunk):
+        if len(self.buffer) / 16000 > 20:
+            self.buffer = np.array([], dtype=np.float32)
+        self.buffer = np.concatenate((self.buffer, chunk))

@@ -69,9 +69,9 @@ def get_llama_version() -> str:
                       )
     ]
     result = inquirer.prompt(questions)
-    if result is '3.1 8B':
+    if result == '3.1 8B':
         return LLAMA_31_8
-    elif result is '3.3 70B':
+    elif result == '3.3 70B':
         return LLAMA_33
 
 

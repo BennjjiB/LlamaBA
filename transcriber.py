@@ -1,8 +1,7 @@
 import numpy as np
 from faster_whisper import WhisperModel
 from scipy.signal import resample
-from scipy.io.wavfile import write
-import re
+
 import time
 
 
@@ -70,7 +69,7 @@ class Transcriber():
         self.sentences = []
         self.buffer = np.array([], dtype=np.float32)
 
-    def __transcribe(self, audio_data) -> str:
+    def transcribe(self, audio_data) -> str:
         # add vad_filter
         segments, _ = self.whisper.transcribe(
             audio_data,
@@ -83,7 +82,7 @@ class Transcriber():
         segments = list(segments)
         return "".join([segment.text for segment in segments]).strip()
 
-    def __clean_audio(self, sr, audio_data):
+    def clean_audio(self, sr, audio_data):
         # Convert to mono if stereo
         if audio_data.ndim > 1:
             audio_data = audio_data.mean(axis=1)

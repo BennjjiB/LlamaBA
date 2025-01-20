@@ -63,6 +63,8 @@ class Transcriber():
             return self.old_transcript, False
 
     def reset(self):
+        self.old_transcript = ""
+        self.sentences = []
         self.buffer = np.array([], dtype=np.float32)
 
     def __transcribe(self, audio_data) -> str:

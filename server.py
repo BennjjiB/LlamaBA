@@ -4,6 +4,8 @@ from chatbot import LLAMA_31_8, PandaChatBot, LLAMA_32, LLAMA_31_70, LLAMA_33
 from groq_bot import GroqChatBot
 from transcriber import Transcriber
 import numpy as np
+import inquirer
+
 
 # setup_prompt = """
 # You are a calculator assistant.
@@ -56,7 +58,24 @@ You are a helpful assistant. Your name is Panda.
 
 app = Flask(__name__)
 # bot = GroqChatBot(model="llama-3.3-70b-specdec", setup_prompt=setup_prompt, tools=tool_definitions)
-bot = PandaChatBot(LLAMA_31_8, setup_prompt=setup_prompt)
+
+
+def get_llama_version() -> str:
+    questions = [
+        inquirer.List('Llama Model',
+                      message="What llama model should be used.",
+                      choices=['3.1 8B', '3.3 70B'],
+                      carousel=True
+                      )
+    ]
+    result = inquirer.prompt(questions)
+    if result is '3.1 8B':
+        return LLAMA_31_8
+    elif result is '3.3 70B':
+        return LLAMA_33
+
+
+bot = PandaChatBot(get_llama_version(), setup_prompt=setup_prompt)
 transcriber = Transcriber()
 
 
@@ -79,10 +98,12 @@ def generate_response_stream():
     return Response(bot.generate_chat_response(user_input=prompt, is_tool_response=is_tool_response),
                     mimetype="text/event-stream")
 
+
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
     data = request.get_json()
     audio_data = np.array(data['audio_data'])
     sample_rate = data['sample_rate']
-    transcription, sendPrompt = transcriber.transcribe_audio(audio_data, sample_rate)
+    transcription, sendPrompt = transcriber.transcribe_audio(
+        audio_data, sample_rate)
     return jsonify({"sendPrompt": sendPrompt, "transcription": transcription})

@@ -68,7 +68,7 @@ def get_llama_version() -> str:
                       carousel=True
                       )
     ]
-    result = inquirer.prompt(questions)
+    result = inquirer.prompt(questions["Llama Model"])
     print(result)
     if result == '3.1 8B':
         return LLAMA_31_8

@@ -63,6 +63,9 @@ class Transcriber():
             return self.old_transcript, False
 
     def reset(self):
+        self.buffer = np.array([], dtype=np.float32)
+
+    def hard_reset(self):
         self.old_transcript = ""
         self.sentences = []
         self.buffer = np.array([], dtype=np.float32)

@@ -87,7 +87,7 @@ def hello_world():
 @app.route("/clear")
 def clear():
     bot.clear_history(setup_prompt)
-    transcriber.reset()
+    transcriber.hard_reset()
     return "cleared history"
 
 

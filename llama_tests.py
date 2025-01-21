@@ -1,4 +1,4 @@
-from chatbot import PandaChatBot
+from chatbot import LLAMA_31_8, LLAMA_33, PandaChatBot
 from experiment_prompts import easy_prompt, easy_target, neutral_prompt, hard_target, hard_prompt
 from setup import setup_prompt
 from tool_utils import parse_tools

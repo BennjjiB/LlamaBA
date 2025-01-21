@@ -43,7 +43,7 @@ def execute_test_user_input(prompt, target):
     bot.clear_history(setup_prompt)
     streamer = bot.generate_chat_response(prompt)
     response = "".join([chunk for chunk in streamer])
-    print(f"Prompt: {prompt}\nResponse:\n{response}\Target:\n{target}\n\n")
+    print(f"Prompt:\n{prompt}\nResponse:\n{response}\nTarget:\n{target}\n\n")
     questions = [
         inquirer.List('result',
                       message="Choose",

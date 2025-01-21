@@ -11,16 +11,15 @@ def execute_test(prompt, target):
     bot.clear_history(setup_prompt)
     streamer = bot.generate_chat_response(prompt)
     response = "".join([chunk for chunk in streamer])
-    is_tool_call = check_if_tool_call(response)
-    if not is_tool_call and not target:
+    tools = parse_tools(response)
+    if len(tools) == 0 and not target:
         return "tn", response
-    elif not is_tool_call and target is not False:
+    elif len(tools) == 0 and target is not False:
         return "fn", response
-    elif is_tool_call and not target:
+    elif len(tools) > 0 and not target:
         return "fp", response
-    elif is_tool_call and target is not False:
-        tool = parse_tools(response)
-        if tool[0] == target:
+    elif len(tools) == 0 and target is not False:
+        if tools[0] == target:
             return "tp", response
         else:
             return "fn", response
@@ -40,7 +39,7 @@ def test(name, prompts, target):
     fn = results["fn"]
 
     accuracy = (tp + tn) / (tp + tn + fp +
-                fn) if (tp + tn + fp + fn) > 0 else 0
+                            fn) if (tp + tn + fp + fn) > 0 else 0
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0
     with open("llama_experiment/" + name + lama_version, "w") as file:
         file.write("Test Results Summary:\n")
@@ -55,7 +54,7 @@ def test(name, prompts, target):
 
 
 def aggregate_results(*results_dicts):
-    total_results={"tp": 0, "fp": 0, "tn": 0, "fn": 0}
+    total_results = {"tp": 0, "fp": 0, "tn": 0, "fn": 0}
     for result in results_dicts:
         for key in total_results:
             total_results[key] += result[key]
@@ -63,18 +62,19 @@ def aggregate_results(*results_dicts):
 
 
 if __name__ == "__main__":
-    r_1=test("easy", easy_prompt, easy_target)
-    r_2=test("neutral", neutral_prompt, [False] * 10)
-    r_3=test("hard", hard_prompt, hard_target)
+    r_1 = test("easy", easy_prompt, easy_target)
+    r_2 = test("neutral", neutral_prompt, [False] * 10)
+    r_3 = test("hard", hard_prompt, hard_target)
 
-    total_results=aggregate_results(r_1, r_2, r_3)
+    total_results = aggregate_results(r_1, r_2, r_3)
 
-    tp=total_results["tp"]
-    fp=total_results["fp"]
-    tn=total_results["tn"]
-    fn=total_results["fn"]
-    accuracy=(tp + tn) / (tp + tn + fp + fn) if (tp + tn + fp + fn) > 0 else 0
-    precision=tp / (tp + fp) if (tp + fp) > 0 else 0
+    tp = total_results["tp"]
+    fp = total_results["fp"]
+    tn = total_results["tn"]
+    fn = total_results["fn"]
+    accuracy = (tp + tn) / (tp + tn + fp +
+                            fn) if (tp + tn + fp + fn) > 0 else 0
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0
 
     with open("llama_experiment/" + "total_result" + lama_version, "w") as file:
         file.write("Test Results Summary:\n")

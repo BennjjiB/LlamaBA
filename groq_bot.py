@@ -42,7 +42,6 @@ class GroqChatBot(AbstractChatBot):
                      for tool_call in tool_calls]
             self.conversation.append(response_message)
             for tool in tools:
-                print(tool)
                 yield f"<tool_call>{json.dumps(tool)}</tool_call>"
         else:
             yield response_message.content

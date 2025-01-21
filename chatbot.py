@@ -18,7 +18,6 @@ LLAMA_33 = "meta-llama/Llama-3.3-70B-Instruct"
 class AbstractChatBot(ABC):
     def __init__(self, setup_prompt: str = "You are a helpful assistant", tools: List = None):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        print('Running on:', self.device)
         self.tools = tools
         self.conversation = []
         self.setup(setup_prompt)
@@ -42,7 +41,6 @@ class AbstractChatBot(ABC):
             query = {"role": "ipython", "content": tool_response["content"]}
         else:
             query = {"role": "user", "content": user_input}
-        print(query)
         streamer = self.get_response_streamer(query)
         generated_response = ""
         for response in streamer:
@@ -55,28 +53,9 @@ class AbstractChatBot(ABC):
         self.conversation = []
         self.setup(setup_prompt)
 
-    def chatbot(self, system_instructions: str = ""):
-        """
-        Generates a chatbot interface. Useful for texting the llm.
-        """
-        self.setup(system_instructions)
-        while True:
-            user_input = input("User: ")
-            if user_input.lower() in ["exit", "quit"]:
-                print("Exiting the chatbot. Goodbye!")
-                break
-            generated_response = ""
-            for response in self.generate_chat_response(user_input):
-                generated_response += response
-                if (response.strip()):
-                    os.system('cls' if os.name == 'nt' else 'clear')
-                    print("User input:", user_input)
-                    print("Llama response:", generated_response)
-                    print('', end='', flush=True)
-            print()
-
-
 # ---------------------------------------------------------
+
+
 class PandaChatBot(AbstractChatBot):
     def __init__(
             self,

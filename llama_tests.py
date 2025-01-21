@@ -3,6 +3,7 @@ from experiment_prompts import easy_prompt, easy_target, neutral_prompt, hard_ta
 from setup import setup_prompt
 from tool_utils import parse_tools
 import inquirer
+import os
 
 
 def get_llama_v() -> str:
@@ -54,7 +55,9 @@ def test(name, prompts, target):
     accuracy = (tp + tn) / (tp + tn + fp +
                             fn) if (tp + tn + fp + fn) > 0 else 0
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0
-    with open("llama_experiment/" + name + lama_version, "w") as file:
+    file_path = "llama_experiment/" + name + "_" + lama_version
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    with open(file_path, "w") as file:
         file.write("Test Results Summary:\n")
         for key, value in results.items():
             file.write(f"{key}: {value}\n")

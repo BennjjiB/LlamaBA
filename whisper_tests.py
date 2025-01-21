@@ -8,7 +8,7 @@ SAMPLE_SIZE = 1
 
 transcriber = Transcriber()
 transcriptions = []
-targets = easy_prompt + neutral_prompt + hard_prompt
+targets = ["Quitea nice target"] #easy_prompt + neutral_prompt + hard_prompt
 duration = 0
 transcription_time = 0
 

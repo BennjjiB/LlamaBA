@@ -1,3 +1,4 @@
+import time
 import soundfile as sf
 from experiment_prompts import easy_prompt, neutral_prompt, hard_prompt
 from transcriber import Transcriber

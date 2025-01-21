@@ -26,10 +26,27 @@ for i in range(0, SAMPLE_SIZE):
     transcriptions.append(transcription)
 
 # Evaluation
+# Word Error Rate = Edit distance (https://en.wikipedia.org/wiki/Word_error_rate)
 word_error_rate = wer(targets, transcriptions)
+# Speed Factor = Audio Duration (Real Time) / Transcription Time
 speed = duration / transcription_time
 
-print(word_error_rate, speed, duration, transcription_time)
-# Metrics:
-# Speed Factor = Audio Duration (Real Time) / Transcription Time
-# Word Error Rate = Edit distance (https://en.wikipedia.org/wiki/Word_error_rate)
+results = "Transcription Results:\n-----------------------\n"
+for i, (target, transcription) in enumerate(zip(targets, transcriptions)):
+    results += f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n\n"
+
+results += f"""
+Metrics:
+--------
+Word Error Rate (WER): {word_error_rate:.4f}
+Speed (seconds of audio per second of processing): {speed:.4f}
+Total Audio Duration: {duration:.2f} seconds
+Total Transcription Time: {transcription_time:.2f} seconds
+"""
+
+# Save results to a file
+output_file = "transcription_results.txt"
+with open(output_file, "w") as file:
+    file.write(results)
+
+print(word_error_rate, speed)

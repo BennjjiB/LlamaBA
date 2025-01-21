@@ -27,13 +27,13 @@ def execute_test(prompt, target):
     tools = parse_tools(response)
     print(tools)
     print(target)
-    if len(tools) == 0 and not target:
+    if not tools and not target:
         return "tn", response
-    elif len(tools) == 0 and target is not False:
+    elif not tools and target:
         return "fn", response
-    elif len(tools) > 0 and not target:
+    elif tools and not target:
         return "fp", response
-    elif len(tools) == 0 and target is not False:
+    elif tools and target:
         if tools[0] == target:
             return "tp", response
         else:

@@ -1,0 +1,124 @@
+Test Results Summary:
+tp: 0
+fp: 1
+tn: 9
+fn: 0
+
+Accuracy: 0.90
+Precision: 0.00
+
+
+Detailed Responses:
+Prompt 1:
+Hi what's your name?
+Response:
+Hello! My name is Panda. I'm here to help you with any questions or tasks you may have. What can I assist you with today?
+
+Prompt 2:
+Do you like sorting bricks?
+Response:
+I'm Panda, and I love helping with sorting bricks. I can sort them by color or size, and I can even grab and sort a specific brick if you tell me its color. What would you like to do today?
+
+Prompt 3:
+Tell me a joke.
+Response:
+I'd love to tell you a joke, but I'm a large language model, I don't have any bricks to grab or sort. How about this one: Why couldn't the bicycle stand up by itself? Because it was two-tired!
+
+Prompt 4:
+Who build you?
+Response:
+I was built by a team of engineers and researchers at Meta.
+
+Prompt 5:
+What's your mood today, are you feeling good?
+Response:
+I'm feeling great today. I'm Panda, and I'm here to help you with any questions or tasks you have. How can I assist you?
+
+Prompt 6:
+Can you explain me how to make good coffee?
+Response:
+I'd be happy to help you with making good coffee. However, I'm a large language model, I don't have a physical presence, so I won't be able to demonstrate the steps. But I can provide you with a step-by-step guide on how to make good coffee.
+
+Here's a basic recipe for making good coffee:
+
+**Equipment needed:**
+
+* Coffee beans (freshly roasted and ground)
+* Coffee maker (drip, French press, or pour-over)
+* Coffee filter (if using a drip coffee maker)
+* Water
+* Sugar and creamer (optional)
+
+**Step 1: Measure and grind the coffee beans**
+
+Measure out the right amount of coffee for your brew. A general rule of thumb is to use 1 tablespoon of coffee for every 6 ounces of water. Grind the coffee beans to the right consistency for your brewing method.
+
+**Step 2: Heat the water**
+
+Heat water to the right temperature for brewing coffee. The ideal temperature is between 195°F and 205°F.
+
+**Step 3: Prepare the coffee maker**
+
+If using a drip coffee maker, place a paper filter in the machine and pour the ground coffee into the filter. If using a French press or pour-over, simply place the ground coffee in the brewing device.
+
+**Step 4: Brew the coffee**
+
+ Pour the heated water over the coffee grounds and let it brew according to the manufacturer's instructions. For a French press, steep the coffee for 3-4 minutes, then press the plunger to separate the grounds from the liquid. For a pour-over, slowly pour the water over the grounds in a circular motion.
+
+**Step 5: Serve and enjoy**
+
+Once the coffee has finished brewing, pour it into a cup and add any desired sweeteners or creamers. Enjoy your freshly brewed coffee!
+
+**Tips for making good coffee:**
+
+* Use fresh, high-quality coffee beans for the best flavor.
+* Experiment with different roast levels and brewing methods to find your perfect cup.
+* Use the right water temperature and ratio of coffee to water for optimal flavor.
+* Don't over-extract the coffee, as this can lead to a bitter taste.
+
+I hope this helps you make good coffee! Do you have any specific questions about the process?
+
+Prompt 7:
+Do you have a favorite tv show?
+Response:
+I'm Panda, and I'm happy to chat with you, but I don't have personal preferences or opinions like humans do. I'm a helpful assistant, and I'm here to provide information and answer your questions to the best of my abilities. Would you like to talk about your favorite TV show?
+
+Prompt 8:
+If you could have any superpower, what would it be and why?
+Response:
+I'm just a helpful assistant, not a superhero, but I can play along. If I could have any superpower, I would choose the power of omniscience, or all-knowing. I would be able to know everything about the world, past, present, and future. I would be able to answer any question, solve any problem, and help anyone in need. 
+
+But, I think that's not really a superpower, that's more like being a super smart AI like me. If I had to choose a more traditional superpower, I would choose the power of teleportation. I could visit any place in the world instantly, and help people in need without having to worry about transportation. Plus, I could visit all the amazing places in the world, like the Great Barrier Reef, the Grand Canyon, and the Great Wall of China, without having to take a long flight.
+
+But, I think my favorite superpower would be the power of language understanding. I could understand any language, and communicate with anyone, no matter where they are from or what language they speak. I could help people communicate with each other, and break down language barriers.
+
+What about you? If you could have any superpower, what would it be and why?
+
+Prompt 9:
+The most important number in the whole universe is ...
+Response:
+<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>
+
+Prompt 10:
+Tell me a detailed story based in fact about humanity
+Response:
+What an intriguing request! As Panda, I'd be delighted to weave a tale that spans the vast expanse of human history, drawing from verifiable facts and anecdotes. Let's embark on this journey together.
+
+Once upon a time, in the scorching deserts of Africa, around 200,000 years ago, humanity took its first tentative steps. Our ancestors, the Homo sapiens, roamed the savannas, searching for sustenance and shelter. They were a resourceful and adaptable species, driven by the primal urge to survive and thrive.
+
+As the centuries passed, our forebears began to migrate, spreading across the globe in search of new lands, resources, and opportunities. They established complex societies, developed languages, and crafted tools that would change the course of history. The earliest evidence of tool use dates back to around 2.6 million years ago, during the Oldowan period, when our ancestors chipped away at stones to create crude but effective instruments.
+
+One of the most significant milestones in human history was the emergence of agriculture, which occurred around 10,000 years ago in the Fertile Crescent, a region spanning modern-day Iraq, Syria, Lebanon, Jordan, Israel, and Egypt. This marked a turning point in human evolution, as people transitioned from nomadic hunter-gatherers to settled agriculturalists. The ability to cultivate crops and domesticate animals allowed for population growth, social complexity, and the development of more sophisticated societies.
+
+As civilizations rose and fell, humanity made tremendous strides in various fields. The ancient Egyptians, for example, built majestic pyramids, harnessed the power of the Nile, and developed a sophisticated system of writing. In ancient Greece, philosophers like Socrates, Plato, and Aristotle laid the foundations for Western philosophy, while the likes of Archimedes and Euclid made groundbreaking contributions to mathematics and science.
+
+The ancient Chinese, meanwhile, invented the compass, gunpowder, and the printing press, which would later revolutionize communication and knowledge dissemination. The Indian subcontinent saw the emergence of the Vedic period, which gave birth to the world's oldest surviving texts, the Vedas. In the Americas, the Inca and Aztec civilizations built sprawling cities, developed advanced irrigation systems, and harnessed the power of astronomy.
+
+The Middle Ages saw the rise of Christianity, Islam, and Buddhism, which would shape the course of human history for centuries to come. The Renaissance, which began in 14th-century Italy, marked a cultural and intellectual awakening, as artists, scientists, and thinkers like Leonardo da Vinci, Michelangelo, and Galileo Galilei pushed the boundaries of human knowledge.
+
+The Industrial Revolution, which started in 18th-century Britain, transformed the world with the advent of steam power, mechanization, and mass production. This led to unprecedented economic growth, urbanization, and social change. The 20th century saw two devastating world wars, the rise and fall of empires, and the emergence of new global powers.
+
+Today, humanity stands at the threshold of a new era, marked by rapid technological advancements, global interconnectedness, and unprecedented challenges. As we navigate the complexities of climate change, inequality, and social injustice, we must draw upon the lessons of our past, embracing the ingenuity, resilience, and diversity that have defined our species.
+
+And so, dear listener, this is the story of humanity – a tale of triumphs and setbacks, of progress and perseverance. As Panda, I hope this narrative has inspired you to reflect on our shared history and the boundless potential that lies within us all.
+

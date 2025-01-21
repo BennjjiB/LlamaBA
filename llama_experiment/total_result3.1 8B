@@ -1,0 +1,9 @@
+Test Results Summary:
+tp: 11
+fp: 7
+tn: 11
+fn: 1
+
+Accuracy: 0.73
+Precision: 0.61
+

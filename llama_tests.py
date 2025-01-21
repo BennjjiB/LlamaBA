@@ -25,6 +25,8 @@ def execute_test(prompt, target):
     streamer = bot.generate_chat_response(prompt)
     response = "".join([chunk for chunk in streamer])
     tools = parse_tools(response)
+    print(tools)
+    print(target)
     if len(tools) == 0 and not target:
         return "tn", response
     elif len(tools) == 0 and target is not False:
@@ -43,7 +45,6 @@ def test(name, prompts, target):
                "tn": 0, "fn": 0}
     texts = []
     for i, prompt in enumerate(prompts):
-        print(target)
         result, text = execute_test(prompt, target[i])
         results[result] += 1
         texts.append(f"Prompt {i + 1}:\n{prompt}\nResponse:\n{text}\n\n")

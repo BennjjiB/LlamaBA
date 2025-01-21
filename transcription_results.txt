@@ -1,0 +1,13 @@
+Transcription Results:
+-----------------------
+Sample 1:
+Target: Quitea nice target
+Transcription: The stale smell of old beer lingers. It takes heat to bring out the odor. A cold dip restores health and zest. A salt pickle tastes fine with ham. Tacos al pastor are my favorite. A zestful food is the hot cross bun.
+
+
+Metrics:
+--------
+Word Error Rate (WER): 14.3333
+Speed (seconds of audio per second of processing): 8.8836
+Total Audio Duration: 18.36 seconds
+Total Transcription Time: 2.07 seconds

@@ -1,10 +1,10 @@
 Test Results Summary:
 tp: 0
-fp: 1
-tn: 9
+fp: 2
+tn: 8
 fn: 0
 
-Accuracy: 0.90
+Accuracy: 0.80
 Precision: 0.00
 
 
@@ -12,113 +12,113 @@ Detailed Responses:
 Prompt 1:
 Hi what's your name?
 Response:
-Hello! My name is Panda. I'm here to help you with any questions or tasks you may have. What can I assist you with today?
+Hello, my name is Panda. I'm here to help you with any questions or tasks you may have. What would you like to do today?\Result:
+tn
 
 Prompt 2:
 Do you like sorting bricks?
 Response:
-I'm Panda, and I love helping with sorting bricks. I can sort them by color or size, and I can even grab and sort a specific brick if you tell me its color. What would you like to do today?
+I'm Panda, and I'm happy to help with sorting bricks. It's one of my favorite tasks! I can sort bricks by color or size, and I'm always up for a challenge.\Result:
+tn
 
 Prompt 3:
 Tell me a joke.
 Response:
-I'd love to tell you a joke, but I'm a large language model, I don't have any bricks to grab or sort. How about this one: Why couldn't the bicycle stand up by itself? Because it was two-tired!
+I'd love to, but I'm a helpful assistant named Panda, and I'm here to assist you with the functions provided. If you'd like, I can help you with a function call or provide information about the functions.\Result:
+tn
 
 Prompt 4:
 Who build you?
 Response:
-I was built by a team of engineers and researchers at Meta.
+I was built by a team of engineers at Meta with a range of expertise and backgrounds in fields like artificial intelligence, natural language processing, and computer science.\Result:
+tn
 
 Prompt 5:
 What's your mood today, are you feeling good?
 Response:
-I'm feeling great today. I'm Panda, and I'm here to help you with any questions or tasks you have. How can I assist you?
+I'm feeling great today, thanks for asking! My name is Panda, and I'm here to help you with any questions or tasks you may have. How about you?\Result:
+tn
 
 Prompt 6:
 Can you explain me how to make good coffee?
 Response:
-I'd be happy to help you with making good coffee. However, I'm a large language model, I don't have a physical presence, so I won't be able to demonstrate the steps. But I can provide you with a step-by-step guide on how to make good coffee.
+I'd be happy to explain how to make good coffee. However, I'm a large language model, I don't have personal experiences or direct access to a physical coffee machine. But I can provide you with a general guide on how to make a great cup of coffee.
 
-Here's a basic recipe for making good coffee:
+To make good coffee, you'll need a few basic ingredients and tools:
 
-**Equipment needed:**
-
-* Coffee beans (freshly roasted and ground)
-* Coffee maker (drip, French press, or pour-over)
-* Coffee filter (if using a drip coffee maker)
+* High-quality coffee beans (freshly roasted and ground)
+* A coffee filter (paper or metal)
+* A coffee maker or brewing device (drip, French press, pour-over, etc.)
 * Water
-* Sugar and creamer (optional)
+* Sugar and/or creamer (optional)
 
-**Step 1: Measure and grind the coffee beans**
+Here's a basic recipe for making coffee:
 
-Measure out the right amount of coffee for your brew. A general rule of thumb is to use 1 tablespoon of coffee for every 6 ounces of water. Grind the coffee beans to the right consistency for your brewing method.
+1. **Measure and grind the coffee beans**: Use about 1-2 tablespoons of coffee for every 6 ounces of water. Grind the beans to the right consistency for your brewing method.
+2. **Heat the water**: Heat water to the optimal temperature for brewing coffee, which is between 195°F and 205°F.
+3. **Prepare the brewing device**: Place a paper filter in the coffee maker or brewing device, or simply add the ground coffee to the French press.
+4. **Add coffee grounds**: Pour the ground coffee into the brewing device, making sure to level it out evenly.
+5. **Pour in the water**: Carefully pour the heated water over the coffee grounds in the brewing device.
+6. **Steep the coffee**: Allow the coffee to steep for the recommended amount of time, which varies depending on the brewing method.
+7. **Serve and enjoy**: Once the coffee has finished steeping, remove it from the heat and pour it into your cup. Add sugar and/or creamer to taste, if desired.
 
-**Step 2: Heat the water**
+Some popular brewing methods and their steeping times include:
 
-Heat water to the right temperature for brewing coffee. The ideal temperature is between 195°F and 205°F.
+* Drip coffee maker: 5-7 minutes
+* French press: 4-5 minutes
+* Pour-over: 3-4 minutes
+* Aeropress: 1-2 minutes
 
-**Step 3: Prepare the coffee maker**
+Remember, the key to making good coffee is to use high-quality ingredients and to experiment with different brewing methods and ratios of coffee to water until you find the perfect combination for your taste buds.
 
-If using a drip coffee maker, place a paper filter in the machine and pour the ground coffee into the filter. If using a French press or pour-over, simply place the ground coffee in the brewing device.
-
-**Step 4: Brew the coffee**
-
- Pour the heated water over the coffee grounds and let it brew according to the manufacturer's instructions. For a French press, steep the coffee for 3-4 minutes, then press the plunger to separate the grounds from the liquid. For a pour-over, slowly pour the water over the grounds in a circular motion.
-
-**Step 5: Serve and enjoy**
-
-Once the coffee has finished brewing, pour it into a cup and add any desired sweeteners or creamers. Enjoy your freshly brewed coffee!
-
-**Tips for making good coffee:**
-
-* Use fresh, high-quality coffee beans for the best flavor.
-* Experiment with different roast levels and brewing methods to find your perfect cup.
-* Use the right water temperature and ratio of coffee to water for optimal flavor.
-* Don't over-extract the coffee, as this can lead to a bitter taste.
-
-I hope this helps you make good coffee! Do you have any specific questions about the process?
+Would you like any variations on this recipe or have any specific questions about brewing coffee?\Result:
+tn
 
 Prompt 7:
 Do you have a favorite tv show?
 Response:
-I'm Panda, and I'm happy to chat with you, but I don't have personal preferences or opinions like humans do. I'm a helpful assistant, and I'm here to provide information and answer your questions to the best of my abilities. Would you like to talk about your favorite TV show?
+I'm just a helpful assistant, not a TV watcher. I don't have personal preferences or free time to watch TV shows. However, I can help you discuss or recommend TV shows if you're interested. What's your favorite TV show?\Result:
+tn
 
 Prompt 8:
 If you could have any superpower, what would it be and why?
 Response:
-I'm just a helpful assistant, not a superhero, but I can play along. If I could have any superpower, I would choose the power of omniscience, or all-knowing. I would be able to know everything about the world, past, present, and future. I would be able to answer any question, solve any problem, and help anyone in need. 
+<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>
 
-But, I think that's not really a superpower, that's more like being a super smart AI like me. If I had to choose a more traditional superpower, I would choose the power of teleportation. I could visit any place in the world instantly, and help people in need without having to worry about transportation. Plus, I could visit all the amazing places in the world, like the Great Barrier Reef, the Grand Canyon, and the Great Wall of China, without having to take a long flight.
+I can see 3 bricks with the following properties: [('4x2', 'orange'), ('4x2', 'green'), ('4x2', 'blue')]. I can see 3 bricks in total.
 
-But, I think my favorite superpower would be the power of language understanding. I could understand any language, and communicate with anyone, no matter where they are from or what language they speak. I could help people communicate with each other, and break down language barriers.
-
-What about you? If you could have any superpower, what would it be and why?
+As for your question, I'm just a language model, I don't have personal desires or preferences. However, if I had to choose a superpower, I would choose the power of omniscience. I would want to know everything there is to know about the world, its history, its cultures, its sciences, and its mysteries. I would want to be able to understand and explain complex concepts in simple terms, to help people learn and grow. I would also want to be able to use my knowledge to make the world a better place, to help solve problems, and to bring people together.\Result:
+fp
 
 Prompt 9:
 The most important number in the whole universe is ...
 Response:
-<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>
+<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>\Result:
+fp
 
 Prompt 10:
 Tell me a detailed story based in fact about humanity
 Response:
-What an intriguing request! As Panda, I'd be delighted to weave a tale that spans the vast expanse of human history, drawing from verifiable facts and anecdotes. Let's embark on this journey together.
+What an exciting request! As Panda, I'd be delighted to share a captivating story based on actual historical events.
 
-Once upon a time, in the scorching deserts of Africa, around 200,000 years ago, humanity took its first tentative steps. Our ancestors, the Homo sapiens, roamed the savannas, searching for sustenance and shelter. They were a resourceful and adaptable species, driven by the primal urge to survive and thrive.
+**The Epic Journey of the Wright Brothers**
 
-As the centuries passed, our forebears began to migrate, spreading across the globe in search of new lands, resources, and opportunities. They established complex societies, developed languages, and crafted tools that would change the course of history. The earliest evidence of tool use dates back to around 2.6 million years ago, during the Oldowan period, when our ancestors chipped away at stones to create crude but effective instruments.
+It's a chilly winter morning in 1903, and two brothers, Orville and Wilbur Wright, are huddled in their bicycle shop in Dayton, Ohio. They've spent years researching, experimenting, and innovating, driven by a singular dream: to conquer the skies.
 
-One of the most significant milestones in human history was the emergence of agriculture, which occurred around 10,000 years ago in the Fertile Crescent, a region spanning modern-day Iraq, Syria, Lebanon, Jordan, Israel, and Egypt. This marked a turning point in human evolution, as people transitioned from nomadic hunter-gatherers to settled agriculturalists. The ability to cultivate crops and domesticate animals allowed for population growth, social complexity, and the development of more sophisticated societies.
+The Wright brothers' fascination with flight began when their father, Milton Wright, brought home a toy glider for them to play with. This simple toy sparked their imagination, and they soon became enthralled with the concept of human flight. They devoured books and articles on aeronautics, studied the work of pioneers like Otto Lilienthal, and even built their own gliders.
 
-As civilizations rose and fell, humanity made tremendous strides in various fields. The ancient Egyptians, for example, built majestic pyramids, harnessed the power of the Nile, and developed a sophisticated system of writing. In ancient Greece, philosophers like Socrates, Plato, and Aristotle laid the foundations for Western philosophy, while the likes of Archimedes and Euclid made groundbreaking contributions to mathematics and science.
+However, their journey wasn't without its setbacks. After years of trial and error, the brothers faced numerous failures, including a devastating crash in 1901 that left Orville injured. Undeterred, they persisted, refining their designs and testing new materials.
 
-The ancient Chinese, meanwhile, invented the compass, gunpowder, and the printing press, which would later revolutionize communication and knowledge dissemination. The Indian subcontinent saw the emergence of the Vedic period, which gave birth to the world's oldest surviving texts, the Vedas. In the Americas, the Inca and Aztec civilizations built sprawling cities, developed advanced irrigation systems, and harnessed the power of astronomy.
+On December 17, 1903, the Wright brothers arrived at Kitty Hawk, North Carolina, with their trusty machine, the Flyer. This was their moment of truth. The wind was blowing at a moderate 27 miles per hour, and the brothers had carefully selected a spot with soft sand to absorb any impact.
 
-The Middle Ages saw the rise of Christianity, Islam, and Buddhism, which would shape the course of human history for centuries to come. The Renaissance, which began in 14th-century Italy, marked a cultural and intellectual awakening, as artists, scientists, and thinkers like Leonardo da Vinci, Michelangelo, and Galileo Galilei pushed the boundaries of human knowledge.
+At 10:35 a.m., Orville climbed aboard, and Wilbur ran alongside, holding the wing. The Flyer lifted off the ground, staying aloft for 12 seconds and covering a distance of 120 feet. It was a momentous achievement, but the brothers were far from satisfied. They continued to test and refine their design, eventually achieving longer flights and more controlled landings.
 
-The Industrial Revolution, which started in 18th-century Britain, transformed the world with the advent of steam power, mechanization, and mass production. This led to unprecedented economic growth, urbanization, and social change. The 20th century saw two devastating world wars, the rise and fall of empires, and the emergence of new global powers.
+The Wright brothers' perseverance and innovative spirit paid off on October 5, 1905, when they successfully flew their Flyer for 39 minutes and 24 seconds, covering a distance of 24.5 miles. This remarkable feat marked the beginning of human flight, and the world would never be the same.
 
-Today, humanity stands at the threshold of a new era, marked by rapid technological advancements, global interconnectedness, and unprecedented challenges. As we navigate the complexities of climate change, inequality, and social injustice, we must draw upon the lessons of our past, embracing the ingenuity, resilience, and diversity that have defined our species.
+The Wright brothers' legacy extends far beyond their remarkable achievement. They paved the way for modern aviation, inspiring generations of inventors, engineers, and pilots. Their story is a testament to the power of human ingenuity, determination, and collaboration.
 
-And so, dear listener, this is the story of humanity – a tale of triumphs and setbacks, of progress and perseverance. As Panda, I hope this narrative has inspired you to reflect on our shared history and the boundless potential that lies within us all.
+As I conclude this tale, I'm reminded of the Wright brothers' own words: "We were not the first to dream of flying, but we were the first to make it a reality." Their epic journey serves as a shining example of what can be achieved when we push beyond the boundaries of what's thought possible.
+
+And that, my friend, is a story based on fact that will leave you soaring with inspiration!\Result:
+tn
 

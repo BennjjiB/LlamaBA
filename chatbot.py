@@ -20,6 +20,7 @@ class AbstractChatBot(ABC):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         print('Running on:', self.device)
         self.tools = tools
+        self.conversation = []
         self.setup(setup_prompt)
 
     def setup(self, system_instructions):

@@ -1,6 +1,6 @@
 from chatbot import PandaChatBot
 from experiment_prompts import easy_prompt, easy_target, neutral_prompt, hard_target, hard_prompt
-from server import setup_prompt, get_llama_version
+from setup import get_llama_version, setup_prompt
 from tool_utils import check_if_tool_call, parse_tools
 
 lama_version = get_llama_version()

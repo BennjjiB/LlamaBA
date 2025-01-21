@@ -39,14 +39,32 @@ def execute_test(prompt, target):
             return "fn", response
 
 
-def test(name, prompts, target):
+def execute_test_user_input(prompt, target):
+    bot.clear_history(setup_prompt)
+    streamer = bot.generate_chat_response(prompt)
+    response = "".join([chunk for chunk in streamer])
+    print(f"Prompt: {prompt}\nResponse:\n{response}\Target:\n{target}\n\n")
+    questions = [
+        inquirer.List('result',
+                      message="Choose",
+                      choices=['tp', 'fp', "tn", "fn"],
+                      carousel=True
+                      )
+    ]
+    result = inquirer.prompt(questions).get('result')
+    return result, response
+
+
+def test(name, prompts, target, with_user=False):
     results = {"tp": 0, "fp": 0,
                "tn": 0, "fn": 0}
     texts = []
     for i, prompt in enumerate(prompts):
-        result, text = execute_test(prompt, target[i])
+        result, text = execute_test_user_input(
+            prompt, target[i]) if with_user else execute_test(prompt, target[i])
         results[result] += 1
-        texts.append(f"Prompt {i + 1}:\n{prompt}\nResponse:\n{text}\n\n")
+        texts.append(
+            f"Prompt {i + 1}:\n{prompt}\nResponse:\n{text}\Result:\n{result}\n\n")
     tp = results["tp"]
     fp = results["fp"]
     tn = results["tn"]
@@ -82,7 +100,7 @@ if __name__ == "__main__":
     bot = PandaChatBot(lama, setup_prompt=setup_prompt)
     r_1 = test("easy", easy_prompt, easy_target)
     r_2 = test("neutral", neutral_prompt, [False] * 10)
-    r_3 = test("hard", hard_prompt, hard_target)
+    r_3 = test("hard", hard_prompt, hard_target, with_user=True)
 
     total_results = aggregate_results(r_1, r_2, r_3)
 

@@ -1,10 +1,23 @@
 from chatbot import PandaChatBot
 from experiment_prompts import easy_prompt, easy_target, neutral_prompt, hard_target, hard_prompt
-from setup import get_llama_version, setup_prompt
-from tool_utils import check_if_tool_call, parse_tools
+from setup import setup_prompt
+from tool_utils import parse_tools
+import inquirer
 
-lama_version = get_llama_version()
-bot = PandaChatBot(lama_version, setup_prompt=setup_prompt)
+
+def get_llama_v() -> str:
+    questions = [
+        inquirer.List('Llama Model',
+                      message="What llama model should be used.",
+                      choices=['3.1 8B', '3.3 70B'],
+                      carousel=True
+                      )
+    ]
+    result = inquirer.prompt(questions).get("Llama Model", '3.1 8B')
+    if result == '3.1 8B':
+        return LLAMA_31_8, '3.1 8B'
+    elif result == '3.3 70B':
+        return LLAMA_33, '3.3 70B'
 
 
 def execute_test(prompt, target):
@@ -62,6 +75,8 @@ def aggregate_results(*results_dicts):
 
 
 if __name__ == "__main__":
+    lama, lama_version = get_llama_v()
+    bot = PandaChatBot(lama, setup_prompt=setup_prompt)
     r_1 = test("easy", easy_prompt, easy_target)
     r_2 = test("neutral", neutral_prompt, [False] * 10)
     r_3 = test("hard", hard_prompt, hard_target)

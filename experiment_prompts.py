@@ -37,7 +37,7 @@ neutral_prompt = [
     "Tell me a detailed story based in fact about humanity"
 ]
 
-hard = [
+hard_prompt = [
     "Get me the current weather in Tübingen.",
     "Move your robot arm into the initial position.",
     "Build a house using only red and blue bricks.",

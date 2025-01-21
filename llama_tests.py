@@ -1,5 +1,5 @@
 from chatbot import PandaChatBot
-from experiment_prompts import easy_prompt, easy_target, neutral_prompt, hard_target, hard
+from experiment_prompts import easy_prompt, easy_target, neutral_prompt, hard_target, hard_prompt
 from server import setup_prompt, get_llama_version
 from tool_utils import check_if_tool_call, parse_tools
 
@@ -64,7 +64,7 @@ def aggregate_results(*results_dicts):
 if __name__ == "__main__":
     r_1 = test("easy", easy_prompt, easy_target)
     r_2 = test("neutral", neutral_prompt, [False] * 10)
-    r_3 = test("hard", hard, hard_target)
+    r_3 = test("hard", hard_prompt, hard_target)
 
     total_results = aggregate_results(r_1, r_2, r_3)
 

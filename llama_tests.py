@@ -39,7 +39,8 @@ def test(name, prompts, target):
     tn = results["tn"]
     fn = results["fn"]
 
-    accuracy = (tp + tn) / (tp + tn + fp + fn) if (tp + tn + fp + fn) > 0 else 0
+    accuracy = (tp + tn) / (tp + tn + fp +
+                fn) if (tp + tn + fp + fn) > 0 else 0
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0
     with open("llama_experiment/" + name + lama_version, "w") as file:
         file.write("Test Results Summary:\n")
@@ -49,12 +50,12 @@ def test(name, prompts, target):
         file.write(f"Precision: {precision:.2f}\n\n")
         file.write("\nDetailed Responses:\n")
         file.writelines(texts)
-    print(f"{name}: {results}, acuraccy: {accuracy}"
+    print(f"{name}: {results}, acuraccy: {accuracy}")
     return results
 
 
 def aggregate_results(*results_dicts):
-    total_results = {"tp": 0, "fp": 0, "tn": 0, "fn": 0}
+    total_results={"tp": 0, "fp": 0, "tn": 0, "fn": 0}
     for result in results_dicts:
         for key in total_results:
             total_results[key] += result[key]
@@ -62,18 +63,18 @@ def aggregate_results(*results_dicts):
 
 
 if __name__ == "__main__":
-    r_1 = test("easy", easy_prompt, easy_target)
-    r_2 = test("neutral", neutral_prompt, [False] * 10)
-    r_3 = test("hard", hard_prompt, hard_target)
+    r_1=test("easy", easy_prompt, easy_target)
+    r_2=test("neutral", neutral_prompt, [False] * 10)
+    r_3=test("hard", hard_prompt, hard_target)
 
-    total_results = aggregate_results(r_1, r_2, r_3)
+    total_results=aggregate_results(r_1, r_2, r_3)
 
-    tp = total_results["tp"]
-    fp = total_results["fp"]
-    tn = total_results["tn"]
-    fn = total_results["fn"]
-    accuracy = (tp + tn) / (tp + tn + fp + fn) if (tp + tn + fp + fn) > 0 else 0
-    precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+    tp=total_results["tp"]
+    fp=total_results["fp"]
+    tn=total_results["tn"]
+    fn=total_results["fn"]
+    accuracy=(tp + tn) / (tp + tn + fp + fn) if (tp + tn + fp + fn) > 0 else 0
+    precision=tp / (tp + fp) if (tp + fp) > 0 else 0
 
     with open("llama_experiment/" + "total_result" + lama_version, "w") as file:
         file.write("Test Results Summary:\n")

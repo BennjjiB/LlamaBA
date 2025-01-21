@@ -25,8 +25,6 @@ def execute_test(prompt, target):
     streamer = bot.generate_chat_response(prompt)
     response = "".join([chunk for chunk in streamer])
     tools = parse_tools(response)
-    print(tools)
-    print(target)
     if not tools and not target:
         return "tn", response
     elif not tools and target:

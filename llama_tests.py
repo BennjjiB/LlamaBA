@@ -43,6 +43,7 @@ def test(name, prompts, target):
                "tn": 0, "fn": 0}
     texts = []
     for i, prompt in enumerate(prompts):
+        print(target)
         result, text = execute_test(prompt, target[i])
         results[result] += 1
         texts.append(f"Prompt {i + 1}:\n{prompt}\nResponse:\n{text}\n\n")

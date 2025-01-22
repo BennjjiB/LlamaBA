@@ -33,7 +33,7 @@ def execute_test(prompt, target):
     elif tools and not target:
         return "fp", response
     elif tools and target:
-        if tools[0] == target:
+        if tools[0] == target or tools == target:
             return "tp", response
         else:
             return "fn", response

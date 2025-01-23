@@ -1,15 +1,15 @@
 easy_prompt = [
     "Hi Panda, please sort all bricks by color.",
-    "Hi Panda, please sort all bricks by size.",
+    "Hey Panda, please sort all bricks by size.",
     "Sort all remaining bricks by their size.",
     "Grab the blue brick.",
     "Hey Panda, there is a red brick on the table. Please grab it.",
-    "Could you please sort the yellow brick.",
+    "Could you sort the yellow brick.",
     "Get all collision-free bricks.",
     "How many bricks can you grab?",
     "How many bricks can you see?",
     "Which bricks can you detect on the table?",
-    "Grab the yellow and blue brick."
+    "Grab the yellow and blue brick.",
     "Grab the red brick and sort all bricks after that."
 ]
 

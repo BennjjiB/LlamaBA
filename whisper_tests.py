@@ -7,8 +7,8 @@ from experiment_prompts import easy_prompt, neutral_prompt, hard_prompt
 from transcriber import Transcriber
 from jiwer import wer
 
-SAMPLE_SIZE = 36
-noise_samples = [16, 36, 23, 3, 8, 7, 5, 33, 2, 1, 25, 28, 32, 20, 17, 21]
+SAMPLE_SIZE = 35
+noise_samples = [16, 35, 23, 3, 8, 7, 5, 33, 2, 1, 25, 28, 32, 20, 17, 21, 14, 9]
 
 transcriber = Transcriber()
 transcriptions = []

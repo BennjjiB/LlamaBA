@@ -67,7 +67,8 @@ for language in ["en", None]:
         transcription = transcriber.transcribe(audio_data)
         transcription_time += time.time() - start
         transcriptions.append(transcription)
-
+    
+    print(len(transcriptions))
     # Evaluation
     # Word Error Rate = Edit distance (https://en.wikipedia.org/wiki/Word_error_rate)
     word_error_rate_clean = wer([targets[i] for i in range(36) if i not in noise_samples],

@@ -48,7 +48,8 @@ model_constant, model_result = get_whisper_model()
 
 transcriber = Transcriber(model_type=model_result)
 targets = easy_prompt + neutral_prompt + hard_prompt + ["<|no_speech|>"]*18
-
+results = ""
+ 
 for language in ["en", None]:
     duration = 0
     transcription_time = 0
@@ -81,14 +82,14 @@ for language in ["en", None]:
     # Speed Factor = Audio Duration (Real Time) / Transcription Time
     speed = duration / transcription_time
 
-    results = "Transcription Results for {model_constant} and language {language}:\n-----------------------\n"
+    results += f"Transcription Results for {model_constant} and language {language}:\n-----------------------\n"
     results += f"""
         Metrics:
         --------
         Accuracy Total: {1 - word_error_total:.4f}
         Accuracy Clean: {1 - word_error_rate_clean:.4f}
         Accuracy text with Noise: {1 - word_error_rate_noise:.4f}
-        Accuracy only with Noise: {1 - word_error_rate_noise:.4f}
+        Accuracy only with Noise: {1 - word_error_rate_only_noise:.4f}
         Speed (seconds of audio per second of processing): {speed:.4f}
         Total Audio Duration: {duration:.2f} seconds
         Total Transcription Time: {transcription_time:.2f} seconds 

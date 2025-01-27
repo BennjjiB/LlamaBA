@@ -102,6 +102,7 @@ def calculate_avg(observations):
     word_error_rate_only_noise_avg /= count
     word_error_total_avg /= count
     speed_avg /= count
+    return word_error_rate_clean_avg, word_error_rate_noise_avg, word_error_rate_only_noise_avg, word_error_total_avg, speed_avg 
 
 
 for language in ["en", None]:

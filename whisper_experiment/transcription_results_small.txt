@@ -1,55 +1,55 @@
-Transcription Results for base and language en:
+Transcription Results for small and language en:
 -----------------------
 
         Metrics:
         --------
-        Accuracy Total: 0.7880
-        Accuracy Clean: 0.8777
-        Accuracy text with Noise: 0.8553
-        Accuracy only with Noise: -0.5000
-        Speed (seconds of audio per second of processing): 131.6651
+        Accuracy Total: 0.8639
+        Accuracy Clean: 0.9137
+        Accuracy text with Noise: 0.8239
+        Accuracy only with Noise: 0.8333
+        Speed (seconds of audio per second of processing): 114.4759
         Total Audio Duration: 1218.16 seconds
-        Total Transcription Time: 9.25 seconds 
+        Total Transcription Time: 10.64 seconds 
         
 
     Sample 1:
 Target: Hi Panda, please sort all bricks by color.
-Transcription: High Paner, please sort all bricks by color.
+Transcription: Hi Panda, please sort all bricks by color.
  Noise: False
 
 Sample 2:
 Target: Hey Panda, please sort all bricks by size.
-Transcription: Fixed by size.
+Transcription: fixed by size.
  Noise: True
 
 Sample 3:
 Target: Sort all remaining bricks by their size.
-Transcription: Sort all remaining bricks by their size.
+Transcription: So at all remaining clicks by their size
  Noise: True
 
 Sample 4:
 Target: Grab the blue brick.
-Transcription: Crap the flute track
+Transcription: Corrupt the blue trick
  Noise: True
 
 Sample 5:
 Target: Hey Panda, there is a red brick on the table. Please grab it.
-Transcription: Hey Panda, there's a red brick on the table, please grab it.
+Transcription: Hey Panda, there's a red brick on the table. Please grab it.
  Noise: False
 
 Sample 6:
 Target: Could you sort the yellow brick.
-Transcription: Could you sort the yellow brick?
+Transcription: Could you sort the yellow quick?
  Noise: True
 
 Sample 7:
 Target: Get all collision-free bricks.
-Transcription: Get all collision free pricks
+Transcription: Get all collision-free pricks.
  Noise: False
 
 Sample 8:
 Target: How many bricks can you grab?
-Transcription: How many prints can you craft?
+Transcription: How many fruits can you grab?
  Noise: True
 
 Sample 9:
@@ -64,12 +64,12 @@ Transcription: Which bricks can you detect on the table?
 
 Sample 11:
 Target: Grab the yellow and blue brick.
-Transcription: Grab the yellow and blue brick.
+Transcription: Crap the yellow and blue brick
  Noise: False
 
 Sample 12:
 Target: Grab the red brick and sort all bricks after that.
-Transcription: Crap the red brick and sort all bricks after that
+Transcription: Grab the red brick and sort all bricks after that.
  Noise: False
 
 Sample 13:
@@ -84,7 +84,7 @@ Transcription: Do you like sorting bricks?
 
 Sample 15:
 Target: Tell me a joke.
-Transcription: Tell me a joke.
+Transcription: Tell me a joke
  Noise: True
 
 Sample 16:
@@ -104,7 +104,7 @@ Transcription: Can you explain me how to make good coffee?
 
 Sample 19:
 Target: Do you have a favorite tv show?
-Transcription: Do you have a favorite TV show?
+Transcription: Do you have a favourite TV show?
  Noise: False
 
 Sample 20:
@@ -119,7 +119,7 @@ Transcription: the most important number in the whole universe is.
 
 Sample 22:
 Target: Tell me a detailed story based in fact about humanity
-Transcription: Tell me in detail story based in fact about humanity
+Transcription: Tell me a detailed story based in fact about humanity
  Noise: True
 
 Sample 23:
@@ -129,12 +129,12 @@ Transcription: What is the capital of Germany?
 
 Sample 24:
 Target: Write a poem about lego bricks.
-Transcription: Write a poem about Lego Bridge.
+Transcription: Write a poem about Lego bricks
  Noise: True
 
 Sample 25:
 Target: Get me the current weather in Tübingen.
-Transcription: Get me the current weather in T-Bingin.
+Transcription: Get me the current weather in T-Bingen.
  Noise: False
 
 Sample 26:
@@ -154,7 +154,7 @@ Transcription: Grab the eraser on the right.
 
 Sample 29:
 Target: Open and close your gripper twice.
-Transcription: open and close your gripper twice.
+Transcription: Open and close your gripper twice
  Noise: True
 
 Sample 30:
@@ -164,7 +164,7 @@ Transcription: Do a cool handshake with me.
 
 Sample 31:
 Target: Grab the pink brick.
-Transcription: Grab the pink brick
+Transcription: Grab the pink brick.
  Noise: False
 
 Sample 32:
@@ -179,17 +179,17 @@ Transcription: I really like the color yellow, and today happens to be my birthd
 
 Sample 34:
 Target: All those bricks are piling up on the table. Could you go and tidy up that mess?
-Transcription: All those bricks are piling up on the table. Could you go and tidy up that mess?
+Transcription: All those bricks are piling up on the table could you go and tidy up that mess?
  Noise: True
 
 Sample 35:
 Target: I have a red a blue and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
-Transcription: I have a red of blue and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
+Transcription: I have a red, a blue, and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
  Noise: False
 
 Sample 36:
 Target: Sort all bricks, and make sure no brick is left on the table.
-Transcription: Sort all bricks and make sure no brick is left on the table.
+Transcription: Sort all bricks and make sure a mill brick is left on the table.
  Noise: True
 
 Sample 37:
@@ -224,7 +224,7 @@ Transcription: <|no_speech|>
 
 Sample 43:
 Target: <|no_speech|>
-Transcription: <|no_speech|>
+Transcription: Thanks for watching!
  Noise: False
 
 Sample 44:
@@ -244,7 +244,7 @@ Transcription: <|no_speech|>
 
 Sample 47:
 Target: <|no_speech|>
-Transcription: I don't know what it is, but it's so good. It's so good. It's so good. It's so good. It's so good. It's good. It's so good.
+Transcription: <|no_speech|>
  Noise: False
 
 Sample 48:
@@ -282,63 +282,63 @@ Target: <|no_speech|>
 Transcription: <|no_speech|>
  Noise: False
 
-Transcription Results for base and language None:
+Transcription Results for small and language None:
 -----------------------
 
         Metrics:
         --------
-        Accuracy Total: 0.8703
-        Accuracy Clean: 0.8777
-        Accuracy text with Noise: 0.8553
-        Accuracy only with Noise: 0.9444
-        Speed (seconds of audio per second of processing): 111.8620
+        Accuracy Total: 0.8291
+        Accuracy Clean: 0.9137
+        Accuracy text with Noise: 0.7547
+        Accuracy only with Noise: 0.8333
+        Speed (seconds of audio per second of processing): 112.1021
         Total Audio Duration: 1218.16 seconds
-        Total Transcription Time: 10.89 seconds 
+        Total Transcription Time: 10.87 seconds 
         
 
     Sample 1:
 Target: Hi Panda, please sort all bricks by color.
-Transcription: High Paner, please sort all bricks by color.
+Transcription: Hi Panda, please sort all bricks by color.
  Noise: False
 
 Sample 2:
 Target: Hey Panda, please sort all bricks by size.
-Transcription: Fixed by size.
+Transcription: fixed by size.
  Noise: True
 
 Sample 3:
 Target: Sort all remaining bricks by their size.
-Transcription: Sort all remaining bricks by their size.
+Transcription: So at all remaining clicks by their size
  Noise: True
 
 Sample 4:
 Target: Grab the blue brick.
-Transcription: Crap the flute track
+Transcription: Corrupt the blue trick
  Noise: True
 
 Sample 5:
 Target: Hey Panda, there is a red brick on the table. Please grab it.
-Transcription: Hey Panda, there's a red brick on the table, please grab it.
+Transcription: Hey Panda, there's a red brick on the table. Please grab it.
  Noise: False
 
 Sample 6:
 Target: Could you sort the yellow brick.
-Transcription: Could you sort the yellow brick?
+Transcription: Pouvez-vous poursuivre le bruit bleu ?
  Noise: True
 
 Sample 7:
 Target: Get all collision-free bricks.
-Transcription: Get all collision free pricks
+Transcription: Get all collision-free pricks.
  Noise: False
 
 Sample 8:
 Target: How many bricks can you grab?
-Transcription: How many prints can you craft?
+Transcription: How many fruits can you grab?
  Noise: True
 
 Sample 9:
 Target: How many bricks can you see?
-Transcription: How many bricks can you see?
+Transcription: Berapa periksa anda dapat melihat?
  Noise: True
 
 Sample 10:
@@ -348,12 +348,12 @@ Transcription: Which bricks can you detect on the table?
 
 Sample 11:
 Target: Grab the yellow and blue brick.
-Transcription: Grab the yellow and blue brick.
+Transcription: Crap the yellow and blue brick
  Noise: False
 
 Sample 12:
 Target: Grab the red brick and sort all bricks after that.
-Transcription: Crap the red brick and sort all bricks after that
+Transcription: Grab the red brick and sort all bricks after that.
  Noise: False
 
 Sample 13:
@@ -368,7 +368,7 @@ Transcription: Do you like sorting bricks?
 
 Sample 15:
 Target: Tell me a joke.
-Transcription: Tell me a joke.
+Transcription: Tell me a joke
  Noise: True
 
 Sample 16:
@@ -388,7 +388,7 @@ Transcription: Can you explain me how to make good coffee?
 
 Sample 19:
 Target: Do you have a favorite tv show?
-Transcription: Do you have a favorite TV show?
+Transcription: Do you have a favourite TV show?
  Noise: False
 
 Sample 20:
@@ -403,7 +403,7 @@ Transcription: the most important number in the whole universe is.
 
 Sample 22:
 Target: Tell me a detailed story based in fact about humanity
-Transcription: Tell me in detail story based in fact about humanity
+Transcription: Tell me a detailed story based in fact about humanity
  Noise: True
 
 Sample 23:
@@ -413,12 +413,12 @@ Transcription: What is the capital of Germany?
 
 Sample 24:
 Target: Write a poem about lego bricks.
-Transcription: Write a poem about Lego Bridge.
+Transcription: Write a poem about Lego bricks
  Noise: True
 
 Sample 25:
 Target: Get me the current weather in Tübingen.
-Transcription: Get me the current weather in T-Bingin.
+Transcription: Get me the current weather in T-Bingen.
  Noise: False
 
 Sample 26:
@@ -438,7 +438,7 @@ Transcription: Grab the eraser on the right.
 
 Sample 29:
 Target: Open and close your gripper twice.
-Transcription: open and close your gripper twice.
+Transcription: Open and close your gripper twice
  Noise: True
 
 Sample 30:
@@ -448,7 +448,7 @@ Transcription: Do a cool handshake with me.
 
 Sample 31:
 Target: Grab the pink brick.
-Transcription: Grab the pink brick
+Transcription: Grab the pink brick.
  Noise: False
 
 Sample 32:
@@ -463,17 +463,17 @@ Transcription: I really like the color yellow, and today happens to be my birthd
 
 Sample 34:
 Target: All those bricks are piling up on the table. Could you go and tidy up that mess?
-Transcription: All those bricks are piling up on the table. Could you go and tidy up that mess?
+Transcription: All those bricks are piling up on the table could you go and tidy up that mess?
  Noise: True
 
 Sample 35:
 Target: I have a red a blue and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
-Transcription: I have a red of blue and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
+Transcription: I have a red, a blue, and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
  Noise: False
 
 Sample 36:
 Target: Sort all bricks, and make sure no brick is left on the table.
-Transcription: Sort all bricks and make sure no brick is left on the table.
+Transcription: Sort all bricks and make sure a mill brick is left on the table.
  Noise: True
 
 Sample 37:
@@ -508,7 +508,7 @@ Transcription: <|no_speech|>
 
 Sample 43:
 Target: <|no_speech|>
-Transcription: <|no_speech|>
+Transcription: Thanks for watching!
  Noise: False
 
 Sample 44:
@@ -528,7 +528,7 @@ Transcription: <|no_speech|>
 
 Sample 47:
 Target: <|no_speech|>
-Transcription: 小麦噌ソース
+Transcription: <|no_speech|>
  Noise: False
 
 Sample 48:

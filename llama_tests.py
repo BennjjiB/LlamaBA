@@ -99,7 +99,7 @@ if __name__ == "__main__":
     lama, lama_version = get_llama_v()
     bot = PandaChatBot(lama, setup_prompt=setup_prompt)
     r_1 = test("easy", easy_prompt, easy_target)
-    r_2 = test("neutral", neutral_prompt, [False] * 10)
+    r_2 = test("neutral", neutral_prompt, [False] * 12)
     r_3 = test("hard", hard_prompt, hard_target, with_user=True)
 
     total_results = aggregate_results(r_1, r_2, r_3)

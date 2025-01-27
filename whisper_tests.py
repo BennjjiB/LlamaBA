@@ -82,12 +82,9 @@ for language in ["en", None]:
     # Speed Factor = Audio Duration (Real Time) / Transcription Time
     speed = duration / transcription_time
 
-    results = "Transcription Results:\n-----------------------\n"
-    for i, (target, transcription) in enumerate(zip(targets, transcriptions)):
-        results += f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n Noise: {i in noise_samples}\n\n"
-
+    results = "Transcription Results for {model_constant} and language {language}:\n-----------------------\n"
     results += f"""
-        Metrics for {model_constant} and language {language}:
+        Metrics:
         --------
         Accuracy Total: {1 - word_error_total:.4f}
         Accuracy Clean: {1 - word_error_rate_clean:.4f}
@@ -98,6 +95,8 @@ for language in ["en", None]:
         Total Transcription Time: {transcription_time:.2f} seconds 
         \n
     """
+    for i, (target, transcription) in enumerate(zip(targets, transcriptions)):
+        results += f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n Noise: {i in noise_samples}\n\n"
 
 # Save results to a file
 output_file = f"transcription_results_{model_constant}.txt"

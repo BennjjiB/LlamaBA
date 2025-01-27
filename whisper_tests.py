@@ -16,7 +16,7 @@ WHISPER_MEDIUM = "medium"
 WHISPER_LARGE = "large-v3"
 
 
-def get_whisper_model_and_language() -> Tuple[str, str, Optional[str]]:
+def get_whisper_model_and_language():
     # First question: Select the Whisper model
     model_question = [
         inquirer.List('Whisper Model',

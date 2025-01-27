@@ -85,11 +85,11 @@ def do_one_test():
 
 def calculate_avg(observations):
     count = len(observations)
-    word_error_rate_clean_avg += 0
-    word_error_rate_noise_avg += 0
-    word_error_rate_only_noise_avg += 0
-    word_error_total_avg += 0
-    speed_avg += 0
+    word_error_rate_clean_avg = 0
+    word_error_rate_noise_avg = 0
+    word_error_rate_only_noise_avg = 0
+    word_error_total_avg = 0
+    speed_avg = 0
     for observation in observations:
         word_error_rate_clean, word_error_rate_noise, word_error_rate_only_noise, word_error_total, speed = observation
         word_error_rate_clean_avg += word_error_rate_clean
@@ -107,7 +107,7 @@ def calculate_avg(observations):
 for language in ["en", None]:
     transcriber.language = language
     # Observation
-    observations = [do_one_test() for i in range(10)]
+    observations = [do_one_test() for i in range(5)]
     word_error_rate_clean, word_error_rate_noise, word_error_rate_only_noise, word_error_total, speed = calculate_avg(
         observations)
     results += f"Transcription Results for {model_constant} and language {language}:\n-----------------------\n"

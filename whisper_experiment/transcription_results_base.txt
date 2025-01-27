@@ -7,9 +7,9 @@ Transcription Results for base and language en:
         Accuracy Clean: 0.8777
         Accuracy text with Noise: 0.8553
         Accuracy only with Noise: -0.5000
-        Speed (seconds of audio per second of processing): 131.6651
+        Speed (seconds of audio per second of processing): 111.9333
         Total Audio Duration: 1218.16 seconds
-        Total Transcription Time: 9.25 seconds 
+        Total Transcription Time: 10.88 seconds 
         
 
     Sample 1:
@@ -287,13 +287,13 @@ Transcription Results for base and language None:
 
         Metrics:
         --------
-        Accuracy Total: 0.8703
+        Accuracy Total: 0.8671
         Accuracy Clean: 0.8777
         Accuracy text with Noise: 0.8553
-        Accuracy only with Noise: 0.9444
-        Speed (seconds of audio per second of processing): 111.8620
+        Accuracy only with Noise: 0.8889
+        Speed (seconds of audio per second of processing): 102.0752
         Total Audio Duration: 1218.16 seconds
-        Total Transcription Time: 10.89 seconds 
+        Total Transcription Time: 11.93 seconds 
         
 
     Sample 1:
@@ -528,7 +528,7 @@ Transcription: <|no_speech|>
 
 Sample 47:
 Target: <|no_speech|>
-Transcription: 小麦噌ソース
+Transcription: がいっとるきっとにさがいっとるきっとの音がいっごいってっててんのりやっごい こんなお味きっと
  Noise: False
 
 Sample 48:

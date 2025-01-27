@@ -80,9 +80,9 @@ def do_one_test():
     word_error_total = wer(targets, transcriptions)
     # Speed Factor = Audio Duration (Real Time) / Transcription Time
     speed = duration / transcription_time
-    for i, (target, transcription) in enumerate(zip(targets, transcriptions)):
-        print(
-            f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n Noise: {i in noise_samples}\n\n")
+    # for i, (target, transcription) in enumerate(zip(targets, transcriptions)):
+    #     print(
+    #         f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n Noise: {i in noise_samples}\n\n")
     return (word_error_rate_clean, word_error_rate_noise, word_error_rate_only_noise, word_error_total, speed)
 
 

@@ -48,7 +48,9 @@ model_constant, model_result = get_whisper_model()
 
 transcriber = Transcriber(model_type=model_result)
 targets = easy_prompt + neutral_prompt + hard_prompt + [""]*18
-print(len(targets))
+print(len(easy_prompt))
+print(len(neutral_prompt))
+print(len(hard_prompt))
 
 for language in ["en", None]:
     duration = 0

@@ -50,7 +50,6 @@ transcriber = Transcriber(model_type=model_result)
 targets = easy_prompt + neutral_prompt + hard_prompt + ["<|no_speech|>"]*18
 results = ""
 
-
 def do_one_test():
     duration = 0
     transcription_time = 0
@@ -80,6 +79,8 @@ def do_one_test():
     word_error_total = wer(targets, transcriptions)
     # Speed Factor = Audio Duration (Real Time) / Transcription Time
     speed = duration / transcription_time
+    for i, (target, transcription) in enumerate(zip(targets, transcriptions)):
+        print(f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n Noise: {i in noise_samples}\n\n")
     return (word_error_rate_clean, word_error_rate_noise, word_error_rate_only_noise, word_error_total, speed)
 
 
@@ -122,8 +123,6 @@ for language in ["en", None]:
         Speed (seconds of audio per second of processing): {speed:.4f}
         \n
     """
-    for i, (target, transcription) in enumerate(zip(targets, transcriptions)):
-        results += f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n Noise: {i in noise_samples}\n\n"
 
 # Save results to a file
 output_file = f"whisper_experiment/transcription_results_{model_constant}.txt"

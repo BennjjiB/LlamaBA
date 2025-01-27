@@ -1,11 +1,8 @@
 import time
 import soundfile as sf
-from scipy.special import target
-from trimesh.permutate import noise
 from experiment_prompts import easy_prompt, neutral_prompt, hard_prompt
 from transcriber import Transcriber
 from jiwer import wer
-from typing import Tuple
 import inquirer
 
 # Define your Whisper models as constants (example names, replace with actual model variables)

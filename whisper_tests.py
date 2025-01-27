@@ -50,6 +50,7 @@ transcriber = Transcriber(model_type=model_result)
 targets = easy_prompt + neutral_prompt + hard_prompt + ["<|no_speech|>"]*18
 results = ""
 
+
 def do_one_test():
     duration = 0
     transcription_time = 0
@@ -80,7 +81,8 @@ def do_one_test():
     # Speed Factor = Audio Duration (Real Time) / Transcription Time
     speed = duration / transcription_time
     for i, (target, transcription) in enumerate(zip(targets, transcriptions)):
-        print(f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n Noise: {i in noise_samples}\n\n")
+        print(
+            f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n Noise: {i in noise_samples}\n\n")
     return (word_error_rate_clean, word_error_rate_noise, word_error_rate_only_noise, word_error_total, speed)
 
 
@@ -103,7 +105,7 @@ def calculate_avg(observations):
     word_error_rate_only_noise_avg /= count
     word_error_total_avg /= count
     speed_avg /= count
-    return word_error_rate_clean_avg, word_error_rate_noise_avg, word_error_rate_only_noise_avg, word_error_total_avg, speed_avg 
+    return word_error_rate_clean_avg, word_error_rate_noise_avg, word_error_rate_only_noise_avg, word_error_total_avg, speed_avg
 
 
 for language in ["en", None]:

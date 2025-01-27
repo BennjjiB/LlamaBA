@@ -49,10 +49,10 @@ model_constant, model_result = get_whisper_model()
 transcriber = Transcriber(model_type=model_result)
 targets = easy_prompt + neutral_prompt + hard_prompt + [""]*18
 print(len(targets))
-duration = 0
-transcription_time = 0
 
 for language in ["en", None]:
+    duration = 0
+    transcription_time = 0
     transcriptions = []
     transcriber.language = language
     # Observation
@@ -67,7 +67,7 @@ for language in ["en", None]:
         transcription = transcriber.transcribe(audio_data)
         transcription_time += time.time() - start
         transcriptions.append(transcription)
-    
+
     print(len(transcriptions))
     # Evaluation
     # Word Error Rate = Edit distance (https://en.wikipedia.org/wiki/Word_error_rate)

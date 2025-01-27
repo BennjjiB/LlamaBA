@@ -47,7 +47,7 @@ noise_samples = [16, 35, 23, 3, 8, 7, 5,
 model_constant, model_result = get_whisper_model()
 
 transcriber = Transcriber(model_type=model_result)
-targets = easy_prompt + neutral_prompt + hard_prompt + [""]*18
+targets = easy_prompt + neutral_prompt + hard_prompt + ["<|no_speech|>"]*18
 
 for language in ["en", None]:
     duration = 0
@@ -65,6 +65,8 @@ for language in ["en", None]:
         start = time.time()
         transcription = transcriber.transcribe(audio_data)
         transcription_time += time.time() - start
+        if not transcription.strip():
+            transcription = "<|no_speech|>"
         transcriptions.append(transcription)
 
     print(len(transcriptions))

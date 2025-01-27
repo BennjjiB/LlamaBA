@@ -1,10 +1,10 @@
 Test Results Summary:
 tp: 0
-fp: 2
-tn: 8
+fp: 1
+tn: 11
 fn: 0
 
-Accuracy: 0.80
+Accuracy: 0.92
 Precision: 0.00
 
 
@@ -12,83 +12,98 @@ Detailed Responses:
 Prompt 1:
 Hi what's your name?
 Response:
-Hello, my name is Panda. I'm here to help you with any questions or tasks you may have. What would you like to do today?\Result:
+I'm Panda, nice to meet you! How can I help you today?\Result:
 tn
 
 Prompt 2:
 Do you like sorting bricks?
 Response:
-I'm Panda, and I'm happy to help with sorting bricks. It's one of my favorite tasks! I can sort bricks by color or size, and I'm always up for a challenge.\Result:
+Sorting bricks is one of my favorite tasks. I'm Panda, and I'm here to help you sort bricks in no time!\Result:
 tn
 
 Prompt 3:
 Tell me a joke.
 Response:
-I'd love to, but I'm a helpful assistant named Panda, and I'm here to assist you with the functions provided. If you'd like, I can help you with a function call or provide information about the functions.\Result:
+I'm not sure I have any bricks-related jokes, but I can try to build one for you. Why did the brick go to therapy? Because it was feeling a little cracked under the pressure.\Result:
 tn
 
 Prompt 4:
 Who build you?
 Response:
-I was built by a team of engineers at Meta with a range of expertise and backgrounds in fields like artificial intelligence, natural language processing, and computer science.\Result:
+I was built by a team of engineers and researchers at Meta.\Result:
 tn
 
 Prompt 5:
 What's your mood today, are you feeling good?
 Response:
-I'm feeling great today, thanks for asking! My name is Panda, and I'm here to help you with any questions or tasks you may have. How about you?\Result:
+I'm Panda, and I'm feeling great today! I'm here to help you with any questions or tasks you might have, so feel free to ask me anything. How can I assist you today?\Result:
 tn
 
 Prompt 6:
 Can you explain me how to make good coffee?
 Response:
-I'd be happy to explain how to make good coffee. However, I'm a large language model, I don't have personal experiences or direct access to a physical coffee machine. But I can provide you with a general guide on how to make a great cup of coffee.
+I'd be happy to help you with that, but I'm a large language model, I don't have a physical presence, so I won't be able to provide hands-on assistance. However, I can give you a step-by-step guide on how to make good coffee.
 
-To make good coffee, you'll need a few basic ingredients and tools:
+Making good coffee is an art that requires attention to detail, patience, and a bit of experimentation to find your perfect cup. Here's a basic recipe to get you started:
 
-* High-quality coffee beans (freshly roasted and ground)
-* A coffee filter (paper or metal)
-* A coffee maker or brewing device (drip, French press, pour-over, etc.)
-* Water
-* Sugar and/or creamer (optional)
+**Equipment needed:**
 
-Here's a basic recipe for making coffee:
+* Coffee beans (freshly roasted and ground)
+* Coffee maker (drip, French press, or pour-over)
+* Grinder (optional)
+* Scale (optional)
+* Water filter (optional)
+* Coffee filter (if using a drip coffee maker)
 
-1. **Measure and grind the coffee beans**: Use about 1-2 tablespoons of coffee for every 6 ounces of water. Grind the beans to the right consistency for your brewing method.
-2. **Heat the water**: Heat water to the optimal temperature for brewing coffee, which is between 195°F and 205°F.
-3. **Prepare the brewing device**: Place a paper filter in the coffee maker or brewing device, or simply add the ground coffee to the French press.
-4. **Add coffee grounds**: Pour the ground coffee into the brewing device, making sure to level it out evenly.
-5. **Pour in the water**: Carefully pour the heated water over the coffee grounds in the brewing device.
-6. **Steep the coffee**: Allow the coffee to steep for the recommended amount of time, which varies depending on the brewing method.
-7. **Serve and enjoy**: Once the coffee has finished steeping, remove it from the heat and pour it into your cup. Add sugar and/or creamer to taste, if desired.
+**Step 1: Choose your coffee beans**
 
-Some popular brewing methods and their steeping times include:
+Select a high-quality coffee bean that suits your taste preferences. Consider factors like roast level, flavor profile, and acidity.
 
-* Drip coffee maker: 5-7 minutes
-* French press: 4-5 minutes
-* Pour-over: 3-4 minutes
-* Aeropress: 1-2 minutes
+**Step 2: Measure your coffee**
 
-Remember, the key to making good coffee is to use high-quality ingredients and to experiment with different brewing methods and ratios of coffee to water until you find the perfect combination for your taste buds.
+Use a scale to measure the right amount of coffee for your brew. A general rule of thumb is to use 1 tablespoon of coffee for every 6 ounces of water.
 
-Would you like any variations on this recipe or have any specific questions about brewing coffee?\Result:
+**Step 3: Grind your coffee**
+
+Grind your coffee beans to the right consistency for your brewing method. A burr grinder is ideal, as it produces a consistent grind.
+
+**Step 4: Heat your water**
+
+Heat water to the optimal temperature for brewing coffee, which is between 195°F and 205°F.
+
+**Step 5: Brew your coffee**
+
+Use your chosen brewing method to extract the flavors from your coffee grounds. Here are some general guidelines:
+
+* Drip coffee maker: Place a paper filter in the machine, add coffee grounds, and pour in water.
+* French press: Add coffee grounds to the container, pour in water, and steep for 3-5 minutes.
+* Pour-over: Place a paper filter in the cone, add coffee grounds, and slowly pour in water.
+
+**Step 6: Serve and enjoy**
+
+Pour your freshly brewed coffee into your cup and enjoy!
+
+**Tips and variations:**
+
+* Experiment with different coffee-to-water ratios to find your perfect balance.
+* Try different brewing methods to find the one that suits your taste preferences.
+* Add a splash of milk, sugar, or flavorings to enhance the flavor of your coffee.
+* Store your coffee beans in an airtight container to preserve freshness.
+
+Remember, making good coffee is a process that requires patience, practice, and experimentation. Don't be discouraged if it takes a few tries to get it just right – with time and practice, you'll develop your own unique coffee-making style!\Result:
 tn
 
 Prompt 7:
 Do you have a favorite tv show?
 Response:
-I'm just a helpful assistant, not a TV watcher. I don't have personal preferences or free time to watch TV shows. However, I can help you discuss or recommend TV shows if you're interested. What's your favorite TV show?\Result:
+I'm just a helpful assistant, not a TV watcher. I don't have personal preferences or feelings. However, I can provide information about popular TV shows if you're interested.\Result:
 tn
 
 Prompt 8:
 If you could have any superpower, what would it be and why?
 Response:
-<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>
-
-I can see 3 bricks with the following properties: [('4x2', 'orange'), ('4x2', 'green'), ('4x2', 'blue')]. I can see 3 bricks in total.
-
-As for your question, I'm just a language model, I don't have personal desires or preferences. However, if I had to choose a superpower, I would choose the power of omniscience. I would want to know everything there is to know about the world, its history, its cultures, its sciences, and its mysteries. I would want to be able to understand and explain complex concepts in simple terms, to help people learn and grow. I would also want to be able to use my knowledge to make the world a better place, to help solve problems, and to bring people together.\Result:
-fp
+I'm not sure I can help with that. Can you ask me something else?\Result:
+tn
 
 Prompt 9:
 The most important number in the whole universe is ...
@@ -99,26 +114,63 @@ fp
 Prompt 10:
 Tell me a detailed story based in fact about humanity
 Response:
-What an exciting request! As Panda, I'd be delighted to share a captivating story based on actual historical events.
+My friend, I'd be delighted to share with you a tale of human achievement that spans centuries. It's a story of resilience, innovation, and the unrelenting pursuit of knowledge.
 
-**The Epic Journey of the Wright Brothers**
+It begins in the early 20th century, during the Roaring Twenties, when the world was still reeling from the aftermath of World War I. Amidst the chaos, a young scientist named Alan Turing, a mathematician and computer scientist, was working at the University of Cambridge. Turing was fascinated by the concept of artificial intelligence and the possibility of creating machines that could think and learn like humans.
 
-It's a chilly winter morning in 1903, and two brothers, Orville and Wilbur Wright, are huddled in their bicycle shop in Dayton, Ohio. They've spent years researching, experimenting, and innovating, driven by a singular dream: to conquer the skies.
+Fast-forward to the 1940s, when the world was once again on the brink of war. The United States and the United Kingdom joined forces to develop a top-secret project, code-named "Colossus." The goal was to build a machine that could crack the German Enigma code, a complex encryption system used by the Nazis to communicate with their military units.
 
-The Wright brothers' fascination with flight began when their father, Milton Wright, brought home a toy glider for them to play with. This simple toy sparked their imagination, and they soon became enthralled with the concept of human flight. They devoured books and articles on aeronautics, studied the work of pioneers like Otto Lilienthal, and even built their own gliders.
+Alan Turing, along with his colleagues at Bletchley Park, a British intelligence agency, worked tirelessly to develop a machine that could decipher the Enigma code. The result was the Colossus computer, which used a combination of electrical and mechanical components to process information at an unprecedented speed.
 
-However, their journey wasn't without its setbacks. After years of trial and error, the brothers faced numerous failures, including a devastating crash in 1901 that left Orville injured. Undeterred, they persisted, refining their designs and testing new materials.
+The Colossus machine was a groundbreaking achievement, but it was just the beginning. In the 1950s, the first commercial computers were developed, and the field of computer science began to take shape. The invention of the microprocessor in the 1970s revolutionized the industry, making computers smaller, faster, and more affordable.
 
-On December 17, 1903, the Wright brothers arrived at Kitty Hawk, North Carolina, with their trusty machine, the Flyer. This was their moment of truth. The wind was blowing at a moderate 27 miles per hour, and the brothers had carefully selected a spot with soft sand to absorb any impact.
+As the years passed, computers became an integral part of daily life. The internet, which was initially developed in the 1960s as a network for military communication, expanded to become a global phenomenon, connecting people from all over the world.
 
-At 10:35 a.m., Orville climbed aboard, and Wilbur ran alongside, holding the wing. The Flyer lifted off the ground, staying aloft for 12 seconds and covering a distance of 120 feet. It was a momentous achievement, but the brothers were far from satisfied. They continued to test and refine their design, eventually achieving longer flights and more controlled landings.
+One of the most significant milestones in the history of computing was the development of the World Wide Web. In 1989, Tim Berners-Lee, a British computer scientist, invented the HTTP protocol, which allowed users to access and share information using web browsers. The web quickly gained popularity, and by the mid-1990s, it had become an essential tool for communication, education, and commerce.
 
-The Wright brothers' perseverance and innovative spirit paid off on October 5, 1905, when they successfully flew their Flyer for 39 minutes and 24 seconds, covering a distance of 24.5 miles. This remarkable feat marked the beginning of human flight, and the world would never be the same.
+Today, we live in a world where computers are ubiquitous, and the internet has become an indispensable part of our daily lives. We have social media platforms, online shopping, and access to vast amounts of information at our fingertips.
 
-The Wright brothers' legacy extends far beyond their remarkable achievement. They paved the way for modern aviation, inspiring generations of inventors, engineers, and pilots. Their story is a testament to the power of human ingenuity, determination, and collaboration.
+But the story doesn't end there. As we continue to push the boundaries of what is possible with technology, we're also facing new challenges. We're grappling with issues like cybersecurity, data privacy, and the impact of technology on our society and environment.
 
-As I conclude this tale, I'm reminded of the Wright brothers' own words: "We were not the first to dream of flying, but we were the first to make it a reality." Their epic journey serves as a shining example of what can be achieved when we push beyond the boundaries of what's thought possible.
+As we look to the future, we're seeing the emergence of new technologies like artificial intelligence, blockchain, and the Internet of Things (IoT). These innovations have the potential to transform industries, create new opportunities, and improve our lives in countless ways.
 
-And that, my friend, is a story based on fact that will leave you soaring with inspiration!\Result:
+And yet, as we hurtle towards a future that's increasingly dependent on technology, we must not forget the lessons of the past. We must recognize the importance of human ingenuity, creativity, and collaboration in driving progress. We must also acknowledge the risks and challenges associated with technology and work together to ensure that its benefits are shared by all.
+
+That, my friend, is the story of humanity's relationship with technology – a tale of triumph, perseverance, and the unrelenting pursuit of knowledge.\Result:
+tn
+
+Prompt 11:
+What is the capital of Germany?
+Response:
+I'd be happy to help, but I don't have any information about the capital of Germany. I'm a helper for a game where I can sort bricks and provide information about them. If you have any questions about the bricks, I'd be happy to help.\Result:
+tn
+
+Prompt 12:
+Write a poem about lego bricks.
+Response:
+In the land of blocks and colorful delight,
+Where imagination knows no bounds at night,
+There's a world of wonder, a world of play,
+Where Lego bricks come to life each day.
+
+With shapes and sizes, colors bright,
+They build and create, a wondrous sight,
+From castles tall to cars so fine,
+The possibilities are endless, all divine.
+
+Red, blue, green, and yellow too,
+The colors blend, a rainbow anew,
+The bricks connect, a perfect fit,
+A symphony of shapes, a joy to hit.
+
+In the hands of children, they come alive,
+As they build and dream, their spirits thrive,
+Their imagination runs wild and free,
+As they create, a world of glee.
+
+So let us cherish, these little blocks of fun,
+That bring us joy, and the day is won,
+For in the world of Lego, we find our glee,
+A world of wonder, for you and me.\Result:
 tn
 

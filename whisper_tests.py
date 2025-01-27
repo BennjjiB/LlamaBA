@@ -69,7 +69,6 @@ for language in ["en", None]:
             transcription = "<|no_speech|>"
         transcriptions.append(transcription)
 
-    print(len(transcriptions))
     # Evaluation
     # Word Error Rate = Edit distance (https://en.wikipedia.org/wiki/Word_error_rate)
     word_error_rate_clean = wer([targets[i] for i in range(36) if i not in noise_samples],
@@ -99,7 +98,7 @@ for language in ["en", None]:
         results += f"Sample {i + 1}:\nTarget: {target}\nTranscription: {transcription}\n Noise: {i in noise_samples}\n\n"
 
 # Save results to a file
-output_file = f"transcription_results_{model_constant}.txt"
+output_file = f"whisper_experiment/transcription_results_{model_constant}.txt"
 with open(output_file, "w") as file:
     file.write(results)
 

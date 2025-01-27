@@ -47,13 +47,13 @@ noise_samples = [16, 35, 23, 3, 8, 7, 5,
 model_constant, model_result = get_whisper_model()
 
 transcriber = Transcriber(model_type=model_result)
-transcriptions = []
 targets = easy_prompt + neutral_prompt + hard_prompt + [""]*18
 print(len(targets))
 duration = 0
 transcription_time = 0
 
 for language in ["en", None]:
+    transcriptions = []
     transcriber.language = language
     # Observation
     for i in range(0, SAMPLE_SIZE-1):

@@ -49,6 +49,7 @@ model_constant, model_result = get_whisper_model()
 transcriber = Transcriber(model_type=model_result)
 transcriptions = []
 targets = easy_prompt + neutral_prompt + hard_prompt + [""]*18
+print(targets)
 duration = 0
 transcription_time = 0
 
@@ -69,12 +70,12 @@ for language in ["en", None]:
 
     # Evaluation
     # Word Error Rate = Edit distance (https://en.wikipedia.org/wiki/Word_error_rate)
-    word_error_rate_clean = wer([targets[i] for i in range(len(targets)-18) if i not in noise_samples],
-                                [transcriptions[i] for i in range(len(transcriptions)-18) if i not in noise_samples])
+    word_error_rate_clean = wer([targets[i] for i in range(36) if i not in noise_samples],
+                                [transcriptions[i] for i in range(36) if i not in noise_samples])
     word_error_rate_noise = wer([targets[i] for i in noise_samples], [
                                 transcriptions[i] for i in noise_samples])
-    word_error_rate_only_noise = wer([targets[i] for i in range(len(targets)-18, len(targets))],
-                                     [transcriptions[i] for i in range(len(targets)-18, len(targets))])
+    word_error_rate_only_noise = wer([targets[i] for i in range(36, 55)],
+                                     [transcriptions[i] for i in range(36, 55)])
     word_error_total = wer(targets, transcriptions)
     # Speed Factor = Audio Duration (Real Time) / Transcription Time
     speed = duration / transcription_time

@@ -49,21 +49,20 @@ model_constant, model_result = get_whisper_model()
 transcriber = Transcriber(model_type=model_result)
 targets = easy_prompt + neutral_prompt + hard_prompt + ["<|no_speech|>"]*18
 results = ""
- 
-for language in ["en", None]:
+
+
+def do_one_test():
     duration = 0
     transcription_time = 0
     transcriptions = []
-    transcriber.language = language
-    # Observation
     for i in range(0, SAMPLE_SIZE):
         file_path = f"test_audio/{i}.wav"
         target = targets[i]
         f = sf.SoundFile(file_path)
         audio_data, sample_rate = sf.read(file_path)
         duration += f.frames / f.samplerate
-        audio_data = transcriber.clean_audio(sample_rate, audio_data)
         start = time.time()
+        audio_data = transcriber.clean_audio(sample_rate, audio_data)
         transcription = transcriber.transcribe(audio_data)
         transcription_time += time.time() - start
         if not transcription.strip():
@@ -81,7 +80,36 @@ for language in ["en", None]:
     word_error_total = wer(targets, transcriptions)
     # Speed Factor = Audio Duration (Real Time) / Transcription Time
     speed = duration / transcription_time
+    return (word_error_rate_clean, word_error_rate_noise, word_error_rate_only_noise, word_error_total, speed)
 
+
+def calculate_avg(observations):
+    count = len(observations)
+    word_error_rate_clean_avg += 0
+    word_error_rate_noise_avg += 0
+    word_error_rate_only_noise_avg += 0
+    word_error_total_avg += 0
+    speed_avg += 0
+    for observation in observations:
+        word_error_rate_clean, word_error_rate_noise, word_error_rate_only_noise, word_error_total, speed = observation
+        word_error_rate_clean_avg += word_error_rate_clean
+        word_error_rate_noise_avg += word_error_rate_noise
+        word_error_rate_only_noise_avg += word_error_rate_only_noise
+        word_error_total_avg += word_error_total
+        speed_avg += speed
+    word_error_rate_clean_avg /= count
+    word_error_rate_noise_avg /= count
+    word_error_rate_only_noise_avg /= count
+    word_error_total_avg /= count
+    speed_avg /= count
+
+
+for language in ["en", None]:
+    transcriber.language = language
+    # Observation
+    observations = [do_one_test() for i in range(10)]
+    word_error_rate_clean, word_error_rate_noise, word_error_rate_only_noise, word_error_total, speed = calculate_avg(
+        observations)
     results += f"Transcription Results for {model_constant} and language {language}:\n-----------------------\n"
     results += f"""
         Metrics:
@@ -91,8 +119,6 @@ for language in ["en", None]:
         Accuracy text with Noise: {1 - word_error_rate_noise:.4f}
         Accuracy only with Noise: {1 - word_error_rate_only_noise:.4f}
         Speed (seconds of audio per second of processing): {speed:.4f}
-        Total Audio Duration: {duration:.2f} seconds
-        Total Transcription Time: {transcription_time:.2f} seconds 
         \n
     """
     for i, (target, transcription) in enumerate(zip(targets, transcriptions)):

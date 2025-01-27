@@ -9,6 +9,7 @@ class Transcriber():
     def __init__(
             self,
             model_type="large-v3",
+            language="en",
             device="cuda",
             compute_type="float16",
             start_prompt_delay=2
@@ -20,6 +21,7 @@ class Transcriber():
         """
         self.whisper = WhisperModel(
             model_type, device=device, compute_type=compute_type)
+        self.language = language
         self.buffer = np.array([], dtype=np.float32)
         self.started_speaking = False
         self.stopped_speaking_time = None
@@ -73,7 +75,7 @@ class Transcriber():
         # add vad_filter
         segments, _ = self.whisper.transcribe(
             audio_data,
-            language="en",
+            language=self.language,
             beam_size=5,
             vad_filter=True,
             vad_parameters=dict(

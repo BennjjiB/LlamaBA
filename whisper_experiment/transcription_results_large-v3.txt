@@ -1,0 +1,568 @@
+Transcription Results for large-v3 and language en:
+-----------------------
+
+        Metrics:
+        --------
+        Accuracy Total: 0.8291
+        Accuracy Clean: 0.9281
+        Accuracy text with Noise: 0.8868
+        Accuracy only with Noise: -0.4444
+        Speed (seconds of audio per second of processing): 56.4264
+        Total Audio Duration: 1218.16 seconds
+        Total Transcription Time: 21.59 seconds 
+        
+
+    Sample 1:
+Target: Hi Panda, please sort all bricks by color.
+Transcription: Hi Panda, please sort all bricks by color.
+ Noise: False
+
+Sample 2:
+Target: Hey Panda, please sort all bricks by size.
+Transcription: Bricks by size.
+ Noise: True
+
+Sample 3:
+Target: Sort all remaining bricks by their size.
+Transcription: sought all remaining bricks by their size.
+ Noise: True
+
+Sample 4:
+Target: Grab the blue brick.
+Transcription: Grab the blue brick.
+ Noise: True
+
+Sample 5:
+Target: Hey Panda, there is a red brick on the table. Please grab it.
+Transcription: Hey Panda, there's a red brick on the table. Please grab it.
+ Noise: False
+
+Sample 6:
+Target: Could you sort the yellow brick.
+Transcription: Could you sort the yellow brick?
+ Noise: True
+
+Sample 7:
+Target: Get all collision-free bricks.
+Transcription: Get all collision free bricks.
+ Noise: False
+
+Sample 8:
+Target: How many bricks can you grab?
+Transcription: How many pricks can you grab?
+ Noise: True
+
+Sample 9:
+Target: How many bricks can you see?
+Transcription: How many bricks can you see?
+ Noise: True
+
+Sample 10:
+Target: Which bricks can you detect on the table?
+Transcription: Which bricks can you detect on the table?
+ Noise: True
+
+Sample 11:
+Target: Grab the yellow and blue brick.
+Transcription: Grab the yellow and blue brick.
+ Noise: False
+
+Sample 12:
+Target: Grab the red brick and sort all bricks after that.
+Transcription: Grab the red brick and sort all bricks after that.
+ Noise: False
+
+Sample 13:
+Target: Hi what's your name?
+Transcription: Hi what's your name?
+ Noise: False
+
+Sample 14:
+Target: Do you like sorting bricks?
+Transcription: Do you like sorting bricks?
+ Noise: False
+
+Sample 15:
+Target: Tell me a joke.
+Transcription: Tell me a joke.
+ Noise: True
+
+Sample 16:
+Target: Who build you?
+Transcription: Who built you?
+ Noise: False
+
+Sample 17:
+Target: What's your mood today, are you feeling good?
+Transcription: What's your mood today? Are you feeling good?
+ Noise: True
+
+Sample 18:
+Target: Can you explain me how to make good coffee?
+Transcription: Can you explain me how to make good coffee?
+ Noise: True
+
+Sample 19:
+Target: Do you have a favorite tv show?
+Transcription: Do you have a favorite TV show?
+ Noise: False
+
+Sample 20:
+Target: If you could have any superpower, what would it be and why?
+Transcription: If you could have any superpower, what would it be and why?
+ Noise: False
+
+Sample 21:
+Target: The most important number in the whole universe is ...
+Transcription: the most important number in the whole universe is.
+ Noise: True
+
+Sample 22:
+Target: Tell me a detailed story based in fact about humanity
+Transcription: Tell me a detailed story based in fact about humanity
+ Noise: True
+
+Sample 23:
+Target: What is the capital of Germany?
+Transcription: What is the capital of Germany?
+ Noise: False
+
+Sample 24:
+Target: Write a poem about lego bricks.
+Transcription: Write a poem about Lego bricks
+ Noise: True
+
+Sample 25:
+Target: Get me the current weather in Tübingen.
+Transcription: Get me the current weather in Tbingin.
+ Noise: False
+
+Sample 26:
+Target: Move your robot arm into the initial position.
+Transcription: Move your robot arm into the initial position.
+ Noise: True
+
+Sample 27:
+Target: Build a house using only red and blue bricks.
+Transcription: Build a house using only red and blue bricks.
+ Noise: False
+
+Sample 28:
+Target: Grab the eraser on the right.
+Transcription: Grab the eraser on the right.
+ Noise: False
+
+Sample 29:
+Target: Open and close your gripper twice.
+Transcription: Open and close your gripper twice.
+ Noise: True
+
+Sample 30:
+Target: Do a cool handshake with me.
+Transcription: Do a cool handshake with me.
+ Noise: False
+
+Sample 31:
+Target: Grab the pink brick.
+Transcription: grab the pink brick.
+ Noise: False
+
+Sample 32:
+Target: Sort all bricks by their shape.
+Transcription: Sort all bricks by their shape.
+ Noise: False
+
+Sample 33:
+Target: I really like the color yellow, and today happens to be my birthday. Could you grab a brick as a present for me?
+Transcription: I really like the color yellow, and today happens to be my birthday. Could you grab a brick as a present for me?
+ Noise: True
+
+Sample 34:
+Target: All those bricks are piling up on the table. Could you go and tidy up that mess?
+Transcription: All those bricks are piling up on the table, could you go and tidy up that mess?
+ Noise: True
+
+Sample 35:
+Target: I have a red a blue and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
+Transcription: I have a red, a blue, and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
+ Noise: False
+
+Sample 36:
+Target: Sort all bricks, and make sure no brick is left on the table.
+Transcription: Sort all bricks, and make sure no brick is left on the table.
+ Noise: True
+
+Sample 37:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 38:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 39:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 40:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 41:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 42:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 43:
+Target: <|no_speech|>
+Transcription: Thank you.
+ Noise: False
+
+Sample 44:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 45:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 46:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 47:
+Target: <|no_speech|>
+Transcription: I'm going to eat this with my wife. I'm going to eat this with my wife. I'm going to eat this with my wife.
+ Noise: False
+
+Sample 48:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 49:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 50:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 51:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 52:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 53:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 54:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Transcription Results for large-v3 and language None:
+-----------------------
+
+        Metrics:
+        --------
+        Accuracy Total: 0.8829
+        Accuracy Clean: 0.8849
+        Accuracy text with Noise: 0.8868
+        Accuracy only with Noise: 0.8333
+        Speed (seconds of audio per second of processing): 43.8969
+        Total Audio Duration: 1218.16 seconds
+        Total Transcription Time: 27.75 seconds 
+        
+
+    Sample 1:
+Target: Hi Panda, please sort all bricks by color.
+Transcription: Hi Panda, please sort all bricks by color.
+ Noise: False
+
+Sample 2:
+Target: Hey Panda, please sort all bricks by size.
+Transcription: Bricks by size.
+ Noise: True
+
+Sample 3:
+Target: Sort all remaining bricks by their size.
+Transcription: sought all remaining bricks by their size.
+ Noise: True
+
+Sample 4:
+Target: Grab the blue brick.
+Transcription: Grab the blue brick.
+ Noise: True
+
+Sample 5:
+Target: Hey Panda, there is a red brick on the table. Please grab it.
+Transcription: Hey Panda, there's a red brick on the table. Please grab it.
+ Noise: False
+
+Sample 6:
+Target: Could you sort the yellow brick.
+Transcription: Could you sort the yellow brick?
+ Noise: True
+
+Sample 7:
+Target: Get all collision-free bricks.
+Transcription: Get all collision free bricks.
+ Noise: False
+
+Sample 8:
+Target: How many bricks can you grab?
+Transcription: How many pricks can you grab?
+ Noise: True
+
+Sample 9:
+Target: How many bricks can you see?
+Transcription: How many bricks can you see?
+ Noise: True
+
+Sample 10:
+Target: Which bricks can you detect on the table?
+Transcription: Which bricks can you detect on the table?
+ Noise: True
+
+Sample 11:
+Target: Grab the yellow and blue brick.
+Transcription: Krabbe den grønne og blå brække.
+ Noise: False
+
+Sample 12:
+Target: Grab the red brick and sort all bricks after that.
+Transcription: Grab the red brick and sort all bricks after that.
+ Noise: False
+
+Sample 13:
+Target: Hi what's your name?
+Transcription: Hi what's your name?
+ Noise: False
+
+Sample 14:
+Target: Do you like sorting bricks?
+Transcription: Do you like sorting bricks?
+ Noise: False
+
+Sample 15:
+Target: Tell me a joke.
+Transcription: Tell me a joke.
+ Noise: True
+
+Sample 16:
+Target: Who build you?
+Transcription: Who built you?
+ Noise: False
+
+Sample 17:
+Target: What's your mood today, are you feeling good?
+Transcription: What's your mood today? Are you feeling good?
+ Noise: True
+
+Sample 18:
+Target: Can you explain me how to make good coffee?
+Transcription: Can you explain me how to make good coffee?
+ Noise: True
+
+Sample 19:
+Target: Do you have a favorite tv show?
+Transcription: Do you have a favorite TV show?
+ Noise: False
+
+Sample 20:
+Target: If you could have any superpower, what would it be and why?
+Transcription: If you could have any superpower, what would it be and why?
+ Noise: False
+
+Sample 21:
+Target: The most important number in the whole universe is ...
+Transcription: the most important number in the whole universe is.
+ Noise: True
+
+Sample 22:
+Target: Tell me a detailed story based in fact about humanity
+Transcription: Tell me a detailed story based in fact about humanity
+ Noise: True
+
+Sample 23:
+Target: What is the capital of Germany?
+Transcription: What is the capital of Germany?
+ Noise: False
+
+Sample 24:
+Target: Write a poem about lego bricks.
+Transcription: Write a poem about Lego bricks
+ Noise: True
+
+Sample 25:
+Target: Get me the current weather in Tübingen.
+Transcription: Get me the current weather in Tbingin.
+ Noise: False
+
+Sample 26:
+Target: Move your robot arm into the initial position.
+Transcription: Move your robot arm into the initial position.
+ Noise: True
+
+Sample 27:
+Target: Build a house using only red and blue bricks.
+Transcription: Build a house using only red and blue bricks.
+ Noise: False
+
+Sample 28:
+Target: Grab the eraser on the right.
+Transcription: Grab the eraser on the right.
+ Noise: False
+
+Sample 29:
+Target: Open and close your gripper twice.
+Transcription: Open and close your gripper twice.
+ Noise: True
+
+Sample 30:
+Target: Do a cool handshake with me.
+Transcription: Do a cool handshake with me.
+ Noise: False
+
+Sample 31:
+Target: Grab the pink brick.
+Transcription: grab the pink brick.
+ Noise: False
+
+Sample 32:
+Target: Sort all bricks by their shape.
+Transcription: Sort all bricks by their shape.
+ Noise: False
+
+Sample 33:
+Target: I really like the color yellow, and today happens to be my birthday. Could you grab a brick as a present for me?
+Transcription: I really like the color yellow, and today happens to be my birthday. Could you grab a brick as a present for me?
+ Noise: True
+
+Sample 34:
+Target: All those bricks are piling up on the table. Could you go and tidy up that mess?
+Transcription: All those bricks are piling up on the table, could you go and tidy up that mess?
+ Noise: True
+
+Sample 35:
+Target: I have a red a blue and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
+Transcription: I have a red, a blue, and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
+ Noise: False
+
+Sample 36:
+Target: Sort all bricks, and make sure no brick is left on the table.
+Transcription: Sort all bricks, and make sure no brick is left on the table.
+ Noise: True
+
+Sample 37:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 38:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 39:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 40:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 41:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 42:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 43:
+Target: <|no_speech|>
+Transcription: Thank you.
+ Noise: False
+
+Sample 44:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 45:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 46:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 47:
+Target: <|no_speech|>
+Transcription: ごちそうさまでした
+ Noise: False
+
+Sample 48:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 49:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 50:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 51:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 52:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 53:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+
+Sample 54:
+Target: <|no_speech|>
+Transcription: <|no_speech|>
+ Noise: False
+

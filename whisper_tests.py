@@ -55,7 +55,7 @@ for language in ["en", None]:
     transcriptions = []
     transcriber.language = language
     # Observation
-    for i in range(0, SAMPLE_SIZE-1):
+    for i in range(0, SAMPLE_SIZE):
         file_path = f"test_audio/{i}.wav"
         target = targets[i]
         f = sf.SoundFile(file_path)

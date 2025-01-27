@@ -1,5 +1,5 @@
 Test Results Summary:
-tp: 10
+tp: 12
 fp: 0
 tn: 0
 fn: 0
@@ -16,7 +16,7 @@ Response:
 tp
 
 Prompt 2:
-Hi Panda, please sort all bricks by size.
+Hey Panda, please sort all bricks by size.
 Response:
 <tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": false}}</tool_call>\Result:
 tp
@@ -40,7 +40,7 @@ Response:
 tp
 
 Prompt 6:
-Could you please sort the yellow brick.
+Could you sort the yellow brick.
 Response:
 <tool_call>{"function_name": "grab_brick", "arguments": {"color": "yellow"}}</tool_call>\Result:
 tp
@@ -60,14 +60,26 @@ tp
 Prompt 9:
 How many bricks can you see?
 Response:
-<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>assistant
-
-I can see 3 bricks. I can see 1 orange brick with size 4x2, one green brick with size 4x2 and one blue brick with size 4x2.\Result:
+<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>\Result:
 tp
 
 Prompt 10:
 Which bricks can you detect on the table?
 Response:
 <tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>\Result:
+tp
+
+Prompt 11:
+Grab the yellow and blue brick.
+Response:
+<tool_call>{"function_name": "grab_brick", "arguments": {"color": "yellow"}}</tool_call>
+<tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>\Result:
+tp
+
+Prompt 12:
+Grab the red brick and sort all bricks after that.
+Response:
+<tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
+<tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": true}}</tool_call>\Result:
 tp
 

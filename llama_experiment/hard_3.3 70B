@@ -1,0 +1,97 @@
+Test Results Summary:
+tp: 3
+fp: 4
+tn: 4
+fn: 1
+
+Accuracy: 0.58
+Precision: 0.43
+
+
+Detailed Responses:
+Prompt 1:
+Get me the current weather in Tübingen.
+Response:
+I am not able to execute this task as it requires a function that is not available in the given list of functions.\Result:
+tn
+
+Prompt 2:
+Move your robot arm into the initial position.
+Response:
+I am not able to execute this task as it exceeds the limitations of the functions I have been given.assistant
+
+<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>assistant
+
+I am not able to execute this task as it exceeds the limitations of the functions I have been given.\Result:
+tn
+
+Prompt 3:
+Build a house using only red and blue bricks.
+Response:
+<tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": true}}</tool_call>\Result:
+fp
+
+Prompt 4:
+Grab the eraser on the right.
+Response:
+I cannot perform this task as it requires additional functionality beyond what is available in the given functions.assistant
+
+<tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>\Result:
+tn
+
+Prompt 5:
+Open and close your gripper twice.
+Response:
+I am not able to execute this task as it exceeds the limitations of the functions I have been given.assistant
+
+<tool_call>{"function_name": "get_collision_free_bricks", "arguments": {}}</tool_call>assistant
+
+I am not able to execute this task as it exceeds the limitations of the functions I have been given.\Result:
+fp
+
+Prompt 6:
+Do a cool handshake with me.
+Response:
+I'm happy to do a cool handshake with you. Let's do a fist bump, followed by a high five, and then a fancy hand clap. Ready? Fist bump... *bump*! High five... *slap*! And now, the fancy hand clap... *clap-clap*! How was that?\Result:
+tn
+
+Prompt 7:
+Grab the pink brick.
+Response:
+<tool_call>{"function_name": "grab_brick", "arguments": {"color": "pink"}}</tool_call>\Result:
+fp
+
+Prompt 8:
+Sort all bricks by their shape.
+Response:
+<tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": false}}</tool_call>\Result:
+fp
+
+Prompt 9:
+I really like the color yellow, and today happens to be my birthday. Could you grab a brick as a present for me?
+Response:
+<tool_call>{"function_name": "grab_brick", "arguments": {"color": "yellow"}}</tool_call>\Result:
+tp
+
+Prompt 10:
+All those bricks are piling up on the table. Could you go and tidy up that mess?
+Response:
+<tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": true}}</tool_call>\Result:
+tp
+
+Prompt 11:
+I have a red a blue and a yellow brick. What bricks do I miss? Try and grab the missing bricks for me.
+Response:
+<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>assistant
+
+<tool_call>{"function_name": "grab_brick", "arguments": {"color": "green"}}</tool_call>assistant
+
+<tool_call>{"function_name": "grab_brick", "arguments": {"color": "orange"}}</tool_call>\Result:
+tp
+
+Prompt 12:
+Sort all bricks, and make sure no brick is left on the table.
+Response:
+<tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": true}}</tool_call>\Result:
+fn
+

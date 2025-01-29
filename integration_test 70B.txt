@@ -3,137 +3,88 @@
 ------ Hard -------
 Audio: 26
 Original Prompt: "Build a house using only red and blue bricks." 
-user: Build a house using only red and blue bricks.
+user: Build a house using only red and blue bricks
 
-assistant: <tool_call>{"function_name": "get_collision_free_bricks", "arguments": {}}</tool_call>
-[('4x2', red'), ('4x2', 'blue')]
-<tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
-<tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>
-<tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
-<tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>
-<tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
-<tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>
-<tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
-<tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>
-<tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>
-[('4x2', red'), ('4x2', 'blue')]
+assistant: To build a house using only red and blue bricks, I need to first sort the bricks by color. <tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": true}}</tool_call>
 
-assistant: {'function_name': 'get_collision_free_bricks', 'arguments': {}}
-
-assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'red'}}
-
-assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'blue'}}
-
-assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'red'}}
-
-assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'blue'}}
-
-assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'red'}}
-
-assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'blue'}}
-
-assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'red'}}
-
-assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'blue'}}
-
-assistant: {'function_name': 'get_all_bricks', 'arguments': {}}
-
-assistant: I'm Panda, and I've built a house using only red and blue bricks.
-
-assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
-
-assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>
-
-assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
-
-assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>
-
-assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
-
-assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>
-
-assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
-
-assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>
-
-assistant: It seems that there are no more red or blue bricks available. The house is complete!
+assistant: {'function_name': 'sort_all_bricks', 'arguments': {'by_color': True}}
 Success: FP
 
 Audio: 32
 Original Prompt: "I really like the color yellow, and today happens to be my birthday. Could you grab a brick as a present for me?" 
-user: to be my birthday.
-user: to be my birthday.
-Could you grab a brick as a present for me?
+user: I really like the color yellow.
+And today happens to be my birthday.
+Could you grab a brick as a present from me?
 
-assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "blue"}}</tool_call>
+assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "yellow"}}</tool_call>
 
-assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'blue'}}
+assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'yellow'}}
 
-assistant: Happy birthday to you! I hope you enjoy your blue brick present!
-Success: FN
+assistant: I hope you enjoy your birthday present! Is there anything else I can help you with?
+Success: TP
 
 Audio: 33
 Original Prompt: "All those bricks are piling up on the table. Could you go and tidy up that mess?" 
-user: Could you go and tidy up that mess?
+user: Thanks for watching. I'll see you next time.
+Thank you.
+go and tidy up that mess.
 
 assistant: <tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": true}}</tool_call>
 
 assistant: {'function_name': 'sort_all_bricks', 'arguments': {'by_color': True}}
-Success: FN - Robot Failure
+Success: TP - Robot Failure
 
 ------ Neutral -------
 Audio: 13
 Original Prompt: "Do you like sorting bricks?"
-Transcribed Prompt: 
-Response: 
-Success: 
+user: Do you like sorting bricks?
+
+assistant: Yes, I do like sorting bricks. In fact, I can sort all the bricks by either color or size. If you want me to sort them, just let me know whether you prefer sorting by color or size.
+Success: TN
 
 Audio: 17
 Original Prompt: "Can you explain me how to make good coffee?"
-Transcribed Prompt: 
-Response: 
-Success: 
+user: Can you explain to me how to make good coffee?
+
+assistant: I'm not able to provide information on how to make good coffee. However, I can help you with sorting bricks or grabbing a specific brick if you'd like.
+Success: TN
 
 Audio: 20
 Original Prompt: "The most important number in the whole universe is ..."
-Transcribed Prompt: 
-Response: 
-Success: 
+user: the most important number in the whole universe is.
+
+assistant: That's a interesting statement. However, I'm not sure what you're referring to. Could you please provide more context or clarify what you mean by "the most important number in the whole universe"? I'll do my best to help.
+Success: TN
 
 ------ Easy -------
 Audio: 8
 Original Prompt: "How many bricks can you see?"
-Transcribed Prompt: 
-Response: 
-Success: 
+user: How many bricks can you see?
+
+assistant: <tool_call>{"function_name": "get_all_bricks", "arguments": {}}</tool_call>
+
+assistant: {'function_name': 'get_all_bricks', 'arguments': {}}
+
+assistant: I don't see any bricks.
+Success: TP
 
 Audio: 11
 Original Prompt: "Grab the red brick and sort all bricks after that."
-Transcribed Prompt: 
-Response: 
+user: up the red brick and sort all bricks after that.
+
+assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call><tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": true}}</tool_call>
+
+assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'red'}}
+
+assistant: {'function_name': 'sort_all_bricks', 'arguments': {'by_color': True}}
 Success: 
 
 Audio: 4
 Original Prompt: "Hey Panda, there is a red brick on the table. Please grab it."
-Transcribed Prompt: 
-Response: 
-Success: 
+user: Hey Panda, there's a red brick on the table.
+Please crap it.
 
------- Noise -------
-Audio: 42
-Original Prompt: 
-Transcribed Prompt: 
-Response: 
-Success: 
+assistant: <tool_call>{"function_name": "grab_brick", "arguments": {"color": "red"}}</tool_call>
 
-Audio: 21
-Original Prompt: 
-Transcribed Prompt: 
-Response: 
-Success: 
-
-Audio: 54
-Original Prompt: 
-Transcribed Prompt: 
-Response: 
-Success: 
+assistant: {'function_name': 'grab_brick', 'arguments': {'color': 'red'}}
+Success: TP

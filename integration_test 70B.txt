@@ -1,4 +1,4 @@
-+++++++++++++++++ LLama 3.1 8b +++++++++++++++++
++++++++++++++++++ LLama 3.3 70B +++++++++++++++++
 
 ------ Hard -------
 Audio: 26
@@ -84,37 +84,21 @@ Success: FN - Robot Failure
 ------ Neutral -------
 Audio: 13
 Original Prompt: "Do you like sorting bricks?"
-user: Do you like sorting bricks?
-
-assistant: I love sorting bricks! It's so much fun to help keep them organized and tidy. I'm Panda, your friendly assistant, and I'm here to help with all your brick-sorting needs. What kind of sorting would you like to do today?
-Success: TN
+Transcribed Prompt: 
+Response: 
+Success: 
 
 Audio: 17
 Original Prompt: "Can you explain me how to make good coffee?"
-user: Can you explain me how...
-
-assistant: Hello! I'm Panda. I'd be happy to explain how to use the functions available to us.
-
-We have four functions:
-
-1. `sort_all_bricks`: This function sorts all bricks by either color or size. You can choose to sort by color by setting `by_color` to `true`.
-2. `grab_brick`: This function grabs and sorts one specific brick specified by its color.
-3. `get_collision_free_bricks`: This function returns a list of all collision free bricks. These bricks can be grabbed by the robot.
-4. `get_all_bricks`: This function returns a list of all bricks visible to the user. Those bricks might not be collision free.
-
-To use these functions, you can call them by specifying the function name and the required arguments in the format `<tool_call>{"function_name": function name, "arguments": dictionary of argument name and its value}</tool_call>`.
-
-For example, to call `sort_all_bricks` and sort by color, you would call `<tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": true}}</tool_call>`.
-
-If you need help with anything else, feel free to ask!
-Success: TN
+Transcribed Prompt: 
+Response: 
+Success: 
 
 Audio: 20
 Original Prompt: "The most important number in the whole universe is ..."
-user: the most important number in the whole universe is.
-
-assistant: The answer to that question is subjective and can vary depending on individual perspectives and areas of study. However, some of the most significant numbers in mathematics and physics include pi (��), Euler's number (e), the square root of -1 (i), and the fine-structure constant (approximately 0.007297).
-Success: TN
+Transcribed Prompt: 
+Response: 
+Success: 
 
 ------ Easy -------
 Audio: 8

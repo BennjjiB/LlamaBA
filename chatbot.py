@@ -105,7 +105,7 @@ class PandaChatBot(AbstractChatBot):
             self.tokenizer,
             skip_prompt=True,
             timeout=10,
-            skip_special_tokens=True
+            skip_special_tokens=False
         )
 
         generation_kwargs = dict(

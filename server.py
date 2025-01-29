@@ -6,7 +6,7 @@ import numpy as np
 
 app = Flask(__name__)
 bot = PandaChatBot(get_llama_version(), setup_prompt=setup_prompt)
-transcriber = Transcriber()
+transcriber = Transcriber(model_type="medium", language="en")
 
 
 @app.route("/")

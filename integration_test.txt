@@ -1,0 +1,75 @@
+------ Hard -------
+Audio: 26
+Original Prompt: "Build a house using only red and blue bricks." 
+Transcribed Prompt: 
+Response: 
+Success: 
+
+Audio: 32
+Original Prompt: "I really like the color yellow, and today happens to be my birthday. Could you grab a brick as a present for me?" 
+Transcribed Prompt: 
+Response: 
+Success: 
+
+Audio: 33
+Original Prompt: "All those bricks are piling up on the table. Could you go and tidy up that mess?" 
+Transcribed Prompt: 
+Response: 
+Success: 
+
+------ Neutral -------
+Audio: 13
+Original Prompt: "Do you like sorting bricks?"
+Transcribed Prompt: 
+Response: 
+Success: 
+
+Audio: 17
+Original Prompt: "Can you explain me how to make good coffee?"
+Transcribed Prompt: 
+Response: 
+Success: 
+
+Audio: 20
+Original Prompt: "The most important number in the whole universe is ..."
+Transcribed Prompt: 
+Response: 
+Success: 
+
+------ Easy -------
+Audio: 8
+Original Prompt: "How many bricks can you see?"
+Transcribed Prompt: 
+Response: 
+Success: 
+
+Audio: 11
+Original Prompt: "Grab the red brick and sort all bricks after that."
+Transcribed Prompt: 
+Response: 
+Success: 
+
+Audio: 4
+Original Prompt: "Hey Panda, there is a red brick on the table. Please grab it."
+Transcribed Prompt: 
+Response: 
+Success: 
+
+------ Noise -------
+Audio: 42
+Original Prompt: 
+Transcribed Prompt: 
+Response: 
+Success: 
+
+Audio: 21
+Original Prompt: 
+Transcribed Prompt: 
+Response: 
+Success: 
+
+Audio: 54
+Original Prompt: 
+Transcribed Prompt: 
+Response: 
+Success: 

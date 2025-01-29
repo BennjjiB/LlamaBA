@@ -42,9 +42,9 @@ class Transcriber():
                 self.reset()
                 return prompt, True
 
-        cleaned_audio = self.__clean_audio(sr, audio_data)
+        cleaned_audio = self.clean_audio(sr, audio_data)
         self.__update_buffer(cleaned_audio)
-        new_transcript = self.__transcribe(self.buffer)
+        new_transcript = self.transcribe(self.buffer)
         if (not self.sentences or new_transcript != self.sentences[-1]) and new_transcript:
             if not self.started_speaking:
                 self.started_speaking = True

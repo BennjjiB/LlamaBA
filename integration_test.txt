@@ -1,3 +1,5 @@
++++++++++++++++++ LLama 3.1 8b +++++++++++++++++
+
 ------ Hard -------
 Audio: 26
 Original Prompt: "Build a house using only red and blue bricks." 

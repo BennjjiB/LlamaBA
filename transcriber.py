@@ -8,7 +8,7 @@ import time
 class Transcriber():
     def __init__(
             self,
-            model_type="large-v3",
+            model_type="medium",
             language="en",
             device="cuda",
             compute_type="float16",

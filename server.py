@@ -1,12 +1,12 @@
 from flask import Flask, Response, request, jsonify
-from setup import get_llama_version, setup_prompt
+from setup import get_llama_version, setup_prompt, get_language, get_whisper_model
 from chatbot import PandaChatBot
 from transcriber import Transcriber
 import numpy as np
 
 app = Flask(__name__)
 bot = PandaChatBot(get_llama_version(), setup_prompt=setup_prompt)
-transcriber = Transcriber(model_type="medium", language="en")
+transcriber = Transcriber(model_type=get_whisper_model(), language=get_language())
 
 
 @app.route("/")

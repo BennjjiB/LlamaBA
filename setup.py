@@ -1,4 +1,3 @@
-
 from chatbot import LLAMA_31_8, LLAMA_33
 import tool_definitions
 import inquirer
@@ -58,3 +57,27 @@ def get_llama_version() -> str:
         return LLAMA_31_8
     elif result == '3.3 70B':
         return LLAMA_33
+
+
+def get_whisper_model() -> str:
+    questions = [
+        inquirer.List('Whisper Model',
+                      message="What whisper model should be used.",
+                      choices=['tiny', 'base', 'small', 'medium', 'large-v3'],
+                      carousel=True
+                      )
+    ]
+    result = inquirer.prompt(questions).get("Whisper Model", 'medium')
+    return result
+
+
+def get_language() -> str:
+    questions = [
+        inquirer.List('Language',
+                      message="What language should be used.",
+                      choices=['en', 'multilingual'],
+                      carousel=True
+                      )
+    ]
+    result = inquirer.prompt(questions).get("Language", 'en')
+    return "en" if result == "en" else None

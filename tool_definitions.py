@@ -32,7 +32,7 @@ grab_brick = """{
                     "description": "The color of the brick. Possible colors are: red, blue, green, yellow, orange."
                 }
             },
-            "required": [color]
+            "required": ["color"]
         }
     }
 }"""

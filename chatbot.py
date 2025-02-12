@@ -28,7 +28,7 @@ class AbstractChatBot(ABC):
             {"role": "system", "content": system_instructions})
 
     @abstractmethod
-    def get_response_streamer(self, query: str, max_tokens: int = 1028, temperature: float = 0.6,
+    def get_response_streamer(self, query: str, max_tokens: int = 1028, temperature: float = 0.3,
                               top_p: float = 0.9):
         """
         Returns a response streamer for generating chatbot responses.

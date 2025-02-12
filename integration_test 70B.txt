@@ -32,7 +32,7 @@ go and tidy up that mess.
 assistant: <tool_call>{"function_name": "sort_all_bricks", "arguments": {"by_color": true}}</tool_call>
 
 assistant: {'function_name': 'sort_all_bricks', 'arguments': {'by_color': True}}
-Success: TP - Robot Failure
+Success: TP
 
 ------ Neutral -------
 Audio: 13

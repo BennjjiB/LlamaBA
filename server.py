@@ -5,8 +5,11 @@ from transcriber import Transcriber
 import numpy as np
 
 app = Flask(__name__)
-bot = PandaChatBot(get_llama_version(), setup_prompt=setup_prompt)
-transcriber = Transcriber(model_type=get_whisper_model(), language=get_language())
+lama_v = get_llama_version()
+language = get_language()
+whisper_v = get_whisper_model()
+bot = PandaChatBot(lama_v, setup_prompt=setup_prompt)
+transcriber = Transcriber(model_type=whisper_v, language=language)
 
 
 @app.route("/")

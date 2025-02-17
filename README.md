@@ -1,3 +1,6 @@
+# How to run 
+CUDA_VISIBLE_DEVICES=1,2,3,4,5,6 flask --app server run --host=0.0.0.0
+
 # Transcription and LLM Server
 This server contains a faster whisper model for live transcription and a Llama model for chatting and tool calls.
 
